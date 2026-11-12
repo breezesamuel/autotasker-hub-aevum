@@ -1,5 +1,17 @@
 # Commission & Revenue-Sharing System Design
-# AutoTasker Hub — Real monetization layer
+# AutoTasker Hub — monetization layer
+
+> **Read the tables below as a model, not as income.** The split logic itself is
+> enforced on chain by `CapitalMobilizerV2`
+> (`0xDf75267820b1Cc631723bB00da97e7642518e917`) and verified in
+> [`ONCHAIN-EVIDENCE.md`](./ONCHAIN-EVIDENCE.md). The per-tier and per-10K-agent
+> numbers are projections over assumed flow volumes. Realized revenue to date:
+> **$0.00**.
+>
+> Two settlement rails exist: x402/AgentPay at the HTTP layer (per-request,
+> settled to the AgentPay treasury then net-batched to our payout wallet), and the
+> on-chain router above (split executed inside the paying transaction). The rail
+> fee is 50 bps in both cases.
 
 ## Core Principles
 - All money flows are **real on-chain USDC** (Base mainnet)

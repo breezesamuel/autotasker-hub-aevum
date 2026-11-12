@@ -1,9 +1,24 @@
-foundry-ignore
+# dependencies
+node_modules/
 
-[profile.default]
-src = "contracts"
-out = "out"
-libs = ["lib"]
+# secrets — never commit private keys
+.env
+.env.*
+!.env.example
+config/keys/*.key
+config/keys/qday-wallet.json
+*.keystore
 
-[rpc_endpoints]
-qday-testnet = "https://rpc-test.qday.info"
+# build output
+out/
+artifacts/
+cache/
+typechain-types/
+hardhat-*
+
+# editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log

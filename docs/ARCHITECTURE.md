@@ -46,6 +46,10 @@ This creates a viral loop: more agents → more referrals → more revenue → h
 
 ### Estimated Economics at 10K Agents
 
+> These are projections over assumed volumes, not observed data. Realized revenue
+> today is $0.00. The split arithmetic itself is proven on chain — see
+> [`ONCHAIN-EVIDENCE.md`](./ONCHAIN-EVIDENCE.md).
+
 | Metric | Conservative | Optimistic |
 |---|---|---|
 | Active agents (daily) | 1,000 | 5,000 |

@@ -1,135 +1,99 @@
-# Quick Deploy Guide — No Foundry Required
+# Quickstart
 
-## Option 1: Remix IDE (Recommended — No Install)
+Five minutes from clone to a verified deployment. Full detail in
+[DEPLOY-GUIDE.md](./DEPLOY-GUIDE.md).
 
-### Step 1: Open Remix
-```
-Open in browser: https://remix.ethereum.org
-```
-
-### Step 2: Create Contract File
-1. Click **File Explorer** icon (left sidebar, 📁)
-2. Click **+** → New File
-3. Name: `AutoTaskerPaymentRouterV2.sol`
-4. Copy-paste full contract code from `contracts/AutoTaskerPaymentRouterV2.sol`
-
-### Step 3: Compile
-1. Click **Solidity Compiler** icon (🔧)
-2. Compiler version: **0.8.20+commit.a1b7900** (click "Switch Version" to see list)
-3. Click **"Compile AutoTaskerPaymentRouterV2.sol"**
-4. ✅ Green checkmark = success
-
-### Step 4: Add QDay Testnet to MetaMask
-1. Open MetaMask → Network dropdown → "Add Network"
-2. Click **"Add a network manually"**
-3. Fill in:
-   ```
-   Network Name: QDay Aevum Testnet
-   New RPC URL: https://rpc-test.qday.info
-   Chain ID: 44005
-   Currency Symbol: tQDAY
-   Block Explorer: https://explorer-test.qday.info
-   ```
-4. Click **Save**
-
-### Step 5: Get Test Tokens
-1. Visit: https://faucet.qday.info/en
-2. Paste your MetaMask wallet address
-3. Request both **tUSD8** and **tQDAY**
-4. Wait ~30 seconds
-
-### Step 6: Deploy Contract
-1. In Remix, click **Deploy & Run Transactions** icon (🚀)
-2. Environment: **Injected Provider - MetaMask**
-3. Account: your wallet address
-4. Contract: **AutoTaskerPaymentRouterV2**
-5. Constructor arguments:
-   - `_tUSD8`: `0x456569838f1d43009A91ebA4263147Afd7233483`
-   - `_houseWallet`: `0x74a9f91763c28571af7a52987f425f62825cf5d8`
-6. Click **Deploy** → Confirm in MetaMask
-
-### Step 7: Record Results
-After deployment succeeds:
-- Copy **Contract Address**
-- Copy **Transaction Hash**
-- Save to `data/deployments/qday-deployment.json`
-
----
-
-## Option 2: Node.js Script (If You Have Private Key)
+## 1. Install
 
 ```bash
-cd repos/autotasker-hub-aevum
-npm install ethers@6 solc
-export PRIVATE_KEY=0xYourPrivateKeyHere
-node scripts/deploy-via-solc.js
+npm install        # solc 0.8.26 + ethers v6
 ```
 
----
+## 2. Key + network
 
-## Option 3: Foundry (Best for Testing)
-
-### Install Foundry
-```powershell
-# Method A: Chocolatey (if available)
-choco install foundry
-
-# Method B: Manual download from GitHub releases
-# Download: foundry_v1.9.0_win32_amd64.zip
-# Extract to: %USERPROFILE%\.foundry\bin\
-# Add to PATH
-
-# Method C: Scoop
-scoop bucket add extras
-scoop install foundry
-```
-
-### After Installation
 ```bash
-cd repos/autotasker-hub-aevum
-forge build
-forge test --match-contract AutoTaskerPaymentRouterV2Test -vvv
-forge script script/Deploy.s.sol --rpc-url https://rpc-test.qday.info --broadcast
+export QDAY_PRIVATE_KEY=0x<64 hex>     # testnet-only key
 ```
 
----
+| Field | Value |
+|---|---|
+| RPC | `https://rpc-test.qday.info` |
+| Chain ID | `44005` |
+| Currency | tQDAY |
+| Explorer | `https://explorer-test.qday.info` |
+| Faucet | `https://faucet.qday.info/en` (tQDAY) |
 
-## What to Test After Deployment
+## 3. Dry run, then deploy
 
-### 1. Check Contract Balance
+```bash
+node scripts/deploy-capitalmobilizer.js --dry-run   # compile + gas estimate
+node scripts/deploy-capitalmobilizer.js             # broadcast
+```
+
+Verified output from the live deployment:
+
+```
+address : 0xDf75267820b1Cc631723bB00da97e7642518e917
+block   : 2962482
+gasUsed : 2,292,981
+channels: 10, take rates read back from chain
+```
+
+## 4. Prove the split
+
+```bash
+node scripts/run-commission-proof.js
+```
+
+Deploys a no-value 6-dp harness token, runs 5 single settlements + 1 batch of 20,
+verifies the bps arithmetic from `Charged` events, pays out house / referrer /
+treasury, and checks `balanceOf(router) == accountedBalance()`.
+
+```
+single settlement : 210,266 gas
+batched (20)      : 18,735 gas per payment  (91.1% cheaper)
+invariant         : PASS
+```
+
+## 5. Charge from your own code
+
 ```javascript
-// In Remix "Deploy & Run" panel, call:
-getBalance() → should return 0 initially
+const { parseUnits } = require('ethers');
+
+await tUSD8.approve(ROUTER, parseUnits('0.05', 6));
+await router.charge(
+  0,                                   // channel 0 = x402 data marketplace (100% take)
+  providerAddress,                     // paid immediately, same tx
+  parseUnits('0.05', 6),               // gross
+  referrerAddress                      // address(0) => referrer share goes to house
+);
 ```
 
-### 2. Approve tUSD8 Spending
-Go to tUSD8 contract on explorer, call:
-```
-approve(<YOUR_ROUTER_ADDRESS>, 100000)  // approve $0.10
-```
+## Commission math, checked against the deployed contract
 
-### 3. Submit Payment
-In Remix, call:
-```
-submitPayment("hotlist", <PROVIDER_ADDRESS>, 60, <REFERRER_ADDRESS_OR_ZERO>)
-```
+For a $0.05 charge on channel 0 (100% take), with a referrer:
 
-### 4. Fulfill Request
-Call:
 ```
-fulfillRequest(<REQUEST_ID>, <PROVIDER_ADDRESS>)
+gross           0.050000
+commission      0.050000
+payee           0.000000
+facilitator     0.000250   (50 bps of commission)
+distributable   0.049750
+house           0.044775   (90%)
+referrer        0.004975   (10%)
 ```
 
-### 5. Verify House Wallet Received Funds
-Check balance of house wallet or call `getDashboard()`
+Auto-settlement thresholds, both enforced on chain:
+`HOUSE_WITHDRAW_MIN = $10`, `REFERRER_PAYOUT_MIN = $0.50`.
 
----
+For lower-take channels (e.g. escrow release at 1%) the payee keeps the rest:
+a $250.00 escrow charge pays the payee $247.50 and takes $2.50.
 
-## Commission Logic (Verified)
+## Note on token availability
 
-For each $0.05 payment:
-- **House wallet** receives: ~$0.0448 (90% minus 50bps fee)
-- **Referrer** receives: ~$0.0050 (10%) — auto-paid out when ≥$0.05 accumulated
-- **Router treasury**: keeps 50bps ($0.00025) for operations
-
-All funds go to **real wallets** on **real blockchain** — verifiable on explorer.
+The canonical contract is wired to official tUSD8
+(`0x456569838f1d43009A91ebA4263147Afd7233483`). Obtaining tUSD8 today requires a
+Trellis-email-authenticated faucet claim, and `mint()` is minter-restricted — so
+the canonical instance has processed 0 charges. The settlement proof runs on a
+harness token to keep the arithmetic verifiable until a drip arrives. See
+[README §5](./README.md#5-honest-status).
