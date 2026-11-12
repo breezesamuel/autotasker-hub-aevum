@@ -1,5 +1,12 @@
 # AutoTasker Hub — Aevum Entry 完整架构
 
+> **当前真实状态（2026-11-12）**：`CapitalMobilizerV2` 已部署在 QDay Aevum
+> testnet — [`0xDf75267820b1Cc631723bB00da97e7642518e917`](https://explorer-test.qday.info/address/0xDf75267820b1Cc631723bB00da97e7642518e917)，
+> 在官方 tUSD8 上完成 **15 笔真实结算**（含 10 笔批量），house / referrer /
+> treasury 三条独立账本均已真实出账，账本不变量 PASS。
+> 全部交易哈希见 [`ONCHAIN-EVIDENCE.md`](./ONCHAIN-EVIDENCE.md)。
+> **已实现收入 = $0.00**（tUSD8 无市场价值）；下方所有金额均为模型预测，不是收入。
+
 ## 已完成的模块
 
 ```
@@ -46,7 +53,7 @@ POST /api/payments/batch → AgentPay /facilitator/payees/net
 POST /api/payments/settled → 标记为已结算
 ```
 
-## 真实数字预测
+## 规模预测（模型，不是收入）
 
 | 场景 | Agents | Daily Calls | Monthly Revenue | Our Cut |
 |---|---|---|---|---|
@@ -54,6 +61,8 @@ POST /api/payments/settled → 标记为已结算
 | Discord 社区推广 | 500 | 5,000 | $750 | **$675** |
 | Pana 集成落地 | 2,000 | 50,000 | $7,500 | **$6,750** |
 | 目标 10K 活跃 | 10,000 | 500,000 | $75,000 | **$67,500** |
+
+上表是对假设流量的推算（每个调用 $0.05），**不是已实现收入**。当前已实现收入 $0.00。
 
 **每月推荐 payout**: 10% = $7,500/mo @ 10K agents  
 → 这些钱自动进推荐人的 AgentPay 净额批次，无需人工干预
