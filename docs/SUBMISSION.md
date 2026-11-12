@@ -86,6 +86,32 @@ the payer once for up to 100 charges:
 At 1 gwei, a batched sale is ~$0.00002 of gas. That is the difference between a
 demo and a price.
 
+### Float velocity — 988 payments on the same 50 tUSD8
+
+The organizers sent 50 tUSD8 so the canonical deployment could settle at all. It
+ran a load benchmark on that float (`scripts/float-velocity-benchmark.js`):
+
+| Metric | Value |
+|---|---|
+| Payments settled | **988** |
+| Gross settled | **805.40 tUSD8** |
+| Working float | 47.95 tUSD8 → **16.80x velocity** |
+| System float (all addresses) | **50.000000 → 50.000000 — 100% conserved** |
+| Commission routed to ledgers | 8.054 (house 7.212224 / referrer 0.8018 / treasury 0.039976) |
+| Gas | 26,153,629 @ 1 gwei = **0.026153629 tQDAY** |
+| Invariant at every checkpoint | **PASS** |
+
+Gas falls monotonically with batch size — 201,158 for a single charge, 22,682 per
+payment inside a 100-charge batch. Marginal cost is ~21.7k gas; the rest is a ~65k
+fixed overhead per transaction, which is the whole argument for batching.
+
+And the settlement token is not consumed: commission stays inside the contract's
+ledgers until paid out, and gas is paid in tQDAY. So 50.000000 in, 50.000000 out.
+
+**Read this honestly:** every charge in that benchmark has us on both sides. It
+proves the rail carries volume at a fixed float; it does not prove anyone bought
+anything. That is why realized revenue is still $0.00.
+
 ---
 
 ## Architecture
