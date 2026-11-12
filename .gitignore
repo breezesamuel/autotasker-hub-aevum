@@ -8,6 +8,7 @@ node_modules/
 config/keys/*.key
 config/keys/qday-wallet.json
 *.keystore
+data/actors.json
 
 # build output
 out/

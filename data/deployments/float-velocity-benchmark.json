@@ -1,0 +1,599 @@
+{
+  "network": "QDay Aevum Testnet",
+  "chainId": 44005,
+  "explorer": "https://explorer-test.qday.info",
+  "token": {
+    "symbol": "tUSD8",
+    "address": "0x456569838f1d43009A91ebA4263147Afd7233483",
+    "official": true
+  },
+  "router": "0xDf75267820b1Cc631723bB00da97e7642518e917",
+  "houseWallet": "0x74a9f91763C28571AF7a52987F425f62825cF5D8",
+  "treasury": "0x367F1b3D8Ca90D1e087481a9A40d585Bf3451a03",
+  "payer": "0xBC6f31fB67e832b61E9563cdbCA7B4F37778419f",
+  "payee": "0xfF6Df2c322C9660d6EA3851f5BE1FbE92D726890",
+  "referrer": "0x9a467275374D32e52791616959f4aA8F7cB6eEF1",
+  "note": "Self-circulated FLOAT VELOCITY benchmark. This is NOT revenue and NOT customer adoption: every charge here has us on both sides of the trade. Its only purpose is to measure gas scaling and how much gross settlement a fixed float can carry on this rail. tUSD8 has no market value.",
+  "payments": 988,
+  "grossSettled": "805400000",
+  "startFloat": "47950000",
+  "endFloat": "30590000",
+  "velocityX": 16.8,
+  "floatRetainedPct": 63.8,
+  "commission": {
+    "total": "8054000",
+    "house": "7212224",
+    "referrer": "801800",
+    "treasury": "39976"
+  },
+  "gas": {
+    "tQDAY": "2015631949000000000",
+    "perPayment": 2040113
+  },
+  "payouts": {
+    "withdrawHouse": "0x916c2c2a6c163654b90c22c5703bd87c3815fc2c2b35fa421410a8733a0ab747",
+    "payReferrer": "0xfd631bd6dd85d0d098403d68730c2b97b5b79ee0ec5c5d5f2148b32f4e8809dc",
+    "withdrawFacilitator": "0x7d4857ee5bcf17658fa464278a440825ac83eb260718af1a0a1d53d95e6c09ce"
+  },
+  "checkpoint": [
+    {
+      "trip": 5,
+      "routerBalance": "2084000",
+      "accounted": "2084000",
+      "ok": true
+    },
+    {
+      "trip": 10,
+      "routerBalance": "4074000",
+      "accounted": "4074000",
+      "ok": true
+    },
+    {
+      "trip": 15,
+      "routerBalance": "6064000",
+      "accounted": "6064000",
+      "ok": true
+    },
+    {
+      "trip": 20,
+      "routerBalance": "8054000",
+      "accounted": "8054000",
+      "ok": true
+    }
+  ],
+  "rows": [
+    {
+      "phase": "gas-scaling",
+      "count": 1,
+      "grossEach": "50000",
+      "gross": "50000",
+      "txHash": "0xfadaa72ea72da96131b0ca4dbfcc1371c4bb1ee267a449ca3b2e722d8612307c",
+      "block": 2964697,
+      "gasUsed": "201158",
+      "gasPerPayment": 201158
+    },
+    {
+      "phase": "gas-scaling",
+      "count": 2,
+      "grossEach": "50000",
+      "gross": "100000",
+      "txHash": "0x93e1f6759a20c10de526331510456ade855ae8a4ef2f009af334c5d609ea8b31",
+      "block": 2964700,
+      "gasUsed": "137347",
+      "gasPerPayment": 68674
+    },
+    {
+      "phase": "gas-scaling",
+      "count": 5,
+      "grossEach": "50000",
+      "gross": "250000",
+      "txHash": "0xf722e32ac5436d2d8293deb889f8e12f28b19a9abed660f0a8e9b50bd0df3847",
+      "block": 2964707,
+      "gasUsed": "202415",
+      "gasPerPayment": 40483
+    },
+    {
+      "phase": "gas-scaling",
+      "count": 10,
+      "grossEach": "50000",
+      "gross": "500000",
+      "txHash": "0xff240022b50a69fe59ea340d5b141ef3d9677898c91645df0711174d58c6ce46",
+      "block": 2964710,
+      "gasUsed": "310896",
+      "gasPerPayment": 31090
+    },
+    {
+      "phase": "gas-scaling",
+      "count": 20,
+      "grossEach": "50000",
+      "gross": "1000000",
+      "txHash": "0xcec6aead7d9dc34aeab41b4dbad77db0d4662c5404f190a99f4f993a4c9a14f6",
+      "block": 2964722,
+      "gasUsed": "527944",
+      "gasPerPayment": 26397
+    },
+    {
+      "phase": "gas-scaling",
+      "count": 50,
+      "grossEach": "50000",
+      "gross": "2500000",
+      "txHash": "0x9cf9d8461e19991c2921d360855cadde5c2fafa6a3210551afc18e969b7a7c5f",
+      "block": 2964730,
+      "gasUsed": "1179742",
+      "gasPerPayment": 23595
+    },
+    {
+      "phase": "gas-scaling",
+      "count": 100,
+      "grossEach": "50000",
+      "gross": "5000000",
+      "txHash": "0xd18765b665347084b6407cec74d459e37542645fa7fae1ff6e7b2c2da55fbdf8",
+      "block": 2964733,
+      "gasUsed": "2268227",
+      "gasPerPayment": 22682
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0x312aca0bc48189fe3c41984172d4901d608d86e9aeb312cee08693812465ca69",
+      "block": 2964742,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0xd4c501ef6ae8e9618f861400ad82afa9263d975eacf7e35a777b553617674ccb",
+      "block": 2964748,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0x19395892f66a374b7ca60469fdc077332fbe9fb3f0c6a266ad3fcf866e7b9a82",
+      "block": 2964751,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0xe34b6009b874c795b3a83ed0a204a4b4d01ca10cecc10b2879ed0ff141bb4f7e",
+      "block": 2964755,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0xe9f038c4e806063fbf4f684986995d2e69e66562ce8ebe2fc0fbf6f7933c50d5",
+      "block": 2964764,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0x35a510c4db6c2514c384b8ff5a33f06555ebfdb56c3f3c078d2d33fadc79eec6",
+      "block": 2964775,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0x60ae6a330e210496b14e7b8ba96d1249a0459911bc007740cf9cf2b325684a2e",
+      "block": 2964783,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0x947c68c0bb8f69b84e9cb7c1964fd2954e28fa27fdfc6b8a0b001fc605db06bb",
+      "block": 2964791,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0x87cfff7609130f94a103dc5e7cab6e80c7c23e880ed8af354d3fdbb60c4c1397",
+      "block": 2964799,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0x127d2723205d5635a970623ab951a115078c8a020db002012a12b4d5eec971e2",
+      "block": 2964806,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0x2d439121a96257c7f5834b8ea321742b18f0a19e2e4b65a0b2aa5e2717300ec8",
+      "block": 2964815,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0xf5304cf8a95e5f93f3ba129cbfb8f1abe655eca2fe24a3a9cfef21f5920508a1",
+      "block": 2964822,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0x27592a7ac8941819bbd67266db7702a57c0b69ae312c13e9f2a7557e34efe4b9",
+      "block": 2964825,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0x850e8da33851f028d989c451512a394d6317b0e95cab81fbb7d35ce47fc2db5d",
+      "block": 2964830,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0x341f607d513b04be80b2ef13b4e6b0104f2f1a939be494e644a209d6d5485e39",
+      "block": 2964835,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0x3a8bb3874127d125d73a3850dfff453303b11f1d6a6491ba8d63bf270f9e4b2e",
+      "block": 2964842,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0x259fbb1faf85406faf422520a3bca58a6dfd250ee26f6d658e10b50de03c8cf5",
+      "block": 2964848,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0x1fe5653158567b2752287d1baa5fecc42914355c6f0fccdc6b098fa513c66d1b",
+      "block": 2964851,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0x4375c15550e415ba1f0b31b06343806c9938ba5fcd23c0cac1b32915c0be6ee7",
+      "block": 2964854,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0xa5669faece6f8aaa2fb15f3601a3527aabcf47dfcf6e41bd5ed7ebbca6908c03",
+      "block": 2964862,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0xac88cdf15086b5c19413c7f20da5491e124860170d5148f9ebf97f1dd46467bf",
+      "block": 2964867,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0x426ec2acb162864444fd239057920340b2fbea898426d801f4f1a848357da86a",
+      "block": 2964874,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0xca12764f0d32c018760bc0f6c00ba00648e0687357578cfb3815e9eccbc8192f",
+      "block": 2964882,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0xb6f6aa0dc8b6470511ecd804c6929f75b0a157f0f65ab9aed229215f7cab177e",
+      "block": 2964891,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0xc5a76dedea965ace6f2fa28048abf3093c6443eb606cbeba3e84af60fe85453b",
+      "block": 2964898,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0xd13e6915f1162965d4f5a9c120837ac969a5cd85738bf02b72c3643ee575e38b",
+      "block": 2964901,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0x086d586eca0dd189ec09176e010a6e6067b19b8503fb25aec09e4a172f1c667b",
+      "block": 2964905,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0x863941abb22899f06ee1a5043ca761d3fb12764e3fe1ff9cc3b5b8ccc30c4e44",
+      "block": 2964912,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0x9f12fd92788fc8e2a240c8f9ddd1f8de423fd8d8ef3a75b95091f8e63154a191",
+      "block": 2964920,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0x1accb9dfd4ca0a34536e9133dbce7cc856d1c486300a9b5c8d67a3ade43d6e91",
+      "block": 2964925,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0x751c15ee65078597792184dbb9d4f118910f42a09c00d869c5e21020cdbafe54",
+      "block": 2964933,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0x75b97089c663fec42cce16bb8dd8f354eef5949f96f23e227a3c62b153099ee1",
+      "block": 2964940,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0x8beb95cd347b5a9753aec032578c6e66a9a52cdcd6ef748c8fc0a5d615109277",
+      "block": 2964947,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0x94c09163bae4d68e3b3fa414f2b8eb6d48b072f4f8afc8c7825b2db3132eb636",
+      "block": 2964954,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0x33c75790f8f1599922940f6b38a18ca33123fcd2a9a9db8878c6e376595ae3d9",
+      "block": 2964961,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0x854175590ceff185defb9eb5a3519c47d08798b9f88fb82aca6492e8a67f4ee1",
+      "block": 2964967,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0x6b00407c2d57d68cd374de1a48ac056c61024cd5c313f447964164a6000e32bc",
+      "block": 2964974,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0x1f26a1e40769b75cee93c2fb8ad946c3c6e031db360d13744472680ea6a85536",
+      "block": 2964980,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-out",
+      "count": 20,
+      "grossEach": "1000000",
+      "gross": "20000000",
+      "txHash": "0x863e95b9c725c5b38aa8daa1bc8d35d4d9927696e31bd5e9468344edd11cd167",
+      "block": 2964985,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    },
+    {
+      "phase": "endurance-back",
+      "count": 20,
+      "grossEach": "990000",
+      "gross": "19800000",
+      "txHash": "0xc82059a77842fb602c060c73fc0e5e8ee98eefbe37c0532930aa2fd0857e6ce4",
+      "block": 2964995,
+      "gasUsed": "528184",
+      "gasPerPayment": 26409
+    }
+  ],
+  "invariant": {
+    "routerBalance": "0",
+    "accounted": "0",
+    "ok": true
+  },
+  "globalStats": {
+    "gross": "807450000",
+    "commission": "8814000",
+    "ops": "1003"
+  },
+  "at": "2026-11-12T08:25:25.094Z",
+  "reconciled": {
+    "measuredAt": "2026-11-12T08:28:38.080Z",
+    "correction": "The first pass reported floatRetainedPct against one wallet only and counted 2 tQDAY of wallet funding as gas. These are the corrected figures from chain state and receipts.",
+    "gasUsed": "26153629",
+    "effectiveGasPriceGwei": 1,
+    "feeWei": "26153629000000000",
+    "feeTQDAY": "0.026153629",
+    "gasPerPayment": 26471,
+    "holdings": [
+      {
+        "name": "payer A",
+        "address": "0xBC6f31fB67e832b61E9563cdbCA7B4F37778419f",
+        "balance": "30590000"
+      },
+      {
+        "name": "payee B",
+        "address": "0xfF6Df2c322C9660d6EA3851f5BE1FbE92D726890",
+        "balance": "10596000"
+      },
+      {
+        "name": "referrer",
+        "address": "0x9a467275374D32e52791616959f4aA8F7cB6eEF1",
+        "balance": "877420"
+      },
+      {
+        "name": "house",
+        "address": "0x74a9f91763C28571AF7a52987F425f62825cF5D8",
+        "balance": "7892804"
+      },
+      {
+        "name": "treasury",
+        "address": "0x367F1b3D8Ca90D1e087481a9A40d585Bf3451a03",
+        "balance": "43776"
+      }
+    ],
+    "floatNow": "50000000",
+    "floatAtStartSystem": "50000000",
+    "systemConservedPct": 100,
+    "systemDelta": "0",
+    "grossSettled": "805400000",
+    "velocityX": 16.8,
+    "invariant": {
+      "routerBalance": "0",
+      "accounted": "0",
+      "ok": true
+    }
+  },
+  "supersededFields": [
+    "floatRetainedPct",
+    "gas.perPayment",
+    "gas.tQDAY"
+  ]
+}
