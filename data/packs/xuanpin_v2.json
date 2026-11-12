@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "fetchedAt": "2026-11-12T03:30:00.000Z",
+    "totalItems": 5,
+    "sources": ["百度热搜", "今日头条热榜", "豆瓣读书Top250", "什么值得买好价"]
+  },
+  "items": [
+    { "source": "百度热搜", "title": "加快建设国际一流湾区", "heat": "9876543", "rank": 1, "cate": "时政", "url": "https://www.baidu.com/s?wd=test1" },
+    { "source": "百度热搜", "title": "央视曝光后四川宜宾成立调查组", "heat": "8765432", "rank": 2, "cate": "社会", "url": "https://www.baidu.com/s?wd=test2" },
+    { "source": "今日头条热榜", "title": "AI大模型应用落地加速", "heat": "7654321", "rank": 1, "cate": "科技", "url": "https://www.toutiao.com/" },
+    { "source": "豆瓣读书Top250", "title": "活着", "heat": "", "rank": 45, "cate": "文学", "url": "https://book.douban.com/subject/123" },
+    { "source": "什么值得买好价", "title": "iPhone 16 Pro Max 限时特价", "heat": "4567", "rank": 12, "cate": "数码", "url": "https://www.smzdm.com/" }
+  ]
+}

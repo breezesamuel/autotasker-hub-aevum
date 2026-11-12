@@ -1,35 +1,9 @@
-# Dependencies
-node_modules/
-package-lock.json
+foundry-ignore
 
-# Env & keys
-config/keys/
-.env
-.env.local
-*.local.env
+[profile.default]
+src = "contracts"
+out = "out"
+libs = ["lib"]
 
-# Build output
-.vercel/
-.next/
-dist/
-build/
-deploy-payload/
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
-logs/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Data (large, generated)
-data/packs/*.json
-!data/recon/*.md
-!data/recon/TODO.md
+[rpc_endpoints]
+qday-testnet = "https://rpc-test.qday.info"

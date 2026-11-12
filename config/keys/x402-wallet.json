@@ -1,0 +1,8 @@
+{
+  "address": "0x74a9f91763c28571af7a52987f425f62825cf5d8",
+  "network": "base-mainnet",
+  "chainId": 8453,
+  "publicKey": "0x74a9f91763c28571af7a52987f425f62825cf5d8",
+  "createdAt": "2026-11-12T00:00:00.000Z",
+  "note": "AutoTasker Hub payout wallet. Receives net commissions via AgentPay batch settlement."
+}
