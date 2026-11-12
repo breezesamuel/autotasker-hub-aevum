@@ -1,16 +1,17 @@
-To: team@pantheon.ad
-Subject: x402 paid-tier for Pantheon ads intelligence
+To: DM/Contact Form
+Twitter: —
+Discord: —
+Subject: x402 paid-tier for Pantheon competitor ads intelligence
 
 Hi Pantheon team,
 
 Your MCP surfaces competitor ad data, brand voice analysis, and offer briefs —
-exactly the kind of premium intel that justifies a per-call paywall.
+exactly premium intel that justifies a per-call paywall.
 
-We built an x402 settlement layer proving 988 on-chain payments with exact
-commission accounting. Any AI agent could query competitor ads and pay instantly
-without signing up for an account.
+CapitalMobilizerV2: 988 on-chain settlements proving exact math on every split.
+Any AI agent queries competitor ads, pays via 402, no sign-up friction.
 
-Worth exploring as a paid tier for your MCP? Could prototype in a day.
+Worth exploring as a paid tier for your MCP? Happy to prototype.
 
 Source: https://github.com/breezesamuel/autotasker-hub-aevum
 

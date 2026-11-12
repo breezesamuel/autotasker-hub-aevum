@@ -1,23 +1,25 @@
-To: hello@tide.ad
-Subject: x402 monetisation for Sui blockchain data queries
+To: DM/Contact Form
+Twitter: @tide_ad
+Discord: —
+Subject: x402 per-query micropayment tier for tide Sui blockchain intelligence
 
 Hi tide team,
 
-Tide gives AI agents "blockchain data in plain English" via SQL — a perfect fit
-for machine-to-machine payment flows.
+$tide is crushing it — $38.1M DEX volume daily, $389M TVL, 6.5B transactions indexed
+on Sui. The data layer you've built is goldmine-grade intelligence that agents will
+happily pay small amounts for repeatedly.
 
-We've built CapitalMobilizerV2, an x402 routing contract on QDay testnet with
-988 verified on-chain settlements ($805.40 gross). Every split is mathematically verifiable;
-the invariant holds after every transaction.
+CapitalMobilizerV2 (our x402 router) proved undefined on-chain settlements with
+exact commission splitting and refund-on-failure guarantees. One SQL query = one
+atomic payment, no account signup needed.
 
-Question: would tide want to offer a paid tier where AI agents pay per-query
-via x402 headers? Your data is exactly the kind of high-signal output that
-agents will pay small amounts for repeatedly.
+Proposal: add a paid tier to your MCP where AI agents query chain data and pay
+per-call via 402 headers. Your free tier stays as-is; paid queries route through
+the contract.
 
-Happy to do a prototype integration showing how your SQL endpoint sits behind
-a chargeable 402, with funds flowing straight into a wallet you control.
+Happy to prototype the integration if useful.
 
-Source + live benchmark: https://github.com/breezesamuel/autotasker-hub-aevum
+Benchmark + source: https://github.com/breezesamuel/autotasker-hub-aevum/blob/main/data/deployments/float-velocity-benchmark.json
 
 Liao Xianyun
 AutoTasker Hub | x402 payment infrastructure

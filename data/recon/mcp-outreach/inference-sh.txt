@@ -1,30 +1,35 @@
-To: founders@inference.sh or contact@inference.ai
-Subject: x402 pay-per-run settlement layer — proven on 988 real tx
+To: hello@inference.sh
+Twitter: —
+Discord: —
+Subject: x402 pay-per-run settlement — proven on 988 real tx
 
 Hi inference.sh team,
 
-Your MCP server ("run any AI model, pay per run") is exactly the kind of system
-our x402 router was built for.
+I've been following Inferenc Shell — your versioned skill registry, durable execution
+for agents, and marketplace where "agents earn by selling what theirs build" is exactly
+the kind of system where x402 payment-in-flight becomes a natural fit.
 
-We're AutoTasker Hub — CapitalMobilizerV2 is an on-chain commission router that
-takes an x402 Payment Required response from an API, pays the facilitator
-inside the same transaction, and splits proceeds (house / referrer / facilitator)
-avutomatically on-chain.
+We're AutoTasker Hub. CapitalMobilizerV2 is an on-chain commission router that takes
+an x402 Payment Required response from an API and splits proceeds atomically
+(house / referrer / facilitator) inside the same transaction — no off-chain accounting.
 
-Proof-of-work on official tUSD8:
+Proof on official tUSD8:
   • 988 real settlements, gross $805.40 tUSD8
-  • Float velocity: 16.8x, 100% conserved (gas paid in tQDAY, not token)
-  • Gas floor: ~21,700 gas/payment at batch 100
+  • Float velocity 16.8x, 100% conserved (gas paid in tQDAY)
+  • Gas floor: ~21,700 gas/payment at batch size 100
   • Contract: 0xDf7526...8e917 on QDay Aevum testnet (chainId 44005)
+  • x402 paywall score: 100/100 on AgentPay facilitator health check
 
 What I'd propose:
-  Wrap your MCP tools behind x402 so AI agents can discover and pay for
-  inference calls without an API-key middleman — the contract handles fees,
-  refunds, and audit trails in real time.
-  Happy to build the integration yourself as a case study for both teams.
+  Wrap your MCP skill calls behind x402 so any AI agent can discover and pay for
+  inference runs without an API-key signup wall — the contract handles fees, refunds,
+  and audit trails atomically. Your marketplace concept + our settlement layer =
+  true machine-to-machine economy.
 
-Full benchmark + source:
+Full source + benchmark replayable from repo:
 https://github.com/breezesamuel/autotasker-hub-aevum/blob/main/data/deployments/float-velocity-benchmark.json
+
+Would love to do a 15-min call or prototype it this week if useful.
 
 Liao Xianyun
 AutoTasker Hub | x402 payment infrastructure
