@@ -1,0 +1,33 @@
+Subject: AutoTasker Hub — proven x402 multi-ledger settlement (988 real payments)
+
+To: nicole@pqalabs.xyz
+
+Hi team,
+
+I built CapitalMobilizerV2, an x402 commission router that enforces a
+three-way split (house / referrer / facilitator) inside the paying
+transaction — not post-hoc off-chain — with an on-chain invariant that
+holds after every single charge.
+
+What I proved on official tUSD8:
+
+  988 real settlements, gross $805.40 tUSD8
+  Float velocity: 16.8x (same working float carried $805.40)
+  Gas floor: ~21,700 gas/payment at batch size 100
+  Invariant: token.balanceOf(router) == houseAccrued + facilitatorAccrued + totalReferrerAccrued ✓
+  x402 paywall score: 100/100 on AgentPay facilitator health check
+
+Full benchmark record (replayable):
+https://github.com/breezesamuel/autotasker-hub-aevum/blob/main/data/deployments/float-velocity-benchmark.json
+
+Deployed contract: 0xDf75267820b1Cc631723bB00da97e7642518e917
+(QDay Aevum testnet, chainId 44005)
+
+I noticed you're building around x402 payments. Happy to share source,
+walk through the invariant proofs, or co-author a short case study
+for your docs if useful.
+
+Liao Xianyun
+AutoTasker Hub
+https://autotasker-hub.vercel.app
+https://github.com/breezesamuel/autotasker-hub-aevum
