@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Env & keys
+config/keys/
+.env
+.env.local
+*.local.env
+
+# Build output
+.vercel/
+.next/
+dist/
+build/
+deploy-payload/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Data (large, generated)
+data/packs/*.json
+!data/recon/*.md
+!data/recon/TODO.md

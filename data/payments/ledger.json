@@ -1,0 +1,21 @@
+{
+  "entries": [],
+  "pendingPayouts": [],
+  "config": {
+    "houseWallet": "0x74a9f91763c28571af7a52987f425f62825cf5d8",
+    "houseCutBps": 9000,
+    "referrerCutBps": 1000,
+    "facilityFeeBps": 50,
+    "minPayoutAtomic": 50000,
+    "createdAt": "2026-11-12T03:36:57.911Z",
+    "version": 1
+  },
+  "stats": {
+    "totalCalls": 0,
+    "totalRevenueAtomic": "0",
+    "totalRevenueUsd": 0,
+    "totalReferrerPayoutsAtomic": "0",
+    "totalReferrerPayoutsUsd": 0,
+    "settledCount": 0
+  }
+}

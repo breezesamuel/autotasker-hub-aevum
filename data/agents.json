@@ -1,0 +1,72 @@
+{
+  "agents": [
+    {
+      "id": "ag_1794454617694_1s8i",
+      "name": "Agent-A",
+      "wallet": "0x1111111111111111111111111111111111111111",
+      "apiKey": "sk-007a2c7b-ecf919aee5f8a3b1534b3a3401fa065656fd37b8",
+      "referralCode": "AT-UYX452LC",
+      "plan": "free",
+      "freeQuotaDaily": 10,
+      "status": "active",
+      "createdAt": "2026-11-12T03:36:57.701Z",
+      "callsTotal": 0,
+      "usdcSpent": 0,
+      "earnings": {
+        "totalAtomic": "0",
+        "totalUsd": 0,
+        "count": 0,
+        "lastPayment": null
+      },
+      "dailyLogs": [],
+      "source": "unknown",
+      "referrerId": null
+    },
+    {
+      "id": "ag_1794454617704_m1ly",
+      "name": "Agent-B",
+      "wallet": "0x2222222222222222222222222222222222222222",
+      "apiKey": "sk-46dba7e0-5f642205aef711ee0767bdd99fad198fbc2a065d",
+      "referralCode": "AT-SP4AMWPT",
+      "plan": "free",
+      "freeQuotaDaily": 10,
+      "status": "active",
+      "createdAt": "2026-11-12T03:36:57.704Z",
+      "callsTotal": 0,
+      "usdcSpent": 0,
+      "earnings": {
+        "totalAtomic": "0",
+        "totalUsd": 0,
+        "count": 0,
+        "lastPayment": null
+      },
+      "dailyLogs": [],
+      "source": "unknown",
+      "referrerId": "ag_1794454617694_1s8i"
+    },
+    {
+      "id": "ag_1794454617707_vmca",
+      "name": "Agent-C",
+      "wallet": "0x3333333333333333333333333333333333333333",
+      "apiKey": "sk-9d0ef407-322f1d58932e46a04a9b13e3e6286687f06f064b",
+      "referralCode": "AT-TR52EL68",
+      "plan": "free",
+      "freeQuotaDaily": 10,
+      "status": "active",
+      "createdAt": "2026-11-12T03:36:57.708Z",
+      "callsTotal": 0,
+      "usdcSpent": 0,
+      "earnings": {
+        "totalAtomic": "0",
+        "totalUsd": 0,
+        "count": 0,
+        "lastPayment": null
+      },
+      "dailyLogs": [],
+      "source": "unknown",
+      "referrerId": "ag_1794454617704_m1ly"
+    }
+  ],
+  "version": 2,
+  "created": "2026-11-12T03:36:57.694Z"
+}
