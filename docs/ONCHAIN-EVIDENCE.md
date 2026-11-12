@@ -28,6 +28,21 @@ Explorer: <https://explorer-test.qday.info/address/0xDf75267820b1Cc631723bB00da9
 Superseded (first iteration, storage-heavy design, do not use):
 `0x5236FD965be86a2831fd4b88536Fb004a8D41335`.
 
+### 1a. tUSD8 funding of the deployer (unblocked)
+
+The canonical instance runs on official tUSD8, which cannot be minted
+(`mint()` → `"FiatToken: caller is not a minter"`) and whose faucet tab requires a
+Trellis email session (`POST /api/tusd8/claim` → 401). A drip was requested from
+the organizers and arrived:
+
+| Field | Value |
+|---|---|
+| Amount | 50.000000 tUSD8 |
+| From | `0x741bb958d8172Bcc2c30aD319075e1911E46218a` |
+| To | `0xBC6f31fB67e832b61E9563cdbCA7B4F37778419f` |
+| Tx | `0x1ef651cb3534b4d4c443af2c558275ee3c8fb4483045af2a4cd2ec496de0faa7` |
+| Block | 2963414 (2026-11-12T07:58:47Z) |
+
 ---
 
 ## 2. Commission arithmetic actually enforced
@@ -99,6 +114,46 @@ nothing was stranded and nothing else could have been swept.
 
 ---
 
+## 3a. Canonical settlements on OFFICIAL tUSD8
+
+After the drip arrived, the canonical router
+(`0xDf75267820b1Cc631723bB00da97e7642518e917`) processed its first real charges.
+This is the official token, on the official deployment, with the real house and
+treasury wallets wired in.
+
+Counterparties: payer `0xBC6f31fB…8419f`, payee
+`0xfF6Df2c322C9660d6EA3851f5BE1FbE92D726890`, referrer
+`0x9a467275374D32e52791616959f4aA8F7cB6eEF1`.
+
+| # | Channel | Gross | Payee | Commission | Gas | Tx |
+|---|---|---|---|---|---|---|
+| 1 | DATA_API | 0.05 | 0.000000 | 0.050000 | 221,365 | `0xd4a2e1756b2c251480443bd69584e3637249245c724822de8e320fe7f666536a` |
+| 2 | DATA_API | 0.05 | 0.000000 | 0.050000 | 101,665 | `0xb4178c98916c0d244ed162a815575e05a3df6867e2adaee3082a29d044e2de70` |
+| 3 | DATA_API | 0.05 | 0.000000 | 0.050000 | 101,665 | `0x44b6b8824783337791e8a8dc42deddd53c6a7fbd471b3c6809f2a5c900fa6b38` |
+| 4 | DATA_API ×10 (batch) | 0.50 | 0.000000 | 0.500000 | 237,452 → **23,745/payment** | `0xc04c16314286a30d985d8d45a59ad8f3e0eff73398c70ef4c9be9e279175509a` |
+| 5 | ESCROW_RELEASE | 1.00 | 0.990000 | 0.010000 | 147,371 | `0xfa028ce07b616399d631e5993b3ffef29af2c4fd39bd37377a1bb4279ede9a7a` |
+| 6 | INSURANCE_CLAIMS | 0.40 | 0.300000 | 0.100000 | 130,271 | `0x3c7d081deb0fb800e9d49f9d8aad9f801534a3391537c4b8d5e103718b14abe1` |
+
+Approval tx: `0xd925b90430d3c467e0f98b200e8d7694483bf03bd384e208b4033ffc92d1f5e1`.
+
+Every split was parsed out of the `Charged` events and checked against the bps
+formula. Lifetime counters after the run: **15 operations, gross $2.05,
+commission $0.76**.
+
+Payouts out of the canonical ledgers:
+
+| Path | Amount | Tx |
+|---|---|---|
+| `withdrawHouse()` | 0.680580 → house wallet | `0x3447aca2a140f4f2ea1b6bbfa89850efeff72d967735a7f6fddd8f2ff0128a02` |
+| `payReferrer()` | 0.075620 → referrer | `0x8c80aa14de8e414314d1aec6f959a7b0ea84e4658de24fd5be91e467667e4849` |
+| `withdrawFacilitator()` | 0.003800 → treasury | `0x9845a4295169c62f4f9217398d6f0898ef4483612cf116393db2791a6f2ad5dd` |
+
+Ledger invariant after payouts: `balanceOf(router) = 0.000000`,
+`accountedBalance() = 0.000000` → **PASS**. Payee wallet holds 1.290000 tUSD8,
+received inside the settlement transactions rather than from a batch.
+
+---
+
 ## 4. Account activation (real balances, real transfers)
 
 | Account | Amount | Tx |
@@ -113,9 +168,13 @@ nothing was stranded and nothing else could have been swept.
 **Real, verifiable today**
 
 - Contract deployed and callable on chainId 44005.
-- 26 settlement transactions with correct bps arithmetic, confirmed by parsing
-  `Charged` events rather than trusting our own arithmetic.
-- Three payout transactions moving tokens to three distinct EOAs.
+- **15 settlement transactions on official tUSD8** through the canonical
+  deployment (§3a), including a 10-payment batch, with every bps split parsed
+  from the `Charged` events rather than trusted from our own arithmetic.
+- 26 additional settlements on a no-value harness token (§3), which is what
+  isolated the arithmetic and gas measurements from the faucet dependency.
+- Payout transactions moving tokens to house, referrer, treasury and payee
+  wallets — separate EOAs, each verifiable.
 - Gas measurements for single and batched settlement.
 - Payer funding, signatures, nonces, receipts: all on chain.
 
@@ -124,24 +183,25 @@ nothing was stranded and nothing else could have been swept.
 - The revenue projections elsewhere in the repo (Year 1 ≈ $2.6M, Year 3 ≈ $12M)
   are a spreadsheet model built on assumed flow volumes. Not a single dollar of
   that is revenue. Realized revenue to date is **$0.00**.
-- The harness token `DemoUSD6` has no value. The $311.39 "gross" above is
+- The harness token `DemoUSD6` has no value. The $311.39 "gross" in §3 is
   test-harness volume used to prove the split logic executes, not billings.
-- The official `tUSD8` canonical deployment has processed **0** charges, because
-  acquiring official testnet tUSD8 requires a Trellis-email-authenticated faucet
-  claim (`/api/tusd8/claim` returns 401), and `tUSD8` is a FiatToken whose
-  `mint` is restricted to authorized minters.
+- The $2.05 gross in §3a is real tUSD8 moving on chain, but tUSD8 is a testnet
+  token with no market value. It proves the payment rail works; it is not
+  income.
 
 ---
 
 ## 6. Reproduce
 
 ```bash
-node scripts/deploy-capitalmobilizer.js      # deploy canonical (tUSD8)
-node scripts/run-commission-proof.js         # deploy harness + 26 settlements
+node scripts/deploy-capitalmobilizer.js        # deploy canonical (tUSD8)
+node scripts/charge-canonical-tusd8.js         # 15 real charges on official tUSD8
+node scripts/run-commission-proof.js           # harness + 26 settlements
 node scripts/record-deployment.js --address=0x... --tx=0x... --block=N
 node scripts/activate-payout-accounts.js
 ```
 
 Artifacts: `data/deployments/qday-capitalmobilizer-v2.json`,
+`data/deployments/canonical-tusd8-settlements.json`,
 `data/deployments/qday-commission-proof.json`,
 `data/deployments/account-activation.json`.

@@ -119,10 +119,29 @@ Ten funding channels, each with its own take rate, all set on chain:
 
 ## 4. Measured on chain
 
-Harness instance used for the settlement proof (no-value 6-dp test token, so we
-could exercise the split 26 times without depending on the gated official
-faucet): token `DemoUSD6` `0xc85C58C96897E7c8BD9F600392de99f1E1cA801a`,
-router `0xA7Fd7DB0233502aeA9Cfd1E4bFeAfcb7672B318d`.
+### 4a. Official tUSD8, canonical deployment
+
+15 real charges, including a 10-payment batch. Counterparties: payer
+`0xBC6f31fB…8419f`, payee `0xfF6Df2c3…26890`, referrer `0x9a467275…B6eEF1`.
+
+| # | Channel | Gross | Payee | Commission | Gas |
+|---|---|---|---|---|---|
+| 1–3 | DATA_API ×3 | 0.05 each | 0.000000 | 0.050000 | 221,365 / 101,665 / 101,665 |
+| 4 | DATA_API ×10 (batch) | 0.50 | 0.000000 | 0.500000 | 237,452 → **23,745/payment** |
+| 5 | ESCROW_RELEASE | 1.00 | 0.990000 | 0.010000 | 147,371 |
+| 6 | INSURANCE_CLAIMS | 0.40 | 0.300000 | 0.100000 | 130,271 |
+
+Lifetime on the canonical deployment: **15 ops, gross $2.05, commission $0.76**.
+Payouts: `withdrawHouse()` 0.680580, `payReferrer()` 0.075620,
+`withdrawFacilitator()` 0.003800 — each to its own wallet. Invariant after
+payouts: balance 0.000000 == accounted 0.000000 → **PASS**.
+
+### 4b. Harness token (no value) — arithmetic + gas isolation
+
+Token `DemoUSD6` `0xc85C58C96897E7c8BD9F600392de99f1E1cA801a`, router
+`0xA7Fd7DB0233502aeA9Cfd1E4bFeAfcb7672B318d`. Same contract bytecode, so the
+split logic is identical; this run isolated gas measurements from the faucet
+dependency.
 
 | Channel | Gross | Payee | Commission | Gas |
 |---|---|---|---|---|
@@ -135,10 +154,6 @@ router `0xA7Fd7DB0233502aeA9Cfd1E4bFeAfcb7672B318d`.
 Batching: 20 × $0.05 in one transaction = 374,702 gas → **18,735 gas per
 payment**, 91.1% cheaper than a single charge.
 
-Payout paths all exercised to three distinct EOAs: `withdrawHouse()` 1.970100,
-`payReferrer()` 0.218900, `withdrawFacilitator()` 0.086090. Ledger invariant
-after the run: balance 0.000000 == accounted 0.000000 → **PASS**.
-
 Gas economics at 1 gwei: a batched micropayment costs ~0.0000187 tQDAY, which is
 what makes a $0.05 API call non-absurd on chain.
 
@@ -147,9 +162,9 @@ what makes a $0.05 API call non-absurd on chain.
 **Working and verifiable**
 
 - Contract deployed, owner/house/treasury/token wiring confirmed by reading chain state.
-- 26 real settlement transactions with bps arithmetic verified by parsing
-  `Charged` events (not by trusting our own maths).
-- Three payout transactions to three separate wallets.
+- **15 real settlements on official tUSD8**, plus 26 more on a no-value harness
+  token; every bps split verified by parsing `Charged` events.
+- Payout transactions to house, referrer, treasury and payee wallets — separate EOAs.
 - Gas measurements for single and batched settlement.
 - x402 paywall live on Vercel; 4/4 paid endpoints pass the facilitator check with
   verdict *buyer ready*, zero defects.
@@ -158,18 +173,25 @@ what makes a $0.05 API call non-absurd on chain.
 
 **Not working yet**
 
-- **The canonical tUSD8 deployment has processed 0 charges.** Two independent
-  blockers, both proven: `tUSD8` is a USDC-style `FiatToken` and `mint()` reverts
-  `"FiatToken: caller is not a minter"`; and the faucet's tUSD8 tab requires a
-  Trellis email session (`POST /api/tusd8/claim` → 401
-  `{"error":"Sign in with your Trellis email to continue"}`). The dispenser
-  `0x4551B2a3dE4F43e6613E23edf798Ab4FB0211564` `claim(address)` is permissioned to
-  its relayer. A drip has been requested from the organizers.
 - **AgentPay payee #3 is still `held`**, so no referral payouts have been made
-  through that rail.
+  through that rail. The on-chain rail is unaffected — it settles directly.
 - Directory listing on agentpaystore.com is pending review.
 - **Realized revenue: $0.00.** The Year-1 ≈ $2.6M / Year-3 ≈ $12M figures in
-  `docs/` are a spreadsheet model over assumed flow volumes, not income.
+  `docs/` are a spreadsheet model over assumed flow volumes, not income. The
+  $2.05 of tUSD8 moved on chain is a testnet token with no market value: it
+  proves the rail, it is not income.
+
+**History worth knowing**
+
+Getting an official tUSD8 balance was the hardest part. `tUSD8` is a USDC-style
+`FiatToken` — `mint()` reverts `"FiatToken: caller is not a minter"` — and the
+faucet's tUSD8 tab requires a Trellis email session (`POST /api/tusd8/claim` →
+401 `{"error":"Sign in with your Trellis email to continue"}`). The dispenser
+`0x4551B2a3dE4F43e6613E23edf798Ab4FB0211564` is relayer-only. The deployment sat
+at 0 charges until a 50 tUSD8 drip arrived from `0x741bb958…46218a`
+(tx `0x1ef651cb3534b4d4c443af2c558275ee3c8fb4483045af2a4cd2ec496de0faa7`).
+That is why the harness instance exists: it let the arithmetic and gas work
+proceed instead of blocking on a faucet.
 
 ## 6. Reproduce
 
