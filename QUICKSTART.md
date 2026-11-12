@@ -1,108 +1,135 @@
-# Quick Start Guide — Deploy on QDay Testnet Without Foundry
+# Quick Deploy Guide — No Foundry Required
 
-## Option 1: Remix IDE (Easiest, Recommended)
+## Option 1: Remix IDE (Recommended — No Install)
 
 ### Step 1: Open Remix
-Go to https://remix.ethereum.org
+```
+Open in browser: https://remix.ethereum.org
+```
 
-### Step 2: Create Contract
-1. Click "File Explorer" icon (left sidebar)
-2. Click "+" to create new file
-3. Name it `AutoTaskerPaymentRouter.sol`
-4. Paste the contract code from `contracts/AutoTaskerPaymentRouter.sol`
+### Step 2: Create Contract File
+1. Click **File Explorer** icon (left sidebar, 📁)
+2. Click **+** → New File
+3. Name: `AutoTaskerPaymentRouterV2.sol`
+4. Copy-paste full contract code from `contracts/AutoTaskerPaymentRouterV2.sol`
 
 ### Step 3: Compile
-1. Click "Solidity Compiler" icon (left sidebar)
-2. Select compiler version **0.8.20**
-3. Click "Compile AutoTaskerPaymentRouter.sol"
-4. ✅ Should show green checkmark
+1. Click **Solidity Compiler** icon (🔧)
+2. Compiler version: **0.8.20+commit.a1b7900** (click "Switch Version" to see list)
+3. Click **"Compile AutoTaskerPaymentRouterV2.sol"**
+4. ✅ Green checkmark = success
 
-### Step 4: Deploy
-1. Click "Deploy & Run Transactions" icon
+### Step 4: Add QDay Testnet to MetaMask
+1. Open MetaMask → Network dropdown → "Add Network"
+2. Click **"Add a network manually"**
+3. Fill in:
+   ```
+   Network Name: QDay Aevum Testnet
+   New RPC URL: https://rpc-test.qday.info
+   Chain ID: 44005
+   Currency Symbol: tQDAY
+   Block Explorer: https://explorer-test.qday.info
+   ```
+4. Click **Save**
+
+### Step 5: Get Test Tokens
+1. Visit: https://faucet.qday.info/en
+2. Paste your MetaMask wallet address
+3. Request both **tUSD8** and **tQDAY**
+4. Wait ~30 seconds
+
+### Step 6: Deploy Contract
+1. In Remix, click **Deploy & Run Transactions** icon (🚀)
 2. Environment: **Injected Provider - MetaMask**
-3. Connect MetaMask → switch to QDay Aevum testnet:
-   - Network name: QDay Aevum Testnet
-   - RPC URL: `https://rpc-test.qday.info`
-   - Chain ID: **44005**
-   - Currency symbol: tQDAY
-4. Contract: AutoTaskerPaymentRouter
+3. Account: your wallet address
+4. Contract: **AutoTaskerPaymentRouterV2**
 5. Constructor arguments:
    - `_tUSD8`: `0x456569838f1d43009A91ebA4263147Afd7233483`
-6. Click **Deploy**
-7. Confirm in MetaMask
+   - `_houseWallet`: `0x74a9f91763c28571af7a52987f425f62825cf5d8`
+6. Click **Deploy** → Confirm in MetaMask
 
-### Step 5: Verify on Explorer
-After deployment, copy the contract address and visit:
-https://explorer-test.qday.info/address/<YOUR_CONTRACT_ADDRESS>
+### Step 7: Record Results
+After deployment succeeds:
+- Copy **Contract Address**
+- Copy **Transaction Hash**
+- Save to `data/deployments/qday-deployment.json`
 
 ---
 
-## Option 2: Use Deploy Script (If You Have Private Key)
+## Option 2: Node.js Script (If You Have Private Key)
 
 ```bash
-# 1. Install ethers.js
 cd repos/autotasker-hub-aevum
-npm install ethers@6
-
-# 2. Get your private key (from MetaMask export)
+npm install ethers@6 solc
 export PRIVATE_KEY=0xYourPrivateKeyHere
-
-# 3. Run deployment
-node scripts/deploy-no-foundry.js $PRIVATE_KEY
+node scripts/deploy-via-solc.js
 ```
-
-⚠️ **Never commit private keys!** Use environment variables or .env files.
 
 ---
 
-## Option 3: Install Foundry (Full Workflow)
+## Option 3: Foundry (Best for Testing)
 
-### Windows (PowerShell as Admin):
+### Install Foundry
 ```powershell
-# Via Chocolatey
+# Method A: Chocolatey (if available)
 choco install foundry
 
-# Or via Scoop
-scoop install foundry
+# Method B: Manual download from GitHub releases
+# Download: foundry_v1.9.0_win32_amd64.zip
+# Extract to: %USERPROFILE%\.foundry\bin\
+# Add to PATH
 
-# Or manual download
-irm https://foundry.paradigm.xyz | iex
-foundryup
+# Method C: Scoop
+scoop bucket add extras
+scoop install foundry
 ```
 
-### After installation:
+### After Installation
 ```bash
 cd repos/autotasker-hub-aevum
 forge build
-forge test
+forge test --match-contract AutoTaskerPaymentRouterV2Test -vvv
 forge script script/Deploy.s.sol --rpc-url https://rpc-test.qday.info --broadcast
 ```
 
 ---
 
-## Faucet (Get Test Tokens)
+## What to Test After Deployment
 
-1. Go to https://faucet.qday.info/en
-2. Paste your wallet address
-3. Request tUSD8 and tQDAY tokens
-4. Wait ~30 seconds for tokens to arrive
+### 1. Check Contract Balance
+```javascript
+// In Remix "Deploy & Run" panel, call:
+getBalance() → should return 0 initially
+```
+
+### 2. Approve tUSD8 Spending
+Go to tUSD8 contract on explorer, call:
+```
+approve(<YOUR_ROUTER_ADDRESS>, 100000)  // approve $0.10
+```
+
+### 3. Submit Payment
+In Remix, call:
+```
+submitPayment("hotlist", <PROVIDER_ADDRESS>, 60, <REFERRER_ADDRESS_OR_ZERO>)
+```
+
+### 4. Fulfill Request
+Call:
+```
+fulfillRequest(<REQUEST_ID>, <PROVIDER_ADDRESS>)
+```
+
+### 5. Verify House Wallet Received Funds
+Check balance of house wallet or call `getDashboard()`
 
 ---
 
-## Test Your Contract
+## Commission Logic (Verified)
 
-Once deployed, test with these cast commands:
+For each $0.05 payment:
+- **House wallet** receives: ~$0.0448 (90% minus 50bps fee)
+- **Referrer** receives: ~$0.0050 (10%) — auto-paid out when ≥$0.05 accumulated
+- **Router treasury**: keeps 50bps ($0.00025) for operations
 
-```bash
-# Check contract balance
-cast call <CONTRACT_ADDRESS> "getBalance()(uint256)" --rpc-url https://rpc-test.qday.info
-
-# Submit payment (requires prior tUSD8 approval)
-cast send <CONTRACT_ADDRESS> "submitPayment(string,address,uint256)" \
-  "hotlist" <PROVIDER_ADDRESS> 60 \
-  --private-key $PRIVATE_KEY --rpc-url https://rpc-test.qday.info
-
-# Check request details
-cast call <CONTRACT_ADDRESS> "getRequest(bytes32)(address,uint256,string,bool,uint256)" \
-  <REQUEST_ID> --rpc-url https://rpc-test.qday.info
-```
+All funds go to **real wallets** on **real blockchain** — verifiable on explorer.

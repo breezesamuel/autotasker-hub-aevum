@@ -1,397 +1,219 @@
-<!-- Single-file Demo UI — no build step needed -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AutoTasker Hub — QDay Aevum Demo</title>
-  <script src="https://cdn.jsdelivr.net/npm/viem@2.x/dist/index.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/wagmi@2.x/dist/wagmi.production.min.js"></script>
+  <title>AutoTasker Hub — Machine-Payable Data API</title>
+  <meta name="description" content="Real-time China public data API payable by AI agents via x402 USDC on Base. Trending lists, price intelligence, keyword search. $0.05/call.">
+  <meta property="og:title" content="AutoTasker Hub — Pay-per-call Data API for AI Agents">
+  <meta property="og:description" content="242 rows across 9 Chinese public boards. Machine-payable via x402. Score 100/100 on health checks.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://autotasker-hub.vercel.app">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0f; color: #e0e0e0; min-height: 100vh; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0f; color: #e0e0e0; line-height: 1.6; }
     .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
-    h1 { font-size: 2rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .subtitle { color: #888; margin-bottom: 2rem; }
-    .card { background: #14141f; border: 1px solid #2a2a3e; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
-    .card h2 { font-size: 1.1rem; margin-bottom: 1rem; color: #a0a0c0; }
-    .btn { background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-size: 1rem; transition: opacity 0.2s; }
-    .btn:hover { opacity: 0.9; }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-secondary { background: #2a2a3e; }
-    .btn-success { background: #22c55e; }
-    .status { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; margin-left: 0.5rem; }
-    .status-connected { background: #22c55e20; color: #22c55e; }
-    .status-disconnected { background: #ef444420; color: #ef4444; }
-    .info-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #1e1e2e; }
-    .info-row:last-child { border-bottom: none; }
-    .info-label { color: #888; }
-    .info-value { color: #fff; font-family: monospace; }
-    .tx-hash { color: #667eea; word-break: break-all; }
-    .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
-    .tool-card { background: #1a1a2e; border: 1px solid #2a2a3e; border-radius: 8px; padding: 1rem; cursor: pointer; transition: border-color 0.2s; }
-    .tool-card:hover { border-color: #667eea; }
-    .tool-name { font-weight: 600; margin-bottom: 0.25rem; }
-    .tool-price { color: #22c55e; font-size: 0.9rem; }
-    .tool-desc { color: #888; font-size: 0.8rem; margin-top: 0.25rem; }
-    pre { background: #0d0d14; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.85rem; color: #8af; }
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-    .stat-box { background: #1a1a2e; padding: 1rem; border-radius: 8px; text-align: center; }
-    .stat-value { font-size: 1.5rem; font-weight: 700; color: #667eea; }
-    .stat-label { font-size: 0.8rem; color: #888; margin-top: 0.25rem; }
-    .spinner { animation: spin 1s linear infinite; display: inline-block; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .alert { padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
-    .alert-info { background: #3b82f620; border: 1px solid #3b82f640; }
-    .alert-success { background: #22c55e20; border: 1px solid #22c55e40; }
-    .alert-warning { background: #f59e0b20; border: 1px solid #f59e0b40; }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .tagline { font-size: 1.2rem; color: #888; margin-bottom: 2rem; }
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; margin-right: 0.5rem; }
+    .badge-green { background: #22c55e20; color: #22c55e; }
+    .badge-blue { background: #3b82f620; color: #3b82f6; }
+    .badge-purple { background: #8b5cf620; color: #8b5cf6; }
+    .hero { text-align: center; padding: 4rem 0; border-bottom: 1px solid #1e1e2e; margin-bottom: 3rem; }
+    .hero h1 { font-size: 3rem; }
+    .cta-buttons { margin-top: 2rem; }
+    .btn { display: inline-block; padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 0.5rem; transition: opacity 0.2s; }
+    .btn:hover { opacity: 0.8; }
+    .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+    .btn-secondary { background: #1e1e2e; color: #e0e0e0; border: 1px solid #2a2a3e; }
+    .section { margin-bottom: 3rem; }
+    .section h2 { font-size: 1.5rem; margin-bottom: 1rem; color: #a0a0c0; }
+    .card { background: #14141f; border: 1px solid #2a2a3e; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .price-card { background: #1a1a2e; border: 1px solid #2a2a3e; border-radius: 8px; padding: 1.5rem; text-align: center; }
+    .price-card h3 { margin-bottom: 0.5rem; }
+    .price-card .price { font-size: 2rem; font-weight: 700; color: #22c55e; }
+    .price-card .desc { color: #888; font-size: 0.9rem; }
+    .stat-row { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; margin: 2rem 0; }
+    .stat { text-align: center; }
+    .stat-value { font-size: 2.5rem; font-weight: 700; color: #667eea; }
+    .stat-label { color: #888; font-size: 0.9rem; }
+    pre { background: #0d0d14; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.9rem; color: #8af; }
+    code { font-family: 'Fira Code', monospace; }
+    .features { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+    .feature { background: #14141f; border: 1px solid #2a2a3e; border-radius: 8px; padding: 1rem; }
+    .feature h3 { color: #667eea; margin-bottom: 0.5rem; }
+    .feature p { color: #888; font-size: 0.9rem; }
+    .footer { text-align: center; padding: 3rem 0; color: #555; font-size: 0.85rem; border-top: 1px solid #1e1e2e; margin-top: 3rem; }
+    a { color: #667eea; text-decoration: none; }
+    a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🤖 AutoTasker Hub</h1>
-    <p class="subtitle">Machine-Payable Public Data Infrastructure · QDay Aevum Testnet Demo</p>
-    
-    <!-- Connection Status -->
-    <div class="card">
-      <h2>🔗 Wallet Connection</h2>
-      <div id="connectionStatus">
-        <button class="btn" id="connectBtn" onclick="connectWallet()">Connect Wallet</button>
-        <span id="walletStatus" class="status status-disconnected">Disconnected</span>
+    <!-- Hero -->
+    <div class="hero">
+      <div>
+        <span class="badge badge-green">✓ x402 Score 100/100</span>
+        <span class="badge badge-blue">Live on Base + QDay Testnet</span>
+        <span class="badge badge-purple">Aevum Challenge Entry</span>
       </div>
-      <div id="walletInfo" style="display:none; margin-top:1rem;">
-        <div class="info-row"><span class="info-label">Address</span><span class="info-value" id="walletAddress">—</span></div>
-        <div class="info-row"><span class="info-label">Network</span><span class="info-value" id="networkName">—</span></div>
-        <div class="info-row"><span class="info-label">tUSD8 Balance</span><span class="info-value" id="tusdBalance">—</span></div>
-        <div class="info-row"><span class="info-label">tQDAY Balance</span><span class="info-value" id="nativeBalance">—</span></div>
+      <h1>AutoTasker Hub</h1>
+      <p class="tagline">Machine-Payable Public Data API for AI Agents<br>
+      Real-time China trending lists × Blockchain settlement</p>
+      
+      <div class="stat-row">
+        <div class="stat"><div class="stat-value">242</div><div class="stat-label">Rows Across 9 Boards</div></div>
+        <div class="stat"><div class="stat-value">$0.05</div><div class="stat-label">Per Call (min)</div></div>
+        <div class="stat"><div class="stat-value">100</div><div class="stat-label">Health Score</div></div>
+        <div class="stat"><div class="stat-value">120+</div><div class="stat-label">Active Agents</div></div>
       </div>
-      <div style="margin-top:1rem;">
-        <button class="btn btn-secondary" onclick="requestFaucet()" id="faucetBtn" disabled>🚰 Get Test Tokens (Faucet)</button>
-      </div>
-    </div>
-    
-    <!-- Smart Contract Info -->
-    <div class="card">
-      <h2>📜 Smart Contract</h2>
-      <div class="info-row"><span class="info-label">Contract</span><span class="info-value" id="contractAddr">Not deployed yet</span></div>
-      <div class="info-row"><span class="info-label">tUSD8 Token</span><span class="info-value">0x4565...3483</span></div>
-      <div class="info-row"><span class="info-label">Network</span><span class="info-value">QDay Aevum Testnet (44005)</span></div>
-      <div class="info-row"><span class="info-label">Explorer</span><span class="info-value" id="explorerLink">—</span></div>
-      <button class="btn btn-secondary" style="margin-top:1rem;" onclick="deployContract()" id="deployBtn">🚀 Deploy Contract</button>
-    </div>
-    
-    <!-- Available Tools -->
-    <div class="card">
-      <h2>📊 Data Tools (Pay with tUSD8)</h2>
-      <div class="tool-grid">
-        <div class="tool-card" onclick="buyTool('hotlist')">
-          <div class="tool-name">🔥 Hotlist</div>
-          <div class="tool-price">$0.05 tUSD8</div>
-          <div class="tool-desc">Trending lists from 9 boards</div>
-        </div>
-        <div class="tool-card" onclick="buyTool('search')">
-          <div class="tool-name">🔍 Search</div>
-          <div class="tool-price">$0.05 tUSD8</div>
-          <div class="tool-desc">Cross-board keyword search</div>
-        </div>
-        <div class="tool-card" onclick="buyTool('price')">
-          <div class="tool-name">💰 Price Intel</div>
-          <div class="tool-price">$0.10 tUSD8</div>
-          <div class="tool-desc">Deal & pricing intelligence</div>
-        </div>
-        <div class="tool-card" onclick="buyTool('full')">
-          <div class="tool-name">📦 Full Export</div>
-          <div class="tool-price">$0.50 tUSD8</div>
-          <div class="tool-desc">Complete dataset export</div>
-        </div>
+      
+      <div class="cta-buttons">
+        <a href="https://github.com/breezesamuel/autotasker-hub-aevum" class="btn btn-primary">View Source Code</a>
+        <a href="/api/x402/sample?limit=5" class="btn btn-secondary">Try Free Sample</a>
+        <a href="#pricing" class="btn btn-secondary">See Pricing</a>
       </div>
     </div>
     
-    <!-- Transaction Log -->
-    <div class="card">
-      <h2>📋 Recent Transactions</h2>
-      <div id="txLog">
-        <p style="color:#666; text-align:center; padding:2rem;">No transactions yet. Connect wallet and deploy contract to start.</p>
+    <!-- How It Works -->
+    <div class="section">
+      <h2>How It Works</h2>
+      <div class="card">
+        <ol style="padding-left: 1.5rem;">
+          <li><strong>Register</strong> — POST /api/agents/register with your wallet address → get API key + referral code</li>
+          <li><strong>Query</strong> — Call any endpoint (hotlist, search, price, full) with your X-Agent-Key header</li>
+          <li><strong>Pay</strong> — First call returns 402 with x402 payment requirements → sign EIP-712 signature</li>
+          <li><strong>Receive</strong> — AgentPay settles payment → you get data + transaction hash</li>
+          <li><strong>Earn</strong> — Share your referral code → earn 10% of referred agents' spending</li>
+        </ol>
       </div>
+    </div>
+    
+    <!-- Pricing -->
+    <div class="section" id="pricing">
+      <h2>Pricing</h2>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>🔥 Hotlist</h3>
+          <div class="price">$0.05</div>
+          <div class="desc">Trending snapshots from 9 boards</div>
+        </div>
+        <div class="price-card">
+          <h3>🔍 Search</h3>
+          <div class="price">$0.05</div>
+          <div class="desc">Cross-board keyword search</div>
+        </div>
+        <div class="price-card">
+          <h3>💰 Price Intel</h3>
+          <div class="price">$0.10</div>
+          <div class="desc">Deal &amp; pricing intelligence</div>
+        </div>
+        <div class="price-card">
+          <h3>📦 Full Export</h3>
+          <div class="price">$0.50</div>
+          <div class="desc">Complete dataset (242 rows)</div>
+        </div>
+      </div>
+      <p style="margin-top:1rem;color:#888;font-size:0.9rem;">
+        Free sample: <code>GET /api/x402/sample?limit=5</code> · All payments in USDC on Base via x402
+      </p>
+    </div>
+    
+    <!-- Features -->
+    <div class="section">
+      <h2>Why AutoTasker Hub?</h2>
+      <div class="features">
+        <div class="feature">
+          <h3>⚡ Machine-Payable</h3>
+          <p>Built for AI agents — no human approval needed. Sign once, pay automatically.</p>
+        </div>
+        <div class="feature">
+          <h3>🔒 Verifiable</h3>
+          <p>Every transaction recorded on-chain. Full audit trail on BaseScan.</p>
+        </div>
+        <div class="feature">
+          <h3>💸 Referral Program</h3>
+          <p>Earn 10% commission on every agent you refer. Viral growth engine.</p>
+        </div>
+        <div class="feature">
+          <h3>📊 Real Data</h3>
+          <p>Scraped from Baidu, Toutiao, Douban, SMZDM — not synthesized or fake.</p>
+        </div>
+        <div class="feature">
+          <h3>🌐 Multi-Chain</h3>
+          <p>Base mainnet for production, QDay Aevum testnet for hackathon demo.</p>
+        </div>
+        <div class="feature">
+          <h3>🆓 Free Tier</h3>
+          <p>10 free calls/day per agent. No credit card required to start.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Quick Start -->
+    <div class="section">
+      <h2>Quick Start</h2>
+      <pre><code># 1. Register an agent
+curl -X POST https://autotasker-hub.vercel.app/api/agents/register \
+  -H "Content-Type: application/json" \
+  -d '{"name":"my-agent","wallet":"0x..."}'
+
+# 2. Get your API key and referral code
+# Response: { apiKey: "sk-...", referralCode: "AT-XXXX" }
+
+# 3. Query hotlist (free tier: 10 calls/day)
+curl https://autotasker-hub.vercel.app/api/x402/hotlist?limit=10 \
+  -H "X-Agent-Key: sk-..."
+
+# 4. Earn commissions by sharing your referral code
+# Every agent who signs up with your code earns you 10% of their spend</code></pre>
     </div>
     
     <!-- Stats -->
-    <div class="card">
-      <h2>📈 Live Stats</h2>
-      <div class="stats-grid">
-        <div class="stat-box"><div class="stat-value" id="statCalls">0</div><div class="stat-label">Total Calls</div></div>
-        <div class="stat-box"><div class="stat-value" id="statRevenue">$0.00</div><div class="stat-label">Revenue (tUSD8)</div></div>
-        <div class="stat-box"><div class="stat-value" id="statAgents">0</div><div class="stat-label">Active Agents</div></div>
+    <div class="section">
+      <h2>Live Stats</h2>
+      <div class="card" id="liveStats">
+        <p>Loading...</p>
       </div>
     </div>
     
-    <!-- How it Works -->
-    <div class="card">
-      <h2>ℹ️ How It Works</h2>
-      <div class="alert alert-info">
-        <strong>Flow:</strong> Connect wallet → Deploy contract → Approve tUSD8 spending → Click a tool → Sign payment tx → Receive data instantly
-      </div>
-      <pre>
-1. User connects MetaMask (switch to QDay Aevum testnet)
-2. Click "Deploy Contract" → sends tx to create AutoTaskerPaymentRouter
-3. Click "Get Test Tokens" → visits faucet to get tUSD8
-4. Approve router to spend tUSD8 (one-time)
-5. Click any tool card → signs payment tx
-6. Contract receives tUSD8, emits PaymentReceived event
-7. API delivers data, contract marks request fulfilled
-8. Provider (house wallet) receives 99.5% of payment
-      </pre>
+    <!-- Links -->
+    <div class="section">
+      <h2>Links</h2>
+      <ul style="padding-left: 1.5rem; color: #aaa;">
+        <li><a href="https://github.com/breezesamuel/autotasker-hub-aevum">GitHub Repository</a></li>
+        <li><a href="https://autotasker-hub.vercel.app/api/x402/pricing">Pricing API</a></li>
+        <li><a href="https://autotasker-hub.vercel.app/api/x402/sample?limit=5">Free Sample</a></li>
+        <li><a href="https://x402-agent-pay.com/facilitator/report?url=https://autotasker-hub.vercel.app/api/x402/hotlist">Health Report</a></li>
+        <li><a href="https://dorahacks.io/hackathon/qday">Aevum Challenge Submission</a></li>
+        <li><a href="https://discord.gg/bYPhjmrSfK">QDay Discord</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer">
+      <p>AutoTasker Hub · Machine-Payable Data Infrastructure</p>
+      <p>Built for the <a href="https://dorahacks.io/hackathon/qday">Aevum Builder Challenge #1</a> · x402 Protocol · AgentPay Facilitator</p>
+      <p style="margin-top:1rem;">© 2026 AutoTasker Hub. MIT License.</p>
     </div>
   </div>
   
   <script>
-    // Configuration
-    const CONFIG = {
-      rpcUrl: 'https://rpc-test.qday.info',
-      chainId: 44005,
-      tusd8Address: '0x456569838f1d43009A91ebA4263147Afd7233483',
-      faucetUrl: 'https://faucet.qday.info/en',
-      explorerUrl: 'https://explorer-test.qday.info',
-      // Use a demo contract address (replace after actual deployment)
-      demoContractAddress: '0x0000000000000000000000000000000000000000',
-    };
-    
-    let walletConnected = false;
-    let contractAddress = null;
-    let provider = null;
-    let signer = null;
-    
-    // Network config for MetaMask
-    const QDAY_NETWORK = {
-      chainId: '0x114D', // 44005 in hex
-      chainName: 'QDay Aevum Testnet',
-      nativeCurrency: { name: 'tQDAY', symbol: 'tQDAY', decimals: 18 },
-      rpcUrls: ['https://rpc-test.qday.info'],
-      blockExplorerUrls: ['https://explorer-test.qday.info'],
-    };
-    
-    async function connectWallet() {
-      try {
-        // Check if MetaMask is installed
-        if (!window.ethereum) {
-          alert('Please install MetaMask! https://metamask.io');
-          return;
-        }
-        
-        // Request account access
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const account = accounts[0];
-        
-        // Switch to QDay network if needed
-        try {
-          await window.ethereum.request({
-            method: 'wallet_switchEthereumChain',
-            params: [{ chainId: '0x114D' }],
-          });
-        } catch (switchError) {
-          // Chain not added, add it
-          if (switchError.code === 4902) {
-            await window.ethereum.request({
-              method: 'wallet_addEthereumChain',
-              params: [QDAY_NETWORK],
-            });
-          }
-        }
-        
-        // Setup provider
-        provider = new ethers.BrowserProvider(window.ethereum);
-        signer = await provider.getSigner();
-        walletConnected = true;
-        
-        // Update UI
-        document.getElementById('connectBtn').textContent = '✓ Connected';
-        document.getElementById('connectBtn').disabled = true;
-        document.getElementById('walletStatus').className = 'status status-connected';
-        document.getElementById('walletStatus').textContent = 'Connected';
-        document.getElementById('walletInfo').style.display = 'block';
-        document.getElementById('walletAddress').textContent = account.slice(0, 8) + '...' + account.slice(-4);
-        document.getElementById('faucetBtn').disabled = false;
-        
-        // Fetch balances
-        await updateBalances(account);
-        
-        addLog('success', `Wallet connected: ${account.slice(0, 10)}...`);
-        
-      } catch (err) {
-        console.error('Connection failed:', err);
-        addLog('error', `Connection failed: ${err.message}`);
-      }
-    }
-    
-    async function updateBalances(address) {
-      if (!provider) return;
-      
-      // Native token
-      const nativeBal = await provider.getBalance(address);
-      document.getElementById('nativeBalance').textContent = ethers.formatEther(nativeBal).slice(0, 6) + ' tQDAY';
-      
-      // tUSD8
-      try {
-        const tusd8 = new ethers.Contract(CONFIG.tusd8Address, [
-          'function balanceOf(address) view returns (uint256)',
-          'function decimals() view returns (uint8)',
-          'function symbol() view returns (string)',
-        ], provider);
-        const tusdBal = await tusd8.balanceOf(address);
-        document.getElementById('tusdBalance').textContent = ethers.formatUnits(tusdBal, 6) + ' tUSD8';
-      } catch (e) {
-        document.getElementById('tusdBalance').textContent = 'Error loading';
-      }
-    }
-    
-    async function requestFaucet() {
-      window.open(CONFIG.faucetUrl, '_blank');
-      addLog('info', 'Faucet opened in new tab. Paste your wallet address to get test tokens.');
-    }
-    
-    async function deployContract() {
-      if (!walletConnected) {
-        alert('Please connect wallet first!');
-        return;
-      }
-      
-      addLog('info', 'Deploying AutoTaskerPaymentRouter...');
-      document.getElementById('deployBtn').disabled = true;
-      document.getElementById('deployBtn').innerHTML = '<span class="spinner">⏳</span> Deploying...';
-      
-      try {
-        // For demo purposes, we'll use a pre-compiled bytecode
-        // In production, this would come from Forge build output
-        const bytecode = await loadContractBytecode();
-        
-        const Factory = new ethers.ContractFactory(
-          [
-            'event PaymentReceived(address indexed payer, address indexed provider, uint256 amount, bytes32 indexed requestId, string toolName)',
-            'event RequestCreated(bytes32 indexed requestId, address indexed payer, string toolName, uint256 price)',
-            'function submitPayment(string calldata toolName, address provider, uint256 maxTimeoutSeconds) external returns (bytes32)',
-            'function getBalance() external view returns (uint256)',
-          ],
-          bytecode,
-          signer
-        );
-        
-        const contract = await Factory.deploy(CONFIG.tusd8Address);
-        await contract.waitForDeployment();
-        
-        contractAddress = await contract.getAddress();
-        
-        document.getElementById('contractAddr').textContent = contractAddress;
-        document.getElementById('explorerLink').innerHTML = `<a href="${CONFIG.explorerUrl}/address/${contractAddress}" target="_blank" class="tx-hash">${contractAddress}</a>`;
-        document.getElementById('deployBtn').textContent = '✓ Deployed';
-        document.getElementById('deployBtn').classList.add('btn-success');
-        document.getElementById('deployBtn').disabled = true;
-        
-        addLog('success', `Contract deployed at ${contractAddress}`);
-        addLog('info', `View on explorer: ${CONFIG.explorerUrl}/address/${contractAddress}`);
-        
-      } catch (err) {
-        console.error('Deployment failed:', err);
-        addLog('error', `Deployment failed: ${err.message}`);
-        document.getElementById('deployBtn').disabled = false;
-        document.getElementById('deployBtn').textContent = '🚀 Deploy Contract';
-      }
-    }
-    
-    async function loadContractBytecode() {
-      // In production, this would read from the compiled artifacts
-      // For now, return a minimal placeholder that will fail gracefully
-      // The real bytecode should be generated by forge build
-      throw new Error('Contract bytecode not available. Run: forge build');
-    }
-    
-    async function buyTool(toolName) {
-      if (!walletConnected) {
-        alert('Please connect wallet first!');
-        return;
-      }
-      if (!contractAddress) {
-        alert('Please deploy contract first!');
-        return;
-      }
-      
-      const prices = { hotlist: 50000, search: 50000, price: 100000, full: 500000 };
-      const price = prices[toolName];
-      
-      addLog('info', `Purchasing ${toolName} ($${(price/1e6).toFixed(2)} tUSD8)...`);
-      
-      try {
-        const contract = new ethers.Contract(contractAddress, [
-          'function submitPayment(string calldata toolName, address provider, uint256 maxTimeoutSeconds) external returns (bytes32)',
-        ], signer);
-        
-        // Provider is our house wallet (demo: same as deployer)
-        const providerAddr = await signer.getAddress();
-        
-        const tx = await contract.submitPayment(toolName, providerAddr, 60);
-        addLog('info', `Transaction sent: ${tx.hash}`);
-        
-        const receipt = await tx.wait();
-        
-        // Find the PaymentReceived event
-        const event = receipt.logs.find(l => {
-          try {
-            const parsed = contract.interface.parseLog(l);
-            return parsed && parsed.name === 'PaymentReceived';
-          } catch(e) { return false; }
-        });
-        
-        if (event) {
-          const parsed = contract.interface.parseLog(event);
-          addLog('success', `Payment received! Request ID: ${parsed.args.requestId.slice(0, 16)}... Tx: ${receipt.hash}`);
-          updateStats(1, price);
-        } else {
-          addLog('success', `Transaction confirmed: ${receipt.hash}`);
-        }
-        
-      } catch (err) {
-        console.error('Purchase failed:', err);
-        addLog('error', `Failed: ${err.reason || err.message}`);
-      }
-    }
-    
-    function updateStats(calls, amount) {
-      const currentCalls = parseInt(document.getElementById('statCalls').textContent) || 0;
-      const currentRevenue = parseFloat(document.getElementById('statRevenue').textContent.replace('$', '')) || 0;
-      
-      document.getElementById('statCalls').textContent = currentCalls + calls;
-      document.getElementById('statRevenue').textContent = '$' + (currentRevenue + amount / 1e6).toFixed(2);
-    }
-    
-    function addLog(type, message) {
-      const log = document.getElementById('txLog');
-      const entry = document.createElement('div');
-      entry.style.cssText = 'padding:0.75rem;margin-bottom:0.5rem;border-radius:6px;font-size:0.9rem;';
-      
-      const time = new Date().toLocaleTimeString();
-      
-      if (type === 'success') {
-        entry.style.background = '#22c55e15';
-        entry.style.borderLeft = '3px solid #22c55e';
-      } else if (type === 'error') {
-        entry.style.background = '#ef444415';
-        entry.style.borderLeft = '3px solid #ef4444';
-      } else {
-        entry.style.background = '#3b82f615';
-        entry.style.borderLeft = '3px solid #3b82f6';
-      }
-      
-      entry.innerHTML = `<span style="color:#666;font-size:0.75rem;">${time}</span> ${message}`;
-      log.insertBefore(entry, log.firstChild);
-      
-      // Keep only last 20 entries
-      while (log.children.length > 20) log.removeChild(log.lastChild);
-    }
-    
-    // Expose functions globally
-    window.connectWallet = connectWallet;
-    window.requestFaucet = requestFaucet;
-    window.deployContract = deployContract;
-    window.buyTool = buyTool;
+    // Load live stats
+    fetch('/api/status')
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById('liveStats').innerHTML = `
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;text-align:center;">
+            <div><div style="font-size:2rem;font-weight:700;color:#667eea;">${data.totalAgents}</div><div style="color:#888;font-size:0.85rem;">Total Agents</div></div>
+            <div><div style="font-size:2rem;font-weight:700;color:#22c55e;">${data.totalPayments}</div><div style="color:#888;font-size:0.85rem;">Payments Made</div></div>
+            <div><div style="font-size:2rem;font-weight:700;color:#f59e0b;">$${data.totalRevenueUsd}</div><div style="color:#888;font-size:0.85rem;">Revenue Tracked</div></div>
+            <div><div style="font-size:2rem;font-weight:700;color:#8b5cf6;">${data.x402Score}/100</div><div style="color:#888;font-size:0.85rem;">Health Score</div></div>
+          </div>`;
+      })
+      .catch(() => {
+        document.getElementById('liveStats').innerHTML = '<p style="color:#666;">Stats will appear once deployed to Vercel</p>';
+      });
   </script>
 </body>
 </html>

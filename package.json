@@ -6,8 +6,8 @@
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
-    "deploy:testnet": "hardhat run scripts/deploy-hardhat.js --network qdayTestnet",
-    "deploy:mainnet": "hardhat run scripts/deploy-hardhat.js --network hardhat"
+    "deploy:testnet": "hardhat run scripts/hardhat-deploy.js --network qdayTestnet",
+    "deploy:local": "hardhat node & sleep 3 && hardhat run scripts/hardhat-deploy.js --network localhost"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
