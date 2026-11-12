@@ -100,7 +100,7 @@ function simulateAdoption(days = 30) {
       const pk = priceKeys[Math.floor(Math.random() * priceKeys.length)];
       const atomicMap = { hotlist: 50000, search: 50000, price: 100000, full: 500000 };
       const atomic = String(atomicMap[pk] || 50000);
-      const paidAt = new Date(agent.createdAt.getTime() + Math.random() * 7 * 24 * 60 * 60 * 1000);
+      const paidAt = new Date(new Date(agent.createdAt).getTime() + Math.random() * 7 * 24 * 60 * 60 * 1000);
       
       const houseAtomic = Math.floor(Number(atomic) * 9000 / 10000);
       const refAtomic = Number(atomic) - houseAtomic;

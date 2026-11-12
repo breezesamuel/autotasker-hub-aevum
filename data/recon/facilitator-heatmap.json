@@ -1,0 +1,380 @@
+{
+  "at": "2026-11-12T04:39:36.879Z",
+  "age_hours": 73.4,
+  "check_your_own": "https://x402-agent-pay.com/facilitator/report?url=<your endpoint>",
+  "defect_distribution": {
+    "ACCEPTS_ASSET_MISSING": 2,
+    "ACCEPTS_MAXTIMEOUTSECONDS_MISSING": 2,
+    "ACCEPTS_NETWORK_MISSING": 2,
+    "ACCEPTS_PAYTO_MISSING": 2,
+    "ACCEPTS_SCHEME_MISSING": 2,
+    "AMOUNT_MISSING": 2,
+    "DESCRIPTION_BREAKS_CDP": 1,
+    "FACILITATOR_PARTIAL": 2,
+    "FACILITATOR_UNNAMED": 11,
+    "HEADER_ABSENT": 4,
+    "HEADER_OVER_PROXY_LIMIT": 1,
+    "LISTING_DESCRIPTION_MISSING": 5,
+    "LISTING_SERVICENAME_MISSING": 8,
+    "LISTING_URL_MISSING": 4,
+    "NO_INPUT_SCHEMA": 6,
+    "NO_OUTPUT_SCHEMA": 8,
+    "VERSION_NOT_2": 5
+  },
+  "endpoints": [
+    {
+      "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "buyer_notes": [
+        "response shape is undocumented"
+      ],
+      "chain_family": "evm",
+      "defects": [
+        "FACILITATOR_PARTIAL",
+        "NO_OUTPUT_SCHEMA"
+      ],
+      "endpoint": "https://nft-alpha-x402.fly.dev/api/nft-signal",
+      "method": "GET",
+      "network": "eip155:8453",
+      "pay_to": "0x9b8a27e03ceba490953cda8ab1291c0e13baf72f",
+      "payable_now": true,
+      "price_usdc": 0.02,
+      "score": 92,
+      "verdict": "buyer ready"
+    },
+    {
+      "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "buyer_notes": [
+        "response shape is undocumented"
+      ],
+      "chain_family": "evm",
+      "defects": [
+        "FACILITATOR_PARTIAL",
+        "NO_OUTPUT_SCHEMA"
+      ],
+      "endpoint": "https://tradingagents-x402.fly.dev/api/analyze-ticker",
+      "method": "GET",
+      "network": "eip155:8453",
+      "pay_to": "0x9b8a27e03ceba490953cda8ab1291c0e13baf72f",
+      "payable_now": true,
+      "price_usdc": 0.05,
+      "score": 92,
+      "verdict": "buyer ready"
+    },
+    {
+      "asset": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "buyer_notes": [
+        "names no facilitator, so carry your own and do not rely on theirs being discoverable from the 402"
+      ],
+      "chain_family": "solana",
+      "defects": [
+        "FACILITATOR_UNNAMED"
+      ],
+      "endpoint": "https://langston.click/api/search",
+      "method": "GET",
+      "network": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+      "pay_to": "LDaZqdnU6vVRxERqsQp7zKL1bTWfbUWxyjA57SxVviV",
+      "payable_now": true,
+      "price_usdc": 0.02,
+      "score": 75,
+      "verdict": "payable with defects"
+    },
+    {
+      "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "buyer_notes": [
+        "names no facilitator, so carry your own and do not rely on theirs being discoverable from the 402",
+        "uses an older x402 version, so check field names before signing"
+      ],
+      "chain_family": "evm",
+      "defects": [
+        "FACILITATOR_UNNAMED",
+        "VERSION_NOT_2"
+      ],
+      "endpoint": "https://x402deploy.vercel.app/api/serp",
+      "method": "GET",
+      "network": "base",
+      "pay_to": "0x7aEDE9Bb3A0c28132643ED8e416e4728f03FC18f",
+      "payable_now": true,
+      "price_usdc": 0.005,
+      "score": 71,
+      "verdict": "payable with defects"
+    },
+    {
+      "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "buyer_notes": [
+        "names no facilitator, so carry your own and do not rely on theirs being discoverable from the 402",
+        "no description published"
+      ],
+      "chain_family": "evm",
+      "defects": [
+        "FACILITATOR_UNNAMED",
+        "LISTING_DESCRIPTION_MISSING"
+      ],
+      "endpoint": "https://api.regressionincoming.fyi/v1/bazaar",
+      "method": "GET",
+      "network": "eip155:8453",
+      "pay_to": "0x3567C566E194dd25eD580aD917160b8700FE7460",
+      "payable_now": true,
+      "price_usdc": 0.1,
+      "score": 71,
+      "verdict": "payable with defects"
+    },
+    {
+      "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "buyer_notes": [
+        "names no facilitator, so carry your own and do not rely on theirs being discoverable from the 402",
+        "unnamed in indexes, so it may be hard to find again"
+      ],
+      "chain_family": "evm",
+      "defects": [
+        "FACILITATOR_UNNAMED",
+        "LISTING_SERVICENAME_MISSING"
+      ],
+      "endpoint": "https://kerne.fi/x402/reserves",
+      "method": "GET",
+      "network": "eip155:8453",
+      "pay_to": "0x14f04cE02f35B29Af564A98544dD7e2393993946",
+      "payable_now": true,
+      "price_usdc": 0.25,
+      "score": 71,
+      "verdict": "payable with defects"
+    },
+    {
+      "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "buyer_notes": [
+        "names no facilitator, so carry your own and do not rely on theirs being discoverable from the 402",
+        "unnamed in indexes, so it may be hard to find again"
+      ],
+      "chain_family": "evm",
+      "defects": [
+        "FACILITATOR_UNNAMED",
+        "LISTING_SERVICENAME_MISSING"
+      ],
+      "endpoint": "https://hookproof-kit.vercel.app/api/download",
+      "method": "GET",
+      "network": "eip155:8453",
+      "pay_to": "0xcD31B9770753eE23B9100FbFC533121b8C517CFB",
+      "payable_now": true,
+      "price_usdc": 5,
+      "score": 71,
+      "verdict": "payable with defects"
+    },
+    {
+      "asset": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+      "buyer_notes": [
+        "names no facilitator, so carry your own and do not rely on theirs being discoverable from the 402",
+        "unnamed in indexes, so it may be hard to find again",
+        "request shape is undocumented, so expect to discover it by trial",
+        "response shape is undocumented"
+      ],
+      "chain_family": "evm",
+      "defects": [
+        "FACILITATOR_UNNAMED",
+        "LISTING_SERVICENAME_MISSING",
+        "NO_INPUT_SCHEMA",
+        "NO_OUTPUT_SCHEMA"
+      ],
+      "endpoint": "https://base-worker-01.j23726919.workers.dev/api/bilingual-bridge",
+      "method": "GET",
+      "network": "eip155:8453",
+      "pay_to": "0xfc80725f8fd574c030f0379fb4f86ddce557db7d",
+      "payable_now": true,
+      "price_usdc": 0.03,
+      "score": 63,
+      "verdict": "payable with defects"
+    },
+    {
+      "asset": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
+      "buyer_notes": [
+        "names no facilitator, so carry your own and do not rely on theirs being discoverable from the 402",
+        "header exceeds the common 4KB proxy buffer, so a 502 here is likely their proxy rather than your client",
+        "unnamed in indexes, so it may be hard to find again",
+        "request shape is undocumented, so expect to discover it by trial",
+        "response shape is undocumented"
+      ],
+      "chain_family": "evm",
+      "defects": [
+        "FACILITATOR_UNNAMED",
+        "DESCRIPTION_BREAKS_CDP",
+        "HEADER_OVER_PROXY_LIMIT",
+        "LISTING_SERVICENAME_MISSING",
+        "NO_INPUT_SCHEMA",
+        "NO_OUTPUT_SCHEMA"
+      ],
+      "endpoint": "https://api.ai.everything.inc/mcp",
+      "method": "POST",
+      "network": "eip155:42161",
+      "pay_to": "0xc6b1e7F76DfC2eEE534200a0182F136775789142",
+      "payable_now": true,
+      "price_usdc": 0.01,
+      "score": 28,
+      "verdict": "effectively unbuyable"
+    },
+    {
+      "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "buyer_notes": [
+        "sends no Payment-Required header, so read the terms from the JSON body instead of the header",
+        "names no facilitator, so carry your own and do not rely on theirs being discoverable from the 402",
+        "uses an older x402 version, so check field names before signing",
+        "unnamed in indexes, so it may be hard to find again",
+        "no canonical resource URL published",
+        "no description published",
+        "request shape is undocumented, so expect to discover it by trial",
+        "response shape is undocumented"
+      ],
+      "chain_family": "evm",
+      "defects": [
+        "HEADER_ABSENT",
+        "FACILITATOR_UNNAMED",
+        "VERSION_NOT_2",
+        "LISTING_SERVICENAME_MISSING",
+        "LISTING_URL_MISSING",
+        "LISTING_DESCRIPTION_MISSING",
+        "NO_INPUT_SCHEMA",
+        "NO_OUTPUT_SCHEMA"
+      ],
+      "endpoint": "https://api.proxyllm.ai/x402/llm-cost-scout",
+      "method": "GET",
+      "network": "base",
+      "pay_to": "0xF4D43bdAaE23a7d2012C49cb9f57eAaB89D4FfC2",
+      "payable_now": true,
+      "price_usdc": 0.005,
+      "score": 26,
+      "verdict": "effectively unbuyable"
+    },
+    {
+      "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "buyer_notes": [
+        "sends no Payment-Required header, so read the terms from the JSON body instead of the header",
+        "names no facilitator, so carry your own and do not rely on theirs being discoverable from the 402",
+        "uses an older x402 version, so check field names before signing",
+        "unnamed in indexes, so it may be hard to find again",
+        "no canonical resource URL published",
+        "no description published",
+        "request shape is undocumented, so expect to discover it by trial",
+        "response shape is undocumented"
+      ],
+      "chain_family": "evm",
+      "defects": [
+        "HEADER_ABSENT",
+        "FACILITATOR_UNNAMED",
+        "VERSION_NOT_2",
+        "LISTING_SERVICENAME_MISSING",
+        "LISTING_URL_MISSING",
+        "LISTING_DESCRIPTION_MISSING",
+        "NO_INPUT_SCHEMA",
+        "NO_OUTPUT_SCHEMA"
+      ],
+      "endpoint": "https://api.ipintel.ai/x402/?ip={ip}",
+      "method": "GET",
+      "network": "base",
+      "pay_to": "0x0550779CFBc832657A8BB46BAC9f359A5ad038B8",
+      "payable_now": true,
+      "price_usdc": 0.001,
+      "score": 26,
+      "verdict": "effectively unbuyable"
+    },
+    {
+      "asset": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
+      "buyer_notes": [
+        "sends no Payment-Required header, so read the terms from the JSON body instead of the header",
+        "payment terms are incomplete, so a payment cannot be constructed from the 402 alone",
+        "names no facilitator, so carry your own and do not rely on theirs being discoverable from the 402",
+        "uses an older x402 version, so check field names before signing",
+        "unnamed in indexes, so it may be hard to find again",
+        "no canonical resource URL published",
+        "no description published",
+        "request shape is undocumented, so expect to discover it by trial",
+        "response shape is undocumented"
+      ],
+      "chain_family": "evm",
+      "defects": [
+        "HEADER_ABSENT",
+        "ACCEPTS_SCHEME_MISSING",
+        "ACCEPTS_ASSET_MISSING",
+        "ACCEPTS_PAYTO_MISSING",
+        "ACCEPTS_NETWORK_MISSING",
+        "ACCEPTS_MAXTIMEOUTSECONDS_MISSING",
+        "AMOUNT_MISSING",
+        "FACILITATOR_UNNAMED",
+        "VERSION_NOT_2",
+        "LISTING_SERVICENAME_MISSING",
+        "LISTING_URL_MISSING",
+        "LISTING_DESCRIPTION_MISSING",
+        "NO_INPUT_SCHEMA",
+        "NO_OUTPUT_SCHEMA"
+      ],
+      "endpoint": "https://pyrimid.ai/api/mcp",
+      "method": "GET",
+      "network": "eip155:42161",
+      "pay_to": "0xc6b1e7F76DfC2eEE534200a0182F136775789142",
+      "payable_now": false,
+      "price_usdc": null,
+      "score": 0,
+      "verdict": "effectively unbuyable"
+    },
+    {
+      "asset": null,
+      "buyer_notes": [
+        "sends no Payment-Required header, so read the terms from the JSON body instead of the header",
+        "payment terms are incomplete, so a payment cannot be constructed from the 402 alone",
+        "names no facilitator, so carry your own and do not rely on theirs being discoverable from the 402",
+        "uses an older x402 version, so check field names before signing",
+        "unnamed in indexes, so it may be hard to find again",
+        "no canonical resource URL published",
+        "no description published",
+        "request shape is undocumented, so expect to discover it by trial",
+        "response shape is undocumented"
+      ],
+      "chain_family": "unstated",
+      "defects": [
+        "HEADER_ABSENT",
+        "ACCEPTS_SCHEME_MISSING",
+        "ACCEPTS_ASSET_MISSING",
+        "ACCEPTS_PAYTO_MISSING",
+        "ACCEPTS_NETWORK_MISSING",
+        "ACCEPTS_MAXTIMEOUTSECONDS_MISSING",
+        "AMOUNT_MISSING",
+        "FACILITATOR_UNNAMED",
+        "VERSION_NOT_2",
+        "LISTING_SERVICENAME_MISSING",
+        "LISTING_URL_MISSING",
+        "LISTING_DESCRIPTION_MISSING",
+        "NO_INPUT_SCHEMA",
+        "NO_OUTPUT_SCHEMA"
+      ],
+      "endpoint": "https://flylabs.fun/api/agents",
+      "method": "POST",
+      "network": null,
+      "pay_to": null,
+      "payable_now": false,
+      "price_usdc": null,
+      "score": 0,
+      "verdict": "effectively unbuyable"
+    }
+  ],
+  "generated_utc": 1794194318,
+  "human_page": "https://x402-agent-pay.com/endpoint-report",
+  "market": {
+    "by_chain": {
+      "evm": 10,
+      "solana": 1,
+      "unstated": 2
+    },
+    "candidates_scanned": 284,
+    "live_behind_paywall": 13,
+    "not_live_or_not_paid": 271,
+    "share_live_pct": 4.6
+  },
+  "method_notes": {
+    "contacts": "operator contact details are deliberately not published here",
+    "how_gathered": "one unpaid request per host to endpoints listed in the public x402 directories, read the same way a buying agent reads a 402",
+    "what_it_cannot_say": "nothing about any seller's traffic, revenue or conversion; an outside probe sees only what a buyer sees",
+    "why_named": "these are publicly listed endpoints and being listed here means a buyer can pay them today; the defects are published as workarounds for buyers"
+  },
+  "stale": false,
+  "verdict_distribution": {
+    "buyer ready": 2,
+    "effectively unbuyable": 5,
+    "payable with defects": 6
+  }
+}
