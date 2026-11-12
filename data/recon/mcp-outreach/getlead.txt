@@ -1,0 +1,22 @@
+To: founders@getle.ad
+Subject: per-lead x402 micropayment channel for Getlead
+
+Hi Getlead team,
+
+Your MCP finds B2B leads with verified emails — high-value intel that agents
+could purchase at scale via x402 micro-payments.
+
+We built an on-chain settlement layer (CapitalMobilizerV2) that proved
+988 real settlements with exact commission splitting. One call = one
+on-chain payment with instant refund-on-failure guarantees.
+
+Opportunity: wrap lead-search endpoints behind x402 so any AI agent can
+query leads and pay per-result without account/signup friction.
+
+Interested in a collaboration or a technical deep-dive?
+
+Benchmark: https://github.com/breezesamuel/autotasker-hub-aevum/blob/main/data/deployments/float-velocity-benchmark.json
+
+Liao Xianyun
+AutoTasker Hub | x402 payment infrastructure
+https://autotasker-hub.vercel.app

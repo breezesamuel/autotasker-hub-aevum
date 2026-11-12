@@ -1,0 +1,20 @@
+To: contact@apogee.ad
+Subject: x402 per-ad-spend settlement for Apogee bulk launcher
+
+Hi Apogee team,
+
+You launch Meta/TikTok/Snapchat ad campaigns in bulk — a prime candidate for
+x402-per-transaction settlement where each launched campaign triggers an
+on-chain payment with audit trail.
+
+CapitalMobilizerV2 (Capital Mobilizer V2) handles exactly this pattern: 988
+verified settlements, automatic commission splits, gas-efficient batching.
+
+Could be interesting as a settlement layer inside your existing OAuth flow.
+Happy to prototype if useful.
+
+Source: https://github.com/breezesamuel/autotasker-hub-aevum
+
+Liao Xianyun
+AutoTasker Hub | x402 payment infrastructure
+https://autotasker-hub.vercel.app

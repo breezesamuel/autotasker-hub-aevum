@@ -1,0 +1,31 @@
+To: founders@inference.sh or contact@inference.ai
+Subject: x402 pay-per-run settlement layer — proven on 988 real tx
+
+Hi inference.sh team,
+
+Your MCP server ("run any AI model, pay per run") is exactly the kind of system
+our x402 router was built for.
+
+We're AutoTasker Hub — CapitalMobilizerV2 is an on-chain commission router that
+takes an x402 Payment Required response from an API, pays the facilitator
+inside the same transaction, and splits proceeds (house / referrer / facilitator)
+avutomatically on-chain.
+
+Proof-of-work on official tUSD8:
+  • 988 real settlements, gross $805.40 tUSD8
+  • Float velocity: 16.8x, 100% conserved (gas paid in tQDAY, not token)
+  • Gas floor: ~21,700 gas/payment at batch 100
+  • Contract: 0xDf7526...8e917 on QDay Aevum testnet (chainId 44005)
+
+What I'd propose:
+  Wrap your MCP tools behind x402 so AI agents can discover and pay for
+  inference calls without an API-key middleman — the contract handles fees,
+  refunds, and audit trails in real time.
+  Happy to build the integration yourself as a case study for both teams.
+
+Full benchmark + source:
+https://github.com/breezesamuel/autotasker-hub-aevum/blob/main/data/deployments/float-velocity-benchmark.json
+
+Liao Xianyun
+AutoTasker Hub | x402 payment infrastructure
+https://autotasker-hub.vercel.app

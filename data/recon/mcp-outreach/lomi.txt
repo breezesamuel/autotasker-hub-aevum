@@ -1,0 +1,24 @@
+To: hello@lomi.africa
+Subject: x402 settlement rails for Lomi — agent-driven campaign funding
+
+Hi lomi team,
+
+Your MCP server puts payments at the agent level — exactly the pattern our
+x402 router was built for.
+
+We built a multi-ledger on-chain settlement layer (CapitalMobilizerV2) that
+accepts 402 responses from APIs, charges the payer, and splits commission
+in the same transaction. Proven on 988 real tx with 100% float conservation.
+
+Use case for Lomi:
+  An AI agent identifies a creator for a UGC campaign → auto-negotiates fee →
+  locks funds via x402 → releases on delivery. All on-chain, auditable.
+
+Would love to chat about whether this fits your roadmap, or whether there's
+a way to embed our contract as a settlement option inside your flow.
+
+Benchmark record: https://github.com/breezesamuel/autotasker-hub-aevum/blob/main/data/deployments/float-velocity-benchmark.json
+
+Liao Xianyun
+AutoTasker Hub | x402 payment infrastructure
+https://autotasker-hub.vercel.app

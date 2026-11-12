@@ -1,0 +1,18 @@
+To: partnerships@ugc.africa
+Subject: x402-powered campaign wallet automation
+
+Hi UGC Africa team,
+
+Your "Human Ad Network" MCP already lets creators manage campaigns from chat.
+Adding x402 payment-in-flight would unlock autonomous agent-driven campaigns:
+agent finds slot → negotiates price → locks funds via 402 → releases on upload.
+
+Our capital router (CapitalMobilizerV2) proves the pattern with 988 on-chain settlements.
+One-line question: are you exploring self-custody agent workflows? We could
+build the x402 wrapper around your existing campaign endpoints.
+
+Benchmark + source: https://github.com/breezesamuel/autotasker-hub-aevum
+
+Liao Xianyun
+AutoTasker Hub | x402 payment infrastructure
+https://autotasker-hub.vercel.app
