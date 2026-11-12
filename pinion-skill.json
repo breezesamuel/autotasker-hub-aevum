@@ -1,0 +1,67 @@
+# AutoTasker Hub — Pinion Skill Definition
+# Install: npx pinion add https://github.com/breezesamuel/autotasker-hub-aevum
+# Usage: Claude can discover and call our x402-protected API via Pinion
+
+{
+  "name": "autotasker-hub",
+  "version": "1.0.0",
+  "description": "China social media hotlist and trending data API with x402 micropayments",
+  "author": "breezesamuel",
+  "license": "MIT",
+  "x402": {
+    "facilitator": "https://x402.org/facilitator",
+    "payTo": "0x74a9f91763c28571af7a52987f425f62825cf5d8",
+    "networks": ["eip155:84532", "solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1"]
+  },
+  "tools": [
+    {
+      "name": "get_hotlist",
+      "description": "Get trending posts from Chinese social media (Weibo, Douban, Zhihu, Bilibili, Tieba)",
+      "x402Price": "$0.05",
+      "parameters": {
+        "board": { "type": "string", "enum": ["weiboHot", "douban", "zhihu", "bilibili", "tieba"], "description": "Social media board" },
+        "limit": { "type": "number", "default": 10, "maximum": 20, "description": "Number of items" }
+      },
+      "endpoint": "GET /api/x402/hotlist"
+    },
+    {
+      "name": "search_chinese_social",
+      "description": "Search across all Chinese social media boards for keywords",
+      "x402Price": "$0.05",
+      "parameters": {
+        "query": { "type": "string", "description": "Search keyword in Chinese or English" },
+        "limit": { "type": "number", "default": 10, "maximum": 20 }
+      },
+      "endpoint": "GET /api/x402/search"
+    },
+    {
+      "name": "get_price_intel",
+      "description": "Get price and deal intelligence from Chinese markets",
+      "x402Price": "$0.10",
+      "parameters": {
+        "symbol": { "type": "string", "description": "Stock/crypto symbol" }
+      },
+      "endpoint": "GET /api/x402/price"
+    },
+    {
+      "name": "export_full_dataset",
+      "description": "Export complete dataset with all fields and metadata",
+      "x402Price": "$0.50",
+      "parameters": {},
+      "endpoint": "GET /api/x402/full"
+    }
+  ],
+  "freeEndpoint": {
+    "name": "sample",
+    "endpoint": "GET /api/x402/sample?limit=3",
+    "description": "Free sample data — no payment required"
+  },
+  "stats": {
+    "totalSettlements": 988,
+    "grossUSDC": "805.40",
+    "velocity": "16.8x",
+    "invariantPass": true
+  },
+  "repository": "https://github.com/breezesamuel/autotasker-hub-aevum",
+  "documentation": "https://docs.x402.org/getting-started/quickstart-for-sellers"
+}
