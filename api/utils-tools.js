@@ -1,10 +1,13 @@
 /**
  * utils-tools.js — Zero-marginal-cost agent tools for AutoTasker Hub.
  *
- * Two groups:
- *  A. China desk (local computation, no upstream): lunar_calendar, cn_id_validate, pinyin_convert
- *  B. Global no-key API proxies (free upstreams, reachable from our network):
- *     weather, fx_rates, public_holidays, ip_geo, hn_search, define_word, arxiv_search
+ * Group A: China desk (local computation, no upstream):
+ *   lunar_calendar · cn_id_validate · pinyin_convert
+ * Group B: Global free-API proxies (本机可达，零边际成本，$0.01/次):
+ *   weather · fx_rates · public_holidays · ip_geo · hn_search · define_word · arxiv_search
+ * Group C: Entertainment & Data enrichment (新添加，全部经实测可达):
+ *   game_deals · cat_fact · dog_breed_list · bored_activity · color_info · color_scheme
+ *   datamuse_synonyms · npm_search · spdx_licenses · random_user · comment_for_post · quote_today
  *
  * Every tool is sold at $0.01 USDC per call via x402 (MCP tools/call or REST /api/x402/util/:tool).
  */
@@ -13,7 +16,7 @@ const solarlunar = require('solarlunar').default || require('solarlunar');
 const { pinyin } = require('pinyin-pro');
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36';
-const TIMEOUT = 9000;
+const TIMEOUT = 10000;
 
 async function getJson(url) {
   const r = await fetch(url, { headers: { 'user-agent': UA, accept: 'application/json' }, signal: AbortSignal.timeout(TIMEOUT) });
@@ -97,6 +100,67 @@ const UTIL_TOOLS = [
     name: 'pinyin_convert',
     description: 'Convert Chinese text to pinyin (with tone numbers or marks). Local computation. $0.01 USDC per call.',
     inputSchema: { type: 'object', properties: { text: { type: 'string', description: 'Chinese text' }, tone: { type: 'boolean', description: 'Include tone marks', default: true } }, required: ['text'] },
+  },
+  // Group C — Entertainment & Data enrichment (all upstream APIs verified reachable from this machine)
+  {
+    name: 'game_deals',
+    description: 'Search cheap game deals across Steam, Epic, GOG etc (free CheapShark upstream). Returns sale price, savings %, Metacritic score. $0.01 USDC per call.',
+    inputSchema: { type: 'object', properties: { maxPrice: { type: 'number', description: 'Max sale price in USD, default 5', default: 5 }, onSale: { type: 'boolean', description: 'Only games currently on sale', default: true }, limit: { type: 'integer', description: 'Number of deals, default 10 max 30', default: 10, maximum: 30 } } },
+  },
+  {
+    name: 'cat_fact',
+    description: 'Random cat fact from CatFact Ninja. Fun trivia for agents. $0.01 USDC per call.',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'dog_breed_list',
+    description: 'List all dog breeds + subbreeds from Dog CEO API. Shows available breed taxonomy. $0.01 USDC per call.',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'bored_activity',
+    description: 'Suggest a random activity for when bored: type (solo/group), price scale, duration, kid-friendly flag. Free upstream. $0.01 USDC per call.',
+    inputSchema: { type: 'object', properties: { minPrice: { type: 'number', minimum: 0, maximum: 10, description: 'Min price tier (0=free, 10=expensive)' }, group: { type: 'boolean', description: 'Group activity only' } } },
+  },
+  {
+    name: 'color_info',
+    description: 'Get color info (name, RGB, HSL, HSV, CMYK) for any hex color code. Design agent helper. $0.01 USDC per call.',
+    inputSchema: { type: 'object', properties: { hex: { type: 'string', description: 'Hex color, e.g. E91E63 or #E91E63' } }, required: ['hex'] },
+  },
+  {
+    name: 'color_scheme',
+    description: 'Generate an analogous color palette (N colors) from a base hex. Good for design agents. $0.01 USDC per call.',
+    inputSchema: { type: 'object', properties: { hex: { type: 'string', description: 'Base hex color' }, count: { type: 'integer', description: 'Palette size', default: 5, minimum: 2, maximum: 12 } }, required: ['hex'] },
+  },
+  {
+    name: 'datamuse_synonyms',
+    description: 'Find synonyms and related words via Datamuse lexical database. NLP helper. $0.01 USDC per call.',
+    inputSchema: { type: 'object', properties: { word: { type: 'string', description: 'Seed word' }, rel_syn: { type: 'boolean', description: 'Include synonym relations' }, limit: { type: 'integer', description: 'Max results', default: 10, maximum: 30 } }, required: ['word'] },
+  },
+  {
+    name: 'npm_search',
+    description: 'Search npm registry for packages by keyword with download counts. Dev-tool finder. $0.01 USDC per call.',
+    inputSchema: { type: 'object', properties: { query: { type: 'string', description: 'Search term' }, limit: { type: 'integer', description: 'Results count', default: 5, maximum: 20 } }, required: ['query'] },
+  },
+  {
+    name: 'spdx_licenses',
+    description: 'Full SPDX license list (500+ licenses with IDs, names, details). Compliance/legal agent aid. $0.01 USDC per call.',
+    inputSchema: { type: 'object', properties: { licenseId: { type: 'string', description: 'Optional: filter to specific SPDX ID, e.g. MIT or Apache-2.0' } } },
+  },
+  {
+    name: 'random_user',
+    description: 'Generate fake user profiles (gender, name, location, DOB, phone, avatar) for testing/demo. Reqres.in upstream. $0.01 USDC per call.',
+    inputSchema: { type: 'object', properties: { gender: { type: 'string', enum: ['male', 'female'], description: 'Filter by gender' }, count: { type: 'integer', description: 'Number of users', default: 1, maximum: 10 } } },
+  },
+  {
+    name: 'comment_for_post',
+    description: 'Fetch fake comments attached to a PostID (JSONPlaceholder). Useful for comment/review analysis demos. $0.01 USDC per call.',
+    inputSchema: { type: 'object', properties: { postId: { type: 'integer', description: 'Post ID (1-100)', default: 1 }, limit: { type: 'integer', default: 5, maximum: 20 } } },
+  },
+  {
+    name: 'quote_today',
+    description: 'Inspirational quote of the day from zenquotes.io. Includes author and image link. $0.01 USDC per call.',
+    inputSchema: { type: 'object', properties: {} },
   },
 ];
 
@@ -186,6 +250,89 @@ async function runUtil(name, args = {}) {
     case 'pinyin_convert':
       if (!args.text) throw new Error('text is required');
       return { text: args.text, pinyin: pinyin(args.text, { toneType: args.tone === false ? 'none' : 'symbol' }) };
+    // Group C — Entertainment & enrichment
+    case 'game_deals': {
+      const maxPrice = String(args.maxPrice || 5);
+      const onSale = args.onSale !== false ? '1' : '0';
+      const limit = Math.min(Number(args.limit) || 10, 30);
+      const d = await getJson(`https://www.cheapshark.com/api/1.0/deals?upperPrice=${maxPrice}&onSale=${onSale}&pageSize=${limit}`);
+      return { query: { upperPrice: maxPrice, onSale: !!args.onSale }, deals: (d || []).slice(0, limit).map(d => ({ title: d.title, salePrice: d.salePrice, normalPrice: d.normalPrice, savingsPct: Number(d.savings).toFixed(1) + '%', metacritic: d.metacriticScore, steamRating: d.steamRatingPercent, url: `https://www.cheapshark.com/deal/${d.dealID}` })) };
+    }
+    case 'cat_fact': {
+      const d = await getJson('https://catfact.ninja/fact');
+      return { fact: d.fact, length: d.length };
+    }
+    case 'dog_breed_list': {
+      const d = await getJson('https://dog.ceo/api/breeds/list/all');
+      const message = d.message || {};
+      const topBreeds = Object.entries(message).slice(0, 20);
+      const totalBreeds = Object.values(message).reduce((s, a) => s + 1 + a.length, 0);
+      return { totalTopBreeds: topBreeds.length, totalAllBreedsIncludingSub: totalBreeds, topBreeds: topBreeds.map(([breed, subs]) => ({ breed, subbreeds: subs })) };
+    }
+    case 'bored_activity': {
+      const params = [];
+      if (args.minPrice != null) params.push(`minPrice=${args.minPrice}`);
+      if (args.group) params.push('group=true');
+      const qs = params.length ? '?' + params.join('&') : '';
+      const d = await getJson(`https://bored-api.appbrewery.com/random${qs}`);
+      return d;
+    }
+    case 'color_info': {
+      if (!args.hex) throw new Error('hex is required');
+      const hex = args.hex.replace(/^#/, '');
+      const d = await getJson(`https://www.thecolorapi.com/id?hex=${hex}`);
+      return {
+        hex: d.hex.value, hexClean: d.hex.clean,
+        rgb: d.rgb.value, hsl: d.hsl.value, hsv: d.hsv.value, cmyk: d.cmyk?.value,
+        name: d.name?.value, contrastWithWhite: d.contrast?.white?.contrast.toFixed(2),
+      };
+    }
+    case 'color_scheme': {
+      if (!args.hex) throw new Error('hex is required');
+      const hex = args.hex.replace(/^#/, '');
+      const count = Math.min(Number(args.count) || 5, 12);
+      const d = await getJson(`https://www.thecolorapi.com/scheme?hex=${hex}&count=${count}`);
+      return { base: d.baseColor?.hex?.value, mode: d.mode, colors: (d.colors || []).map(c => ({ hex: c.hex.value, rgb: c.rgb.value, name: c.name?.value })) };
+    }
+    case 'datamuse_synonyms': {
+      if (!args.word) throw new Error('word is required');
+      const w = encodeURIComponent(args.word);
+      const lim = Math.min(Number(args.limit) || 10, 30);
+      const d = await getJson(`https://api.datamuse.com/words?rel_syn=${w}&max=${lim}`);
+      return { word: args.word, count: d.length, synonyms: d.map(x => x.word) };
+    }
+    case 'npm_search': {
+      if (!args.query) throw new Error('query is required');
+      const q = encodeURIComponent(args.query);
+      const lim = Math.min(Number(args.limit) || 5, 20);
+      const d = await getJson(`https://registry.npmjs.org/-/v1/search?text=${q}&size=${lim}`);
+      return { query: args.query, total: d.total, packages: (d.objects || []).map(o => ({ name: o.package.name, version: o.package.version, description: o.package.description?.slice(0, 80), downloads: o.downloads?.lastMonth, updatedAt: o.updated })) };
+    }
+    case 'spdx_licenses': {
+      const d = await getJson('https://spdx.org/licenses/licenses.json');
+      if (args.licenseId) {
+        const match = d.licenses.find(l => l.licenseId.toLowerCase() === args.licenseId.toLowerCase());
+        return match ? { found: true, ...match } : { found: false, searched: args.licenseId };
+      }
+      return { total: d.licenses.length, version: d.licenseListVersion, sample: d.licenses.slice(0, 10).map(l => l.licenseId) };
+    }
+    case 'random_user': {
+      const gender = args.gender ? `&gender=${args.gender}` : '';
+      const count = Math.min(Number(args.count) || 1, 10);
+      const d = await getJson(`https://randomuser.me/api/?results=${count}${gender}`);
+      return { results: (d.results || []).map(u => ({ gender: u.gender, name: `${u.name.first} ${u.name.last}`, dob: u.dob.date, age: u.dob.age, location: `${u.location.city}, ${u.location.country}`, email: u.email, phone: u.phone, pictureThumb: u.picture.thumbnail })), info: d.info };
+    }
+    case 'comment_for_post': {
+      const postId = args.postId || 1;
+      const limit = Math.min(Number(args.limit) || 5, 20);
+      const d = await getJson(`https://jsonplaceholder.typicode.com/comments?postId=${postId}&_page=1&_limit=${limit}`);
+      return { postId, count: d.length, comments: d };
+    }
+    case 'quote_today': {
+      const d = await getJson('https://zenquotes.io/api/today');
+      if (!d?.[0]) throw new Error('no quote today');
+      return { quote: d[0].q, author: d[0].a, image: d[0].i, date: d[0].date };
+    }
     default:
       throw new Error(`unknown util: ${name}`);
   }
