@@ -144,7 +144,16 @@ $35.76 与 30 天 $0.95 的差额来自更早的入账（240 天扫描见 `data/
 
 ---
 
-## 6. 复现命令
+## 6. 旧账本已归档
+
+`data/payments/ledger.json`（1315 条假记录）已重命名为
+`data/payments/ledger.fabricated-20261113.json`，保留作证据，**不再作为收入来源**。
+新的 `ledger.json` 从 0 开始，`getSummary()` 现在返回 `totalCalls: 0`，这是真话。
+
+另外 `lib/payments.js` 已改为可写目录回退（Vercel 上写到 `/tmp`），
+避免因为只读文件系统导致"链上已到账但接口报错"。
+
+## 7. 复现命令
 
 ```bash
 node scripts/ledger-truth.js          # 账本 vs 链上余额（10 秒）
