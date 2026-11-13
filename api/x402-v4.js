@@ -54,6 +54,7 @@ let packCache = null;
 try { packCache = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'packs', 'live.json'), 'utf8')); } catch (e) {
   try { packCache = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'packs', 'xuanpin_v2.json'), 'utf8')); } catch (e2) {}
 }
+const { UTIL_TOOLS, runUtil, UTIL_PRICE } = require('./utils-tools');
 
 // ── Data helpers ────────────────────────────────────────────────────────────
 function items() { return (packCache && packCache.items) || []; }
@@ -73,6 +74,22 @@ function acceptsFor(tool, resourceUrl) {
     { scheme: 'exact', network: BASE_SEPOLIA, amount: String(cfg.atomic), asset: USDC_EVM, payTo: HOUSE_WALLET, maxTimeoutSeconds: 60, extra: { name: 'USD Coin', version: '2' } },
     { scheme: 'exact', network: SOLANA_DEVNET, amount: String(cfg.atomic), asset: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v', payTo: HOUSE_WALLET, maxTimeoutSeconds: 60, extra: { name: 'USD Coin', version: '' } },
   ].map(a => ({ ...a, resource: resourceUrl, description: DESCRIPTIONS[tool], mimeType: 'application/json' }));
+}
+
+const UTIL_NAMES = new Set(UTIL_TOOLS.map(t => t.name));
+
+function acceptsForUtil(tool, resourceUrl) {
+  return [
+    { scheme: 'exact', network: BASE_SEPOLIA, amount: String(UTIL_PRICE.atomic), asset: USDC_EVM, payTo: HOUSE_WALLET, maxTimeoutSeconds: 60, extra: { name: 'USD Coin', version: '2' } },
+    { scheme: 'exact', network: SOLANA_DEVNET, amount: String(UTIL_PRICE.atomic), asset: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v', payTo: HOUSE_WALLET, maxTimeoutSeconds: 60, extra: { name: 'USD Coin', version: '' } },
+  ].map(a => ({ ...a, resource: resourceUrl, description: `Agent utility: ${tool}`, mimeType: 'application/json' }));
+}
+
+// Generic accept builder for any tool (china-data routes or util routes)
+function acceptsForTool(tool, resourceUrl) {
+  if (UTIL_NAMES.has(tool)) return acceptsForUtil(tool, resourceUrl);
+  const route = TOOL_TO_ROUTE[tool] || 'hotlist';
+  return acceptsFor(route, resourceUrl);
 }
 
 // ── Express app ─────────────────────────────────────────────────────────────
@@ -128,14 +145,14 @@ const MCP_TOOLS = [
     inputSchema: { type: 'object', properties: {} },
     price: 'free',
   },
+  ...UTIL_TOOLS.map(t => ({ name: t.name, description: t.description, inputSchema: t.inputSchema, price: '$0.01' })),
 ];
 
 const TOOL_TO_ROUTE = { get_hotlist: 'hotlist', search_chinese_social: 'search', get_price_intel: 'price', export_full_dataset: 'full' };
 
 function mcpJson(res, id, result, status = 200) { res.status(status).json({ jsonrpc: '2.0', id, result }); }
 function mcpPaymentRequired(res, id, tool, host) {
-  const route = TOOL_TO_ROUTE[tool] || 'hotlist';
-  const accepts = acceptsFor(route, `http://${host}/api/x402/${route}`);
+  const accepts = acceptsForTool(tool, `http://${host}${UTIL_NAMES.has(tool) ? `/api/x402/util/${tool}` : `/api/x402/${TOOL_TO_ROUTE[tool] || 'hotlist'}`}`);
   const paymentRequired = { x402Version: 2, error: 'PAYMENT-SIGNATURE or _meta["x402/payment"] is required', accepts };
   res.status(402).json({
     jsonrpc: '2.0', id,
@@ -166,7 +183,7 @@ app.all('/mcp', async (req, res) => {
     if (name === 'sample_free') {
       return mcpJson(res, id ?? null, { content: [{ type: 'text', text: JSON.stringify({ sample: items().slice(0, 3), totalInPack: items().length }) }] });
     }
-    if (!TOOL_TO_ROUTE[name]) {
+    if (!TOOL_TO_ROUTE[name] && !UTIL_NAMES.has(name)) {
       return res.status(200).json({ jsonrpc: '2.0', id: id ?? null, error: { code: -32602, message: `Unknown tool: ${name}` } });
     }
     // Paid tool: payment must arrive in _meta["x402/payment"] (or x-payment header)
@@ -176,12 +193,11 @@ app.all('/mcp', async (req, res) => {
     // Best-effort verification via facilitator when SDK is available
     try {
       const facilitator = new HTTPFacilitatorClient({ url: FACILITATOR_URL });
-      const route = TOOL_TO_ROUTE[name];
-      const requirements = acceptsFor(route, `http://${req.headers.host}/api/x402/${route}`);
+      const requirements = acceptsForTool(name, `http://${req.headers.host}${UTIL_NAMES.has(name) ? `/api/x402/util/${name}` : `/api/x402/${TOOL_TO_ROUTE[name] || 'hotlist'}`}`);
       const verify = await facilitator.verify(payment, requirements[0]);
       if (!verify || verify.isValid === false) throw new Error((verify && verify.invalidReason) || 'verification failed');
       const settle = await facilitator.settle(payment, requirements[0]);
-      const data = serveTool(name, args);
+      const data = UTIL_NAMES.has(name) ? await runUtil(name, args) : serveTool(name, args);
       return mcpJson(res, id ?? null, {
         content: [{ type: 'text', text: JSON.stringify({ ...data, settlement: settle && (settle.transaction || settle.txHash || settle) }) }],
       });
@@ -243,6 +259,31 @@ if (sdkAvailable && paymentMiddleware) {
       } : {}),
     };
   }
+  // Utility routes ($0.01 each)
+  for (const t of UTIL_TOOLS) {
+    const props = (t.inputSchema && t.inputSchema.properties) || {};
+    const firstKey = Object.keys(props)[0];
+    const sample = firstKey ? String(props[firstKey].default ?? 'example') : '';
+    routes[`GET /api/x402/util/${t.name}`] = {
+      accepts: [
+        { scheme: 'exact', price: `$${UTIL_PRICE.usd}`, network: BASE_SEPOLIA, payTo: HOUSE_WALLET },
+        { scheme: 'exact', price: `$${UTIL_PRICE.usd}`, network: SOLANA_DEVNET, payTo: HOUSE_WALLET },
+      ],
+      description: t.description,
+      mimeType: 'application/json',
+      ...(declareDiscoveryExtension ? {
+        serviceName: 'AutoTasker Hub — China Social Data',
+        tags: ['china', 'utils', 'data', 'agent-tools'],
+        extensions: declareDiscoveryExtension({
+          method: 'GET',
+          urlTemplate: `/api/x402/util/${t.name}${firstKey ? `?${firstKey}={${firstKey}}` : ''}`,
+          params: firstKey ? { [firstKey]: sample } : {},
+          description: t.description,
+          output: { example: { ok: true }, schema: { type: 'object' } },
+        }),
+      } : {}),
+    };
+  }
   app.use(paymentMiddleware(routes, server));
 }
 
@@ -264,11 +305,29 @@ app.get('/api/x402/full', (req, res) => {
   res.json({ tool: 'full', data: items(), paid: true });
 });
 
+app.get('/api/x402/util/:tool', async (req, res) => {
+  try {
+    const data = await runUtil(req.params.tool, req.query);
+    res.json({ tool: req.params.tool, ...data, paid: true });
+  } catch (e) {
+    res.status(502).json({ error: String(e.message).slice(0, 200) });
+  }
+});
+
 // Unpaid REST challenge when SDK is absent (fallback paywall)
 if (!sdkAvailable) {
   const b64 = obj => Buffer.from(JSON.stringify(obj)).toString('base64');
   app.use('/api/x402', (req, res, next) => {
     const tool = (req.path.split('/')[1] || '').split('?')[0];
+    if (tool === 'util') {
+      const sub = (req.path.split('/')[2] || '').split('?')[0];
+      if (!UTIL_NAMES.has(sub)) return next();
+      const accepts = acceptsForUtil(sub, `http://${req.headers.host}/api/x402/util/${sub}`);
+      const payReq = { x402Version: 2, error: 'PAYMENT-SIGNATURE header is required', accepts };
+      res.setHeader('PAYMENT-REQUIRED', b64(payReq));
+      res.setHeader('Access-Control-Expose-Headers', 'PAYMENT-REQUIRED,PAYMENT-RESPONSE');
+      return res.status(402).json({ paymentRequired: payReq });
+    }
     if (!PRICE_MAP[tool]) return next();
     const accepts = acceptsFor(tool, `http://${req.headers.host}/api/x402/${tool}`);
     const payReq = { x402Version: 2, error: 'PAYMENT-SIGNATURE header is required', accepts };
@@ -283,7 +342,10 @@ app.get('/.well-known/x402', (req, res) => res.json({
   service: 'AutoTasker Hub — China Social Data',
   mcp: `http://${req.headers.host}/mcp`,
   free: ['POST /mcp initialize|tools/list', 'GET /api/x402/sample', 'GET /api/x402/summary', 'POST /mcp tools/call name=sample_free'],
-  paid: Object.fromEntries(Object.entries(PRICE_MAP).map(([k, v]) => [`GET /api/x402/${k} | POST /mcp tools/call`, `$${v.usd} USDC (x402, Base Sepolia / Solana Devnet)`])),
+  paid: Object.fromEntries([
+    ...Object.entries(PRICE_MAP).map(([k, v]) => [`GET /api/x402/${k} | POST /mcp tools/call`, `$${v.usd} USDC (x402, Base Sepolia / Solana Devnet)`]),
+    ...UTIL_TOOLS.map(t => [`GET /api/x402/util/${t.name} | POST /mcp tools/call`, `$${UTIL_PRICE.usd} USDC (x402)`]),
+  ]),
   payTo: HOUSE_WALLET,
   facilitator: FACILITATOR_URL,
   repository: 'https://github.com/breezesamuel/autotasker-hub-aevum',

@@ -12,5 +12,15 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "hardhat": "^2.22.0"
+  },
+  "dependencies": {
+    "@x402/core": "^2.31.0",
+    "@x402/evm": "^2.31.0",
+    "@x402/express": "^2.31.0",
+    "@x402/extensions": "^2.31.0",
+    "@x402/svm": "^2.31.0",
+    "express": "^5.3.0",
+    "pinyin-pro": "^3.29.5",
+    "solarlunar": "^3.1.0"
   }
 }
