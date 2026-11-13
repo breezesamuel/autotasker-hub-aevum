@@ -15,7 +15,7 @@
  *   node scripts/trace-jump.js 2026-11-13T10:42:00Z
  */
 const RPCS = ['https://base.drpc.org', 'https://base-rpc.publicnode.com', 'https://1rpc.io/base'];
-const TREASURY = '0x367F1b3D8Ca90D1e087481a9A40d585Bf3451a03';
+const TREASURY = (process.env.WALLET || '0x367F1b3D8Ca90D1e087481a9A40d585Bf3451a03').toLowerCase();
 const HOUSE = '0x74a9f91763c28571af7a52987f425f62825cf5d8';
 const TOKENS = {
   USDC: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
