@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "rewrites": [{ "source": "/(.*)", "destination": "/api/x402-v4.js" }],
+  "functions": {
+    "api/x402-v4.js": {
+      "memory": 512,
+      "maxDuration": 30,
+      "includeFiles": "data/packs/**"
+    }
+  }
+}
