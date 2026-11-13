@@ -69,7 +69,13 @@ case 'espn_sports_news':return runEspn(args);
 case 'hn_front_page':return runHnFrontPage(args);
 case 'gh_repo_info':return runGhRepo(args);
 case 'translate_text':return runTranslate(args);
-default:throw new Error("unknown util: "+name);}}
+case 'bitcoin_fees':return runBitcoinFees(args);
+    case 'btc_usd_rate':return runBtcUsdRate(args);
+    case 'random_cat_image':return runRandomCatImage(args);
+    case 'random_dog_image':return runRandomDogImage(args);
+    case 'random_bear_image':return runRandomBearImage(args);
+    case 'random_dog_placeholder':return runRandomDogPlaceholder(args);
+    default:throw new Error("unknown util: "+name);}}
 function runWeather(a){
   var lat=a.lat,lon=a.lon,city=a.city||null;
   if((lat==null||lon==null)&&city){
@@ -138,4 +144,20 @@ function runEspn(a){var sport=(a.sport||"nfl").toLowerCase(),url="https://site.a
 function runHnFrontPage(a){var lim=Math.min(Number(a.limit)||5,30);return gj("https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage="+lim).then(function(d){var st=[];for(var i=0;i<(d.hits||[]).length&&i<lim;i++){var h=d.hits[i];st.push({title:h.title,points:h.points,comments:h.num_comments,url:h.url,author:h.author,createdAt:h.created_at});}return{nbHits:d.nbHits,stories:st};});}
 function runGhRepo(a){if(!a.owner)return Promise.reject(new Error("owner is required"));if(!a.repo)return Promise.reject(new Error("repo is required"));return gj("https://api.github.com/repos/"+encodeURIComponent(a.owner)+"/"+encodeURIComponent(a.repo)).then(function(d){if(d.message)throw new Error(d.message);return{full_name:d.full_name,description:d.description,stars:d.stargazers_count,forks:d.forks_count,openIssues:d.open_issues_count,language:d.language,topics:d.topics||[],updatedAt:d.updated_at,pushedAt:d.pushed_at,license:d.license&&d.license.spdx_id,defaultBranch:d.default_branch};});}
 function runTranslate(a){if(!a.text)return Promise.reject(new Error("text is required"));var pair=(a.from||"en")+"|"+(a.to||"zh-CN"),q=encodeURIComponent(a.text);return gj("https://api.mymemory.translated.net/get?q="+q+"&langpair="+pair).then(function(d){return{from:a.from||"en",to:a.to||"zh-CN",original:a.text,translated:d.responseData&&d.responseData.translatedText||"",matchScore:d.responseData&&d.responseData.match};});}
+
+add('bitcoin_fees','Bitcoin network fee estimates: fast/half-hour/hour/economy sat/vB. Real-time mempool data.$0.01 USDC.',{});
+add('btc_usd_rate','Bitcoin spot price in USD/CNY/EUR and 50+ fiat currencies via Blockchain.info.$0.01 USDC.',{currency:{type:'string',default:'USD'}});T[T.length-1].inputSchema.required=['currency'];
+add('random_cat_image','Random cat image URL from TheCatAPI.Fun visual content.$0.01 USDC.',{limit:{type:'integer',default:1,maximum:10}});
+add('random_dog_image','Random dog breed image URL from Dog CEO.API returns breed + image URL.$0.01 USDC.',{});
+add('random_bear_image','Produce a random placeholder bear image of given size (placebear.com).Design agent helper.$0.01 USDC.',{width:{type:'integer',default:200},height:{type:'integer',default:200}});
+add('random_dog_placeholder','Produce a random placeholder dog image (placedog.me).Design agent helper.$0.01 USDC.',{width:{type:'integer',default:300},height:{type:'integer',default:300}});
+
+
+function runBitcoinFees(a){return gj("https://mempool.space/api/v1/fees/recommended").then(function(d){return {fastestFee:d.fastestFee,halfHourFee:d.halfHourFee,hourFee:d.hourFee,economyFee:d.economyFee,minimumFee:d.minimumFee};});}
+function runBtcUsdRate(a){var cur=(a.currency||"USD").toUpperCase();return gj("https://blockchain.info/ticker").then(function(d){var rates=d[cur]||{};return {currency:cur,rate:rates.last||null,buy:rates.buy||null,sell:rates.sell||null,market:d.USD||{},timestamp:new Date().toISOString()};});}
+function runRandomCatImage(a){var n=Math.min(Number(a.limit)||1,10);return gj("https://api.thecatapi.com/v1/images/search?limit="+n).then(function(d){var imgs=[];for(var i=0;i<d.length;i++){imgs.push({url:d[i].url,width:d[i].width,height:d[i].height});}return{count:imgs.length,images:imgs};});}
+function runRandomDogImage(a){return gj("https://dog.ceo/api/breeds/image/random").then(function(d){return{message:d.message,status:d.status};});}
+function runRandomBearImage(a){var w=a.width||200,h=a.height||200;return Promise.resolve({url:"https://placebear.com/"+w+"/"+h,width:w,height:h});}
+function runRandomDogPlaceholder(a){var w=a.width||300,h=a.height||300;return Promise.resolve({url:"https://placedog.net/"+w+"/"+h,width:w,height:h});}
+
 module.exports={UTIL_TOOLS:T,runUtil:runUtil,UTIL_PRICE:{usd:0.01,atomic:10000}};
