@@ -24,15 +24,27 @@ const BLOCK_MS = 2000; // Base ~2s blocks (approx)
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
+const RPCS = [RPC, 'https://base-rpc.publicnode.com', 'https://1rpc.io/base'];
 async function eth(method, params) {
-  const r = await fetch(RPC, {
-    method: 'POST', headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }),
-    signal: AbortSignal.timeout(30000),
-  });
-  const j = await r.json();
-  if (j.error) throw new Error(j.error.message);
-  return j.result;
+  let lastErr = null;
+  for (const url of RPCS) {
+    try {
+      const r = await fetch(url, {
+        method: 'POST', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }),
+        signal: AbortSignal.timeout(25000),
+      });
+      const j = await r.json();
+      if (j.error) throw new Error(j.error.message);
+      return j.result;
+    } catch (e) {
+      lastErr = e;
+      if (/rate ?limit/i.test(String(e.message))) continue; // try next RPC
+      throw e;
+    }
+  }
+  await sleep(3000);
+  throw lastErr;
 }
 
 async function balanceOf(block) {
@@ -52,7 +64,9 @@ async function main() {
   const p = 10 ** dec;
   const head = await eth('eth_blockNumber', []);
   const headNum = parseInt(head, 16);
-  const from = headNum - Math.floor((days * 86400) / BLOCK_MS);
+  // Base block time is ~2s. (The 86400/2 is a pure integer-seconds ratio, not
+  // a ms/ms ratio — that's why the old version produced a 2-day "400d" window.)
+  const from = headNum - Math.floor((days * 86400) / 2);
   const span = headNum - from;
 
   console.log(`RPC ${RPC}  head=${headNum}  window=${days}d  blocks ${from}..${headNum}\n`);
@@ -63,19 +77,27 @@ async function main() {
   for (let i = 0; i < N; i++) {
     const block = from + Math.round(span * i / (N - 1));
     let raw;
-    for (let a = 0; a < 5; a++) {
+    for (let a = 0; a < 10; a++) {
       try { raw = await balanceOf(block); break; }
-      catch (e) { await sleep(800 * (a + 1)); }
+      catch (e) { await sleep(500 * Math.min(a + 1, 5)); }
     }
-    if (raw === undefined) { console.error(`coarse sample ${i} (block ${block}) failed`); process.exit(2); }
-    samples.push({ block, raw });
+    if (raw === undefined) {
+      console.error(`coarse sample ${i} (block ${block}) failed`);
+      // record a null so the segments we DO find are still emitted
+      samples.push({ block, raw: null });
+      console.log(`  (segment ${i - 1}..${i} will be treated as unknown)`);
+    } else {
+      samples.push({ block, raw });
+    }
     if (i % 20 === 0) process.stdout.write(`  coarse ${i}/${N}\n`);
     await sleep(150);
   }
 
-  // ── find segments where raw balance increased ────────────────────────────
+  // ── find segments where raw balance changed ───────────────────────────────
+  // (Skip pairs where either sample is null — we don't know that pair's boundary.)
   const segs = [];
   for (let i = 1; i < samples.length; i++) {
+    if (samples[i].raw === null || samples[i - 1].raw === null) continue;
     if (samples[i].raw !== samples[i - 1].raw) {
       segs.push({ fromBlock: samples[i - 1].block, toBlock: samples[i].block,
                   fromRaw: samples[i - 1].raw, toRaw: samples[i].raw });
@@ -101,15 +123,21 @@ async function main() {
     const leftOfJump = await balanceOf(hi - 1).catch(() => s.fromRaw);
     events.push({
       block: hi,
-      approxTime: new Date(hi * BLOCK_MS / 1000 - (headNum - hi) * 0).toISOString(),
       deltaRaw: arrived - leftOfJump,
       fromRaw: leftOfJump, toRaw: arrived,
-      note: 'approx; Base block timestamps vary',
     });
     console.log(`  jump ~block ${hi} (in segment ${s.fromBlock}..${s.toBlock})  +$${(arrived - leftOfJump) / p}`);
   }
 
-  const headRaw = await balanceOf(headNum).catch(() => samples[samples.length - 1].raw);
+  let headRaw = null;
+  for (let a = 0; a < 10; a++) {
+    try { headRaw = await balanceOf(headNum); break; } catch (e) { await sleep(500 * Math.min(a + 1, 5)); }
+  }
+  if (headRaw === null) headRaw = samples[samples.length - 1].raw;
+  if (headRaw === null || headRaw === undefined) {
+    console.error('could not read current balance; aborting');
+    process.exit(2);
+  }
 
   console.log('\n' + '='.repeat(78));
   console.log(`Treasury ${TREASURY}`);
@@ -120,9 +148,17 @@ async function main() {
   console.log(`detected jumps                   = ${events.length}`);
   console.log('='.repeat(78));
 
+  // Resolve real timestamps for the jump blocks.
+  const stamped = [];
   for (const e of events) {
-    console.log(`\n  +$${(e.deltaRaw / p).toFixed(6)}   block ${e.block}   ${e.approxTime}`);
-    console.log(`    balance ${ (e.fromRaw / p).toFixed(6) } -> ${ (e.toRaw / p).toFixed(6) }`);
+    const b = await eth('eth_getBlockByNumber', ['0x' + e.block.toString(16), false]);
+    stamped.push({ ...e, blockTime: parseInt(b.timestamp, 16) });
+  }
+
+  for (const e of stamped) {
+    const sign = e.deltaRaw >= 0 ? '+' : '';
+    console.log(`\n  ${sign}$${(e.deltaRaw / p).toFixed(6)}   block ${e.block}   ${new Date(e.blockTime * 1000).toISOString()}`);
+    console.log(`    balance ${ (e.fromRaw / p).toFixed(6) } -> ${ (e.toRaw / p).toFixed(6) }${e.deltaRaw < 0 ? '  (OUTFLOW)' : ''}`);
   }
 
   const out = {
@@ -130,8 +166,7 @@ async function main() {
     windowDays: days, fromBlock: from, headBlock: headNum,
     headBalance: headRaw / p, startBalance: samples[0].raw / p,
     netInflowInWindow: (headRaw - samples[0].raw) / p,
-    coarseSamples: samples,
-    jumps: events,
+    jumps: stamped,
     generatedAt: new Date().toISOString(),
   };
   require('fs').writeFileSync(
