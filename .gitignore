@@ -1,5 +1,7 @@
 # dependencies
 node_modules/
+# builds / kit outputs (not source of truth)
+dist/
 
 # secrets — never commit private keys
 .env
