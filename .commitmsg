@@ -1,19 +1,19 @@
-feat: i18n language routes + partner page + API directory engine
+feat: i18n language aliases + partner page + API directory engine — v5 complete
 
-FIXED: Moved i18n prefix-stripping middleware BEFORE express.static so
-language-prefixed URLs (/en/*, /ja/*, /kr/*) are properly rewritten
-before static file lookup. Previous placement after static caused
-404s because Express served its own 404 before reaching the middleware.
+LANGUAGE ROUTES (301 redirects to canonical):
+- /en/*, /ja/*, /kr/* → 301 redirect to base URL (SEO-friendly, hreflang in sitemap)
+- Static files and all routes work through language-prefixed URLs
+- lib/i18n.js provides t(lang, key) helper with EN/JP/KR fallback chain
+- config/translations.json has core UI strings in 4 languages
 
-NEW ENDPOINTS:
-- GET /partner — B2B partnership landing page (3-tier pricing)
-- GET /api/partner/info — structured JSON with plans & contact info
-- GET /en/*, /ja/*, /kr/* — language-prefixed routes for SEO
+PARTNER PAGE:
+- GET /partner — B2B landing page (Starter $299/mo, Business $999/mo, Enterprise custom)
+- GET /api/partner/info — structured JSON with plans, SLAs, integration methods
 
-INFRASTRUCTURE:
-- lib/i18n.js: Translation engine with EN/JP/KR support
-- config/translations.json: Core UI strings in 4 languages
-- scripts/api-directory-submit.js: Prepares API marketplace listings
-- sitemap.xml: Added hreflang links + /partner entry
+API DIRECTORY:
+- scripts/api-directory-submit.js prepares RapidAPI/HuggingFace/Postman listings
+- Generates public/postman-collection.json automatically
+- Tracks submissions in data/api-submissions.json for idempotency
 
-VERIFICATION: Service active, all core endpoints 200.
+VERIFICATION: 16/16 PASS (including /en/, /ja/, /kr/ 301 redirects)
+Service: active, uptime stable, all endpoints responsive.
