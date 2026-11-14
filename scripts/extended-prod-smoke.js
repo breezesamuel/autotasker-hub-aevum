@@ -26,6 +26,10 @@ const get = (p, opts) => new Promise(r => {
   const mc = await get('/.well-known/mcp'); pass('mcp discovery', mc.s === 200 && /tools/.test(mc.b));
   const kj = await get('/api/keys/list'); pass('keys list', kj.s === 200 && /keys/.test(kj.b));
   const ks = await get('/api/status'); const sj = JSON.parse(ks.b); pass('status uptime+memory', sj.uptimeSeconds > 0 && sj.memory.rssMb > 0);
+  // 交易直播 & Agent 入驻
+  const live = await get('/live'); pass('/live HTML', live.s === 200 && /实时交易直播/.test(live.b));
+  const liveApi = await get('/api/live/feed'); pass('/api/live/feed JSON', liveApi.s === 200 && /feed/.test(liveApi.b));
+  const agent = await get('/agent'); pass('/agent onboard', agent.s === 200 && /Agent 接入/.test(agent.b));
   const failed = checks.filter(c => !c.ok);
   console.log(`\n总计: ${checks.length - failed.length}/${checks.length} PASS`);
   process.exit(failed.length === 0 ? 0 : 1);

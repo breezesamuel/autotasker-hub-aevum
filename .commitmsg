@@ -1,38 +1,24 @@
-feat: self-growth engine v2 — MCP discovery, API keys, quality scoring, deeper automation
+feat: revenue conversion layer — live transaction feed, agent onboarding, auto-submit to platforms
 
-This round adds the last layer of professionalism: AI-agent discoverability,
-enterprise API key support, data quality gates, and expanded distribution.
+This round closes the last gap between "system works" and "money flows in":
+a public live transaction screen (social proof), an AI-agent onboarding page
+(one-click x402 flow), and automated external platform submissions.
 
 NEW MODULES:
-- lib/mcp-discovery.js: Standard .well-known/mcp.json for Claude Desktop /
-  Cursor / Windsurf auto-registration. Includes all tools, pricing, payment
-  config, trust links, rate limits, and policy statements in one doc.
-- lib/api-keys.js: Pre-paid token system for enterprise clients who prefer
-  Bearer auth over x402 per-call signing. Wallet-bound, txHash-verified,
-  daily hard limits, IP whitelist, 30-day expiry. Keys are hashed (SHA-256),
-  never stored in plaintext; only fingerprint exposed publicly.
-- scripts/quality-score.js: Source quality scoring (freshness ×0.4 + consistency
-  ×0.3 + completeness ×0.3). Sources below threshold auto-degraded from hotlist.
-  Scores persisted to data/packs/quality-scores.json.
-- docs/AUTO-SCALE-ENGINE-V2.md: Full roadmap covering Phase 1–3 (MCP onboarding,
-  multi-language, partnership network, predictive trend engine).
+- lib/live-feed.js: /live HTML dashboard + /api/live/feed JSON endpoint showing
+  recent settlements in real-time (wallet masked, txHash clickable to BaseScan).
+  Frontend polls every 5s via fetch(). Zero-state shows "试运行中，第一笔等你来".
+- lib/agent-onboard.js: /agent guided onboarding page with pricing table,
+  3-step x402 flow explanation, copy-paste JS code snippet, MCP config JSON,
+  and trust links. Target audience: Claude/Cursor/Copilot/Windsurf users.
+- scripts/auto-submit.js: one-click submit to Hacker News (public API) and
+  Reddit (OAuth). Idempotent — tracks submitted URLs to avoid spam.
 
-ENDPOINT ENHANCEMENTS:
-- GET /.well-known/mcp — MCP Protocol v2024-11-05 discovery doc
-- POST /api/keys/create — create pre-paid API key (wallet + txHash required)
-- GET /api/keys/list — list all key fingerprints (no sensitive data)
-- DELETE /api/keys/:id — revoke a key
-- GET /api/status — now includes uptimeSeconds, memory rss/heap MB,
-  lastSettledAt timestamp, alert queue pending count
+ENDPOINTS ADDED:
+- GET /live — dark-themed live settlement broadcast page (auto-refreshes)
+- GET /api/live/feed?limit=N — JSON for embedding or widget use
+- GET /agent — AI agent onboarding wizard with code samples + MCP config
 
-CRON EXPANSION:
-- Added daily-digest tasks (4x/day at UTC+8 0h/6h/12h/18h)
-- Added weekly-channel-analysis (Monday 05:25)
-- Total: 12 autotasker tasks, other projects' 6 lines untouched
+SITE MAP: Added /live (hourly) and /agent (weekly) entries.
 
-DEPLOY PROTECTION:
-- data/api-keys.json, data/channel-stats.json, data/digest/, data/content/
-  added to REMOTE_ONLY in deploy-v6.py so deploys never overwrite accumulated state
-
-VERIFICATION: prod audit 57/57 PASS; extended-prod-smoke 18/18 PASS
-(new endpoints: mcp, api-keys, status-uptime-memory all green).
+VERIFICATION: extended-prod-smoke 21/21 PASS (includes /live, /api/live/feed, /agent).
