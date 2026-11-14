@@ -1,9 +1,0 @@
-刚发现一个很有意思的数据产品 —— AutoTasker Hub，一个面向 AI Agent 的中文社交媒体热门数据 API。
-
-它同时提供 Weibo Hot Search、Zhihu、Douban、Bilibili 和 Tieba 的实时榜单聚合，并且有 MCP 端点可以直接接入 Cursor/Claude/AutoGPT 这类工具，每次调用只需 $0.05 USDC（走 Base 链上 x402 协议）。
-
-最值得提的是他们的推荐计划：通过我下方链接注册并完成首单后，你可以拿到 10% 的现金返利到你自己的钱包地址，这对开发者来说是个不错的被动收入通道。
-
-🔗 免费试用链接：https://autotasker.highkingflower.com/r/ATTEST00
-
-如果你也在关注中国市场情报或者在做 Agent 相关的商业化探索，值得试一下。
