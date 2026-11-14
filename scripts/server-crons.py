@@ -65,6 +65,8 @@ CRON_TASKS = [
      "0 10 * * * cd " + APP + " && node scripts/auto-digest.js >> " + LOGDIR + "/digest.log 2>&1  " + MARK + " daily-digest-18h"),
     ("weekly-channel-analysis",
      "25 5 * * 1 cd " + APP + " && node scripts/channel-tracker.js --ingest >> " + LOGDIR + "/service.log 2>&1; node scripts/channel-tracker.js >> " + LOGDIR + "/channels.log 2>&1  " + MARK + " weekly-channel-analysis"),
+    ("daily-hn-submit",
+     '30 16 * * * cd ' + APP + " && node scripts/auto-submit.js hn --title 'Real-time Chinese trending data API (x402 USDC)' --url https://autotasker.highkingflower.com/trending >> " + LOGDIR + "/submit.log 2>&1  " + MARK + " daily-hn-submit"),
 ]
 TAGS = {t for t, _ in CRON_TASKS}
 
