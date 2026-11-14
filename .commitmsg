@@ -1,44 +1,12 @@
-feat: operational visibility layer — metrics, board SEO pages, alert webhooks, weekly reports
+feat: observability layer — enhanced status, alert queue API, board RSS, Bazaar metadata, graceful shutdown
 
-This round adds the last missing loops that turn a "working system" into an
-auditable, observable business: a real-time operations dashboard, per-board
-SEO landing pages, webhook-driven alerts on every settlement, and automated
-weekly report exports.
+- lib/x402-v4.js: GET /api/status now reports uptimeSeconds, memory (rss/heap), lastSettledAt timestamp, and alert queue pending count.
+- lib/x402-v4.js: NEW GET /api/alerts/queue — read-only queue stats (pending/sent/failed/total) without exposing payloads.
+- lib/x402-v4.js: GET /.well-known/x402 expanded with verification links (basescan, proof api, reconcile api), referral policy, full docs map, per-paid-route params.
+- lib/x402-v4.js: GET /feed.xml supports ?board=<name> filter for per-board RSS feeds; each board page already has alternate RSS link.
+- lib/x402-v4.js: process.on(SIGTERM/SIGINT) → drain alert queue then exit (graceful shutdown).
+- public/sitemap.xml: added .well-known/x402 entry (monthly, priority 0.5).
+- scripts/business-loop-audit.js: stage 9 summary line updated to show 9 stages.
+- docs/BUSINESS-CLOSED-LOOP-AUDIT.md: finalized with all 57 checks across 9 stages.
 
-OPERATIONS DASHBOARD (/api/metrics):
-- lib/metrics.js: collect() aggregates from payments + referrals + support tickets
-  + reconcile report; htmlView() renders a clean HTML dashboard with top referrers
-  table + reconciliation status row. Accept:text/html returns HTML, otherwise JSON.
-- Wired as GET /api/metrics in x402-v4.js (Cache-Control: public, max-age=60 for JSON).
-
-BOARD SEO SUBPAGES (/board/:name):
-- lib/board-pages.js: builds independent HTML pages for weiboHot / zhihu / douban /
-  bilibili / tieba, each with its own canonical, og tags, ItemList JSON-LD, RSS alternate.
-  Cache per-board (10min TTL) with content-hash change detection; on cache miss, fires
-  maybePingSearchEngines() to re-index the new board page.
-- Registered routes in x402-v4.js; unknown board slugs return 404 cleanly.
-- Added to sitemap.xml as additional high-priority entries (board/weiboHot etc.).
-
-ALERT WEBHOOKS (lib/alerts.js):
-- Persistent JSONL queue (data/alert-queue.jsonl); drain loop every 10 s.
-- Multi-target dispatch: Telegram bot sendMessage, Discord webhook, Slack incoming,
-  plus generic ALERT_WEBHOOK_URL fallback — all fire-and-forget, never block main path.
-- Formatted payloads tailored per event type: fmtSettlement / fmtRebate / fmtReconcile.
-- After-settle hook now enqueues {type:'settlement', ...} on every successful payment
-  so ops get instant pings when money lands (future: configurable suppression window).
-- Queue persists across restarts; lost queue lines cause no data loss.
-
-WEEKLY REPORT EXPORT (scripts/export-weekly-report.js):
-- ISO week-scoped aggregation: total calls, revenue, by-tool breakdown, referral stats,
-  ticket count, latest reconciliation snapshot, daily CSV rows (date, calls, revenue_usd).
-- Outputs data/reports/YYYY-Www.json + .csv; --dry-run and --json-only flags for CI.
-- Cron'd every Monday 05:20 (after rebate-pay and reconcile have run).
-- Deploy protection list extended to include data/reports/.
-
-AUDIT EXTENDED TO 9 STAGES (57 checks):
-- Stages 8+9 now cover reconciliation invariant + operational visibility (metrics JSON,
-  metrics HTML view, /board/* presence, export script existence, unknown board 404).
-- Summary line updated: "商业闭环完整 ✅（9 阶段全绿）".
-
-VERIFICATION: prod audit 57/57 PASS (9 stages, 57 checks); crontab 7 autotasker tasks,
-other projects 6 tasks preserved; deploy clean (npm ci active, all probes green).
+Verification: prod audit 57/57 PASS; /api/status shows uptime+memory; /api/alerts/queue returns {pending,sent,failed,total}; /.well-known/x402 has verification block; /feed.xml?board=weiboHot returns filtered items.
