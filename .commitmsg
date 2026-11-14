@@ -1,34 +1,29 @@
-feat: customer dashboard, webhook subscriptions, SEO auto-pages for every hot topic
+feat: leaderboard, SSE streaming, auto-blog — revenue conversion layer v3
 
-NEW MODULES:
-- lib/customer-dashboard.js: /dashboard/:wallet and /api/dashboard/:wallet
-  show public spending history (calls, by-tool breakdown, recent tx, referral
-  binding) for any Base wallet address — no login required. Drives retention
-  by letting customers see exactly what they've consumed.
-- lib/webhook-subscriptions.js: POST /webhooks/subscribe creates HTTPS-targeted
-  event subscriptions (settlement.new, settlement.daily, digest.ready,
-  reconcile.done). HMAC-signed payloads via per-subscription secret. Verifies
-  URL ownership before activating. Rate-limited per email+url dedup.
-- lib/seo-auto-pages.js: generates individual HTML landing pages for each of
-  the top 10 trending items every time the trending cache refreshes (every
-  10 min). Each page has NewsArticle JSON-LD, canonical, og tags, and links
-  to related topics. Served from /topic/:slug via express route.
+Three new income-driving surfaces deployed:
 
-ENDPOINTS ADDED:
-- GET /dashboard/:wallet — HTML consumption dashboard (public, no auth)
-- GET /api/dashboard/:wallet — JSON API version
-- POST /webhooks/subscribe — create subscription (email+url+events)
-- GET /webhooks/verify/:id — activate after URL ownership proof
-- GET /webhooks/list — list all subscriptions (fingerprints only)
-- POST /webhooks/test — test endpoint reachability
-- GET /topic/:slug — serve auto-generated SEO landing page per trending item
+1. /leaderboard + /api/leaderboard — Public spending leaderboard showing top
+   wallets by total USDC spent. Drives social proof and competitive FOMO.
+   Wallets masked (6+...+4), txHash fully visible on BaseScan.
 
-AUTOMATION ENHANCED:
-- After-settle hook now fires BOTH alerts.enqueue AND webhookSubs.deliver
-  so both the internal alert system and customer webhooks fire on every payment
-- Trending cache refresh now triggers seoPages.generateAllPages(top 10)
-  automatically every 10 minutes (idempotent overwrite)
+2. /api/live/stream — Server-Sent Events endpoint for real-time settlement
+   broadcasts. Browser EventSource clients connect here; every new payment
+   fires 'settlement.new' event with tool/usd/wallet/txHash. Nginx-compatible
+   with X-Accel-Buffering:no + 15s heartbeat. after-settle hook now calls
+   sseStream.broadcast() alongside alerts.enqueue() and webhookSubs.deliver().
 
-VERIFICATION: extended-prod-smoke 25/25 PASS; crontab unchanged at 13 tasks;
-deploy clean with existing data preserved (webhook-subs.json and topic dir
-will be created on first use).
+3. /blog + /blog/:slug — Auto-generated SEO blog posts from trending items.
+   lib/auto-blog.js creates markdown + HTML for each hot topic with
+   NewsArticle JSON-LD, og tags, internal CTAs back to offer.html. Runs
+   every trending cache refresh (top 5 items) via try/catch so it never
+   blocks page response. Index at /blog/, individual posts at /blog/:slug.
+
+Additional infrastructure:
+- data/blog/, data/webhook-subs.json added to deploy-v6.py protection list
+- sitemap.xml updated with /leaderboard (hourly), /blog (daily), /.well-known/mcp
+- After-settle hook now triple-fires: alerts.enqueue → webhookSubs.deliver
+  → sseStream.broadcast (all fire-and-forget, never block main path)
+
+Verification: final-verify 8/9 PASS (SSE timing-out in test harness is
+expected — connection stays open which Node https.get handles poorly; curl
+confirms text/event-stream header lands correctly with X-Accel-Buffering:no).
