@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- 中文主站 -->
   <url><loc>https://autotasker.highkingflower.com/offer.html</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://autotasker.highkingflower.com/trending</loc><changefreq>hourly</changefreq><priority>0.9</priority></url>
   <url><loc>https://autotasker.highkingflower.com/trust</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
   <url><loc>https://autotasker.highkingflower.com/faq</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://autotasker.highkingflower.com/partner</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://autotasker.highkingflower.com/live</loc><changefreq>hourly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://autotasker.highkingflower.com/leaderboard</loc><changefreq>hourly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://autotasker.highkingflower.com/agent</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://autotasker.highkingflower.com/board/weiboHot</loc><changefreq>hourly</changefreq><priority>0.7</priority></url>
   <url><loc>https://autotasker.highkingflower.com/board/zhihu</loc><changefreq>hourly</changefreq><priority>0.7</priority></url>
   <url><loc>https://autotasker.highkingflower.com/board/douban</loc><changefreq>hourly</changefreq><priority>0.7</priority></url>
   <url><loc>https://autotasker.highkingflower.com/board/bilibili</loc><changefreq>hourly</changefreq><priority>0.7</priority></url>
   <url><loc>https://autotasker.highkingflower.com/board/tieba</loc><changefreq>hourly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://autotasker.highkingflower.com/live</loc><changefreq>hourly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://autotasker.highkingflower.com/agent</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://autotasker.highkingflower.com/feed.xml</loc><changefreq>hourly</changefreq><priority>0.5</priority></url>
   <url><loc>https://autotasker.highkingflower.com/llms.txt</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://autotasker.highkingflower.com/.well-known/x402</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://autotasker.highkingflower.com/.well-known/mcp</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+
+  <!-- English mirror (hreflang) -->
+  <url><loc>https://autotasker.highkingflower.com/en/offer.html</loc><changefreq>weekly</changefreq><priority>1.0</priority><xhtml:link rel="alternate" hreflang="en" href="https://autotasker.highkingflower.com/en/offer.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://autotasker.highkingflower.com/offer.html"/></url>
+  <url><loc>https://autotasker.highkingflower.com/en/trending</loc><changefreq>hourly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://autotasker.highkingflower.com/en/partner</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Japanese mirror -->
+  <url><loc>https://autotasker.highkingflower.com/ja/offer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://autotasker.highkingflower.com/ja/trending</loc><changefreq>hourly</changefreq><priority>0.8</priority></url>
+
+  <!-- Korean mirror -->
+  <url><loc>https://autotasker.highkingflower.com/kr/offer.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://autotasker.highkingflower.com/kr/trending</loc><changefreq>hourly</changefreq><priority>0.7</priority></url>
 </urlset>

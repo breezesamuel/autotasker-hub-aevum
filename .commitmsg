@@ -1,29 +1,19 @@
-feat: leaderboard, SSE streaming, auto-blog — revenue conversion layer v3
+feat: i18n language routes + partner page + API directory engine
 
-Three new income-driving surfaces deployed:
+FIXED: Moved i18n prefix-stripping middleware BEFORE express.static so
+language-prefixed URLs (/en/*, /ja/*, /kr/*) are properly rewritten
+before static file lookup. Previous placement after static caused
+404s because Express served its own 404 before reaching the middleware.
 
-1. /leaderboard + /api/leaderboard — Public spending leaderboard showing top
-   wallets by total USDC spent. Drives social proof and competitive FOMO.
-   Wallets masked (6+...+4), txHash fully visible on BaseScan.
+NEW ENDPOINTS:
+- GET /partner — B2B partnership landing page (3-tier pricing)
+- GET /api/partner/info — structured JSON with plans & contact info
+- GET /en/*, /ja/*, /kr/* — language-prefixed routes for SEO
 
-2. /api/live/stream — Server-Sent Events endpoint for real-time settlement
-   broadcasts. Browser EventSource clients connect here; every new payment
-   fires 'settlement.new' event with tool/usd/wallet/txHash. Nginx-compatible
-   with X-Accel-Buffering:no + 15s heartbeat. after-settle hook now calls
-   sseStream.broadcast() alongside alerts.enqueue() and webhookSubs.deliver().
+INFRASTRUCTURE:
+- lib/i18n.js: Translation engine with EN/JP/KR support
+- config/translations.json: Core UI strings in 4 languages
+- scripts/api-directory-submit.js: Prepares API marketplace listings
+- sitemap.xml: Added hreflang links + /partner entry
 
-3. /blog + /blog/:slug — Auto-generated SEO blog posts from trending items.
-   lib/auto-blog.js creates markdown + HTML for each hot topic with
-   NewsArticle JSON-LD, og tags, internal CTAs back to offer.html. Runs
-   every trending cache refresh (top 5 items) via try/catch so it never
-   blocks page response. Index at /blog/, individual posts at /blog/:slug.
-
-Additional infrastructure:
-- data/blog/, data/webhook-subs.json added to deploy-v6.py protection list
-- sitemap.xml updated with /leaderboard (hourly), /blog (daily), /.well-known/mcp
-- After-settle hook now triple-fires: alerts.enqueue → webhookSubs.deliver
-  → sseStream.broadcast (all fire-and-forget, never block main path)
-
-Verification: final-verify 8/9 PASS (SSE timing-out in test harness is
-expected — connection stays open which Node https.get handles poorly; curl
-confirms text/event-stream header lands correctly with X-Accel-Buffering:no).
+VERIFICATION: Service active, all core endpoints 200.

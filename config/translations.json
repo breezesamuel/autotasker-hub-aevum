@@ -1,0 +1,34 @@
+{
+  "cn": {
+    "siteName": "AutoTasker Hub",
+    "siteDesc": "实时中文社媒热搜数据 API · x402 USDC 链上结算",
+    "nav": { "trending": "热搜", "boards": "板块", "trust": "信任中心", "faq": "常见问题", "pricing": "价格", "agent": "Agent接入", "live": "交易直播", "leaderboard": "排行榜", "blog": "博客" },
+    "hero": { "title": "中文社媒热搜数据 API", "subtitle": "微博/知乎/豆瓣/B站/贴吧实时聚合，x402 USDC 链上结算，AI Agent 首选数据源", "cta": "查看价格", "sample": "免费试用" },
+    "features": { "realtime": "实时更新", "x402": "x402 支付", "mcp": "MCP 支持", "refund": "7天退款", "support": "自动客服" },
+    "pricing": { "hotlist": "热搜榜单", "search": "关键词搜索", "full": "全量导出", "util": "工具调用", "perCall": "按次计费", "monthly": "包月套餐" }
+  },
+  "en": {
+    "siteName": "AutoTasker Hub",
+    "siteDesc": "Real-time Chinese social media trending data API · x402 USDC on-chain settlement",
+    "nav": { "trending": "Trending", "boards": "Boards", "trust": "Trust Center", "faq": "FAQ", "pricing": "Pricing", "agent": "Agent Access", "live": "Live Trades", "leaderboard": "Leaderboard", "blog": "Blog" },
+    "hero": { "title": "Chinese Social Media Trending Data API", "subtitle": "Real-time aggregation from Weibo/Zhihu/Douban/Bilibili/Tieba. x402 USDC on-chain settlement. Perfect for AI agents.", "cta": "View Pricing", "sample": "Free Sample" },
+    "features": { "realtime": "Real-time", "x402": "x402 Payment", "mcp": "MCP Support", "refund": "7-day Refund", "support": "Auto Support" },
+    "pricing": { "hotlist": "Hot List API", "search": "Keyword Search", "full": "Full Export", "util": "Utility Tools", "perCall": "Pay-per-call", "monthly": "Monthly Plan" }
+  },
+  "ja": {
+    "siteName": "AutoTasker Hub",
+    "siteDesc": "中国語SNSトレンドデータAPI · x402 USDCオンチェーン決済",
+    "nav": { "trending": "トレンド", "boards": "ボード", "trust": "信頼センター", "faq": "よくある質問", "pricing": "料金", "agent": "エージェント", "live": "ライブ取引", "leaderboard": "リーダーボード", "blog": "ブログ" },
+    "hero": { "title": "中国語SNSトレンドデータAPI", "subtitle": "Weibo/Zhihu/豆瓣/Bilibili/贴吧のリアルタイム集計。x402 USDCオンチェーン決済。AIエージェントに最適。", "cta": "料金を見る", "sample": "無料サンプル" },
+    "features": { "realtime": "リアルタイム", "x402": "x402決済", "mcp": "MCP対応", "refund": "7日間返品", "support": "自動サポート" },
+    "pricing": { "hotlist": "人気リストAPI", "search": "キーワード検索", "full": "全量エクスポート", "util": "ユーティリティ", "perCall": "従量課金", "monthly": "月額プラン" }
+  },
+  "kr": {
+    "siteName": "AutoTasker Hub",
+    "siteDesc": "중국 SNS 트렌딩 데이터 API · x402 USDC 온체인 정산",
+    "nav": { "trending": "트렌드", "boards": "보드", "trust": "신뢰 센터", "faq": "자주 묻는 질문", "pricing": "가격", "agent": "에이전트", "live": "라이브 거래", "leaderboard": "리더보드", "blog": "블로그" },
+    "hero": { "title": "중국 SNS 트렌딩 데이터 API", "subtitle": "Weibo/Zhihu/豆瓣/Bilibili/贴吧 실시간 집계. x402 USDC 온체인 결제. AI 에이전트에 최적.", "cta": "가격 보기", "sample": "무료 샘플" },
+    "features": { "realtime": "실시간", "x402": "x402결제", "mcp": "MCP지원", "refund": "7일환불", "support": "자동지원" },
+    "pricing": { "hotlist": "인기리스트API", "search": "키워드검색", "full": "전량내보내기", "util": "유틸리티", "perCall": "종량과금", "monthly": "월간플랜" }
+  }
+}
