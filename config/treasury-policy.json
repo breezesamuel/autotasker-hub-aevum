@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "createdAt": "2026-11-13",
+  "status": "ACTIVE — single-treasury policy",
+  "treasury": {
+    "address": "0xb9A9E6d9C4Ad1635aA685bba2e235A515A94773C",
+    "role": "唯一金库：所有 USDC 收入进这里，所有投资与支出从这里出",
+    "chain": "eip155:8453",
+    "chainName": "Base",
+    "asset": "USDC",
+    "assetContract": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "decimals": 6,
+    "keyCustody": "用户外部持有（不在任何仓库/服务器文件中）"
+  },
+  "supersededAddresses": [
+    { "address": "0x367F1b3D8Ca90D1e087481a9A40d585Bf3451a03", "was": "平台热钱包 / AgentWorld payTo", "action": "余额一次性扫入金库后停用，不再作为任何接口的 payTo" },
+    { "address": "0x6350761dfb1d20c30ba7ae9cb16560fbe67ddc38", "was": "ERC-8004 agent GENESIS 身份钱包", "action": "余额扫入金库；身份 NFT 保留（不影响收款）" },
+    { "address": "0xFC24FD34da9e49A0110DCaEe3Ad30eC54175eBB3", "was": "legacy 收款地址", "action": "余额扫入金库后废弃" },
+    { "address": "0x74a9f91763c28571af7a52987f425f62825cf5d8", "was": "house relayer / 自付测试钱包", "action": "只保留最低 gas，不作为收入地址" }
+  ],
+  "allocation": {
+    "basis": "realized_external_revenue",
+    "basisNote": "只分配【真实到账且非自付】的 USDC。house_e2e（自己付给自己）不计入可分配基数。",
+    "buckets": {
+      "savings": {
+        "pct": 0.3,
+        "purpose": "储蓄 / 不冒险的底仓",
+        "venue": "金库内独立记账（cold-savings 子账），不参与任何 DeFi 合约",
+        "riskBudget": "0（不承担合约风险）"
+      },
+      "compound": {
+        "pct": 0.6,
+        "purpose": "复利投资：稳定币生息，收益滚入本金",
+        "venue": "Base 上 single-asset 稳定币池（白名单见 allowedVenues）",
+        "targetApyPct": 5,
+        "riskBudget": "中：合约风险 + 利率浮动；单池不超过 40% 复利仓位"
+      },
+      "stable": {
+        "pct": 0.1,
+        "purpose": "稳定盘：可随时动用的运营/机会资金",
+        "venue": "金库内留存 USDC（不锁仓）",
+        "riskBudget": "0"
+      }
+    }
+  },
+  "rules": {
+    "onlyRealizedExternalRevenueIsAllocatable": true,
+    "houseSelfPayExcludedFromRevenue": true,
+    "minAllocatableUsd": 10,
+    "minVenueTvlUsd": 5000000,
+    "maxSingleVenuePctOfBucket": 0.4,
+    "allowedExposure": ["single"],
+    "requireStablecoin": true,
+    "requireAuditedOrBluechip": true,
+    "forbidLeverage": true,
+    "forbidLockups": true,
+    "forbidHft": true,
+    "forbidPromisesOfReturn": true,
+    "reviewCadenceDays": 7
+  },
+  "allowedVenues": [
+    { "project": "aave-v3", "why": "Base 上最大的借贷市场，USDC 单币存款，可随时取" },
+    { "project": "morpho-blue", "why": " curated vault，单币 USDC，风险由 curator 参数控制" },
+    { "project": "compound-v3", "why": "老牌借贷，USDC 单币" },
+    { "project": "moonwell", "why": "Base 原生借贷，USDC 单币" }
+  ],
+  "forbiddenVenues": [
+    { "pattern": "任何 LP/双币池", "why": "有无常损失，且与'稳定盘'定位冲突" },
+    { "pattern": "任何杠杆/循环贷", "why": "本金 <$1000 时爆仓风险远大于收益" },
+    { "pattern": "任何新发代币高 APY", "why": "APY 由排放支撑，币价一跌本金腰斩" },
+    { "pattern": "任何锁仓/定期", "why": "失去流动性，无法支付运营" }
+  ],
+  "fiat": {
+    "alipay": {
+      "directUsdcRail": false,
+      "reality": "中国大陆没有合规的 USDC→支付宝 直连通道。任何声称能直连的，都是地下钱庄/对敲，属违法且会冻卡。",
+      "compliantPaths": [
+        "路径 1（推荐）：境外持牌交易所（Coinbase / Kraken / OKX 海外主体）USDC→法币→境外银行账户→合规结汇→支付宝",
+        "路径 2（更干净）：把产品卖给客户，直接收人民币（支付宝/微信商户号），USDC 完全不落地",
+        "路径 3：香港持牌平台（HashKey / OSL）合规出金至香港账户"
+      ],
+      "hardRules": [
+        "不对个人支付宝账户做 USDC 兑换",
+        "不接受第三方代付/代收",
+        "单笔与月度金额留完整链上+银行凭证，备查"
+      ]
+    },
+    "spending": {
+      "from": "0xb9A9E6d9C4Ad1635aA685bba2e235A515A94773C",
+      "approval": "每笔支出需人工确认（私钥外部持有，天然双签）",
+      "categories": ["服务器/域名", "API 成本", "推广", "税费预留"]
+    }
+  },
+  "accounting": {
+    "revenueReported": "external_usdc（链上可验证、非自付）",
+    "selfPayReportedSeparately": "house_e2e（单列，永不并入收入）",
+    "ledger": "data/revenue-ledger.json",
+    "allocationPlan": "data/treasury-allocation.json"
+  }
+}

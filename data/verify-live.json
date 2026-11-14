@@ -1,0 +1,58 @@
+{
+  "at": "2026-11-13T08:57:49.393Z",
+  "base": "http://127.0.0.1:3044",
+  "checks": [
+    {
+      "name": "status endpoint",
+      "ok": true,
+      "detail": "HTTP 200 keys=status,protocol,sdkAvailable,mcp,bazaarEnabled,services,payTo"
+    },
+    {
+      "name": "mcp initialize",
+      "ok": true,
+      "detail": "HTTP 200 server=AutoTasker Hub — China Social Data"
+    },
+    {
+      "name": "tools/list",
+      "ok": true,
+      "detail": "total=75 util≈71"
+    },
+    {
+      "name": "free tool unpaid",
+      "ok": true,
+      "detail": "HTTP 200"
+    },
+    {
+      "name": "402 eastmoney_ashare",
+      "ok": true,
+      "detail": "HTTP 402 amount=30000 expected=30000"
+    },
+    {
+      "name": "402 baidu_hot",
+      "ok": true,
+      "detail": "HTTP 402 amount=20000 expected=20000"
+    },
+    {
+      "name": "402 wallstreetcn",
+      "ok": true,
+      "detail": "HTTP 402 amount=30000 expected=30000"
+    },
+    {
+      "name": "402 air_quality",
+      "ok": true,
+      "detail": "HTTP 402 amount=10000 expected=10000"
+    },
+    {
+      "name": "402 weather",
+      "ok": true,
+      "detail": "HTTP 402 amount=10000 expected=10000"
+    },
+    {
+      "name": ".well-known/x402",
+      "ok": true,
+      "detail": "paid routes=74"
+    }
+  ],
+  "pass": 10,
+  "fail": 0
+}

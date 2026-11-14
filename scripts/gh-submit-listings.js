@@ -25,13 +25,13 @@ const TARGETS = [
     // insert BEFORE the "Landing en 24h" bullet to keep alphabetical order
     anchor: '\n* [Landing en 24h',
     position: 'before',
-    entry: `* [AutoTasker Hub](${LIVE_BASE}) — Chinese social media trending data for agents: Weibo hot search, Bilibili hot ranking and hot search terms, Toutiao hot board (fresh pull, refresh script ships with the repo). Hosted MCP at \`${LIVE_BASE}/mcp\` (streamable HTTP, no key); \`initialize\`, \`tools/list\` and a \`sample_free\` tool are free. Unpaid paid-tool calls (\`get_hotlist\` $0.05, \`search_chinese_social\` $0.05, \`get_price_intel\` $0.10, \`export_full_dataset\` $0.50) return HTTP 402 with x402 accepts (USDC on Base Sepolia or Solana Devnet); sign the payment and retry in the call \`_meta\`. [Discovery](${LIVE_BASE}/.well-known/x402) · [Source](https://github.com/${USER}/autotasker-hub-aevum)`,
+    entry: `* [AutoTasker Hub](${LIVE_BASE}) — Chinese social media trending data (Weibo/Bilibili/Toutiao) plus a China desk of local utilities (lunar calendar with 干支/生肖, resident-ID checksum validation, pinyin conversion) and 20 global no-key agent utilities ($0.01 each): weather, FX rates, public holidays, IP geolocation, HN search, dictionary, arXiv, game deals from CheapShark, cat/dog facts, bored activity, color palette tool, Datamuse synonyms, npm search, SPDX license list, random user profiles for testing, comments-for-post, inspirational quote of the day. Hosted MCP at \`${LIVE_BASE}/mcp\` (streamable HTTP, no key); \`initialize\`, \`tools/list\` and \`sample_free\` are free. Unpaid paid-tool calls return HTTP 402 with x402 accepts (USDC on Base Sepolia or Solana Devnet); sign the payment and retry in the call \`_meta\`. [Discovery](${LIVE_BASE}/.well-known/x402) · [Source](https://github.com/${USER}/autotasker-hub-aevum)`,
     prTitle: 'Add AutoTasker Hub — Chinese social media trending data MCP (x402, USDC)',
     prBody: `## Service: AutoTasker Hub
 
 - **Hosted MCP URL**: ${LIVE_BASE}/mcp (streamable HTTP, no key)
 - **Free**: \`initialize\`, \`tools/list\`, \`sample_free\` tool
-- **Paid**: \`get_hotlist\` ($0.05), \`search_chinese_social\` ($0.05), \`get_price_intel\` ($0.10), \`export_full_dataset\` ($0.50) — USDC via x402
+- **Paid**: \`get_hotlist\` ($0.05), \`search_chinese_social\` ($0.05), \`get_price_intel\` ($0.10), \`export_full_dataset\` ($0.50), plus 10 agent utilities at $0.01: \`weather\`, \`fx_rates\`, \`public_holidays\`, \`ip_geo\`, \`hn_search\`, \`define_word\`, \`arxiv_search\`, \`lunar_calendar\` (干支/生肖), \`cn_id_validate\`, \`pinyin_convert\` — USDC via x402
 - **Networks**: Base Sepolia (eip155:84532) + Solana Devnet (upgradeable to Base mainnet via env)
 - **PayTo**: 0x74a9f91763c28571af7a52987f425f62825cf5d8
 - **Source**: https://github.com/${USER}/autotasker-hub-aevum

@@ -1,0 +1,8 @@
+company,contact_name,email,phone,country,industry,product_interest,source,source_url,basis
+Shenzhen Yuanhe Electronics Co Ltd,Wang Lei,sales@yuanhe-elec.com,+86-755-1234-5678,CN,electronics,custom pcb assembly,canton_fair_exhibitor_list_2026,https://example.org/canton2026,public_business_listing
+Ningbo Haitong Import Export Co,Liu Fang,info@haitong-trade.cn,+86-574-8765-4321,CN,trading,china market data api,alibaba_supplier_profile,https://example.org/alibaba/123,public_business_listing
+Helios Robotics GmbH,Anna Weber,a.weber@helios-robotics.de,+49-30-555-0100,DE,robotics,edge gateway hardware,hannover_messe_exhibitor,https://example.org/hannover,public_business_listing
+Personal Buyer,John Doe,johndoe1985@gmail.com,,US,retail,price data,random_scrape,,public_business_listing
+Duplicate Of Yuanhe,Other Person,purchase@yuanhe-elec.com,,CN,electronics,pcb,forum_post,,public_business_listing
+City Procurement Office,Officer,bids@city.gov.example,,US,government,tender data,government_site,,public_business_listing
+No Basis Ltd,Sam Tan,sam@nobasis.com,+65-6000-0000,SG,trading,data,referral,, 

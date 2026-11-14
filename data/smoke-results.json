@@ -1,0 +1,495 @@
+{
+  "at": "2026-11-13T08:54:23.120Z",
+  "results": [
+    {
+      "name": "ip_geo",
+      "ok": true,
+      "ms": 754,
+      "bytes": 149,
+      "preview": "{\"ip\":\"8.8.8.8\",\"country\":\"United States\",\"region\":\"California\",\"city\":\"San Jose\",\"lat\":37.3393939,\"lon\":-121...."
+    },
+    {
+      "name": "public_holidays",
+      "ok": true,
+      "ms": 813,
+      "bytes": 458,
+      "preview": "{\"country\":\"CN\",\"year\":2026,\"count\":6,\"holidays\":[{\"date\":\"2026-01-01\",\"name\":\"New Year's Day\",\"localName\":\"元旦..."
+    },
+    {
+      "name": "hn_search",
+      "ok": true,
+      "ms": 1244,
+      "bytes": 484,
+      "preview": "{\"nbHits\":2039,\"hits\":[{\"title\":\"Monetization Gateway: Charge for any resource behind Cloudflare via x402\",\"ur..."
+    },
+    {
+      "name": "lunar_calendar",
+      "ok": true,
+      "ms": 7,
+      "bytes": 148,
+      "preview": "{\"solar\":\"2026-11-13\",\"lunar\":\"二零二六年十月初五\",\"ganzhi\":{\"year\":\"丙午\",\"month\":\"己亥\",\"day\":\"辛卯\"},\"zodiac\":\"马\",\"week\":\"..."
+    },
+    {
+      "name": "cn_id_validate",
+      "ok": true,
+      "ms": 0,
+      "bytes": 115,
+      "preview": "{\"valid\":true,\"checkDigit\":{\"expected\":\"X\",\"received\":\"X\"},\"province\":\"北京\",\"birthDate\":\"1949-12-31\",\"sex\":\"fem..."
+    },
+    {
+      "name": "pinyin_convert",
+      "ok": true,
+      "ms": 43,
+      "bytes": 58,
+      "preview": "{\"text\":\"自动化任务中心\",\"pinyin\":\"zì dòng huà rèn wu zhōng xīn\"}"
+    },
+    {
+      "name": "define_word",
+      "ok": true,
+      "ms": 841,
+      "bytes": 343,
+      "preview": "{\"word\":\"serendipity\",\"phonetic\":\"/ˌsɛ.ɹən.ˈdɪ.pɪ.ti/\",\"meanings\":[{\"partOfSpeech\":\"noun\",\"definitions\":[\"A co..."
+    },
+    {
+      "name": "arxiv_search",
+      "ok": true,
+      "ms": 900,
+      "bytes": 973,
+      "preview": "{\"query\":\"transformer\",\"count\":2,\"entries\":[{\"id\":\"http://arxiv.org/abs/2201.00978v1\",\"title\":\"PyramidTNT: Imp..."
+    },
+    {
+      "name": "fx_rates",
+      "ok": true,
+      "ms": 1723,
+      "bytes": 71,
+      "preview": "{\"base\":\"CNY\",\"date\":\"2026-11-12\",\"rates\":{\"USD\":149.97},\"amount\":1000}"
+    },
+    {
+      "name": "game_deals",
+      "ok": true,
+      "ms": 739,
+      "bytes": 735,
+      "preview": "{\"query\":{\"upperPrice\":\"5\",\"onSale\":false},\"deals\":[{\"title\":\"Rims Racing : Ultimate Edition\",\"salePrice\":\"2.9..."
+    },
+    {
+      "name": "cat_fact",
+      "ok": true,
+      "ms": 974,
+      "bytes": 115,
+      "preview": "{\"fact\":\"After humans, mountain lions have the largest range of any mammal in the Western Hemisphere.\",\"length..."
+    },
+    {
+      "name": "dog_breed_list",
+      "ok": true,
+      "ms": 1010,
+      "bytes": 883,
+      "preview": "{\"totalTopBreeds\":108,\"totalAllBreedsIncludingSub\":30,\"topBreeds\":[{\"breed\":\"affenpinscher\",\"subbreeds\":[]},{\"..."
+    },
+    {
+      "name": "weather",
+      "ok": true,
+      "ms": 3664,
+      "bytes": 182,
+      "preview": "{\"city\":\"北京\",\"lat\":39.9075,\"lon\":116.39723,\"current\":{\"time\":\"2026-11-13T16:45\",\"interval\":900,\"temperature_2m..."
+    },
+    {
+      "name": "bored_activity",
+      "ok": true,
+      "ms": 1176,
+      "bytes": 223,
+      "preview": "{\"activity\":\"Go see a movie in theaters with a few friends\",\"availability\":0.3,\"type\":\"social\",\"participants\":..."
+    },
+    {
+      "name": "color_info",
+      "ok": true,
+      "ms": 1315,
+      "bytes": 161,
+      "preview": "{\"hex\":\"#3366FF\",\"hexClean\":\"3366FF\",\"rgb\":\"rgb(51, 102, 255)\",\"hsl\":\"hsl(225, 100%, 60%)\",\"hsv\":\"hsv(225, 80%..."
+    },
+    {
+      "name": "color_scheme",
+      "ok": true,
+      "ms": 1169,
+      "bytes": 293,
+      "preview": "{\"mode\":\"monochrome\",\"colors\":[{\"hex\":\"#042FAE\",\"rgb\":\"rgb(4, 47, 174)\",\"name\":\"International Klein Blue\"},{\"h..."
+    },
+    {
+      "name": "datamuse_synonyms",
+      "ok": true,
+      "ms": 1077,
+      "bytes": 91,
+      "preview": "{\"word\":\"fast\",\"count\":5,\"synonyms\":[\"profligate\",\"prompt\",\"libertine\",\"hot\",\"degenerate\"]}"
+    },
+    {
+      "name": "spdx_licenses",
+      "ok": true,
+      "ms": 1501,
+      "bytes": 403,
+      "preview": "{\"found\":true,\"reference\":\"https://spdx.org/licenses/MIT.html\",\"isDeprecatedLicenseId\":false,\"detailsUrl\":\"htt..."
+    },
+    {
+      "name": "npm_search",
+      "ok": true,
+      "ms": 2451,
+      "bytes": 440,
+      "preview": "{\"query\":\"express\",\"total\":78091,\"packages\":[{\"name\":\"express\",\"version\":\"5.3.0\",\"description\":\"Fast, unopinio..."
+    },
+    {
+      "name": "defillama_chains",
+      "ok": true,
+      "ms": 823,
+      "bytes": 501,
+      "preview": "{\"totalChainsWithTVL\":5,\"chains\":[{\"name\":\"Ethereum\",\"symbol\":\"ETH\",\"tvlUsd\":88304766726.66682,\"geckoId\":\"ethe..."
+    },
+    {
+      "name": "quote_today",
+      "ok": true,
+      "ms": 1873,
+      "bytes": 150,
+      "preview": "{\"quote\":\"To be a great champion you must believe you are the best. If you're not, pretend you are.\",\"author\":..."
+    },
+    {
+      "name": "random_user",
+      "ok": true,
+      "ms": 2374,
+      "bytes": 333,
+      "preview": "{\"results\":[{\"gender\":\"female\",\"name\":\"Shadé Briels\",\"dob\":\"1986-10-13T09:04:24.378Z\",\"age\":40,\"location\":\"Wij..."
+    },
+    {
+      "name": "comment_for_post",
+      "ok": true,
+      "ms": 2596,
+      "bytes": 888,
+      "preview": "{\"postId\":1,\"count\":3,\"comments\":[{\"postId\":1,\"id\":1,\"name\":\"id labore ex et quam laborum\",\"email\":\"Eliseo@gar..."
+    },
+    {
+      "name": "gh_repo_info",
+      "ok": true,
+      "ms": 707,
+      "bytes": 277,
+      "preview": "{\"full_name\":\"coinbase/agentkit\",\"description\":\"Every AI Agent deserves a wallet.\",\"stars\":1356,\"forks\":912,\"o..."
+    },
+    {
+      "name": "hn_front_page",
+      "ok": true,
+      "ms": 1086,
+      "bytes": 568,
+      "preview": "{\"nbHits\":30,\"stories\":[{\"title\":\"Jensen Huang resigns\",\"points\":3468,\"comments\":3093,\"url\":\"https://apnews.co..."
+    },
+    {
+      "name": "espn_sports_news",
+      "ok": true,
+      "ms": 1846,
+      "bytes": 911,
+      "preview": "{\"sport\":\"nba\",\"count\":2,\"articles\":[{\"headline\":\"Cade drops 52 in Thursday's NBA Recap\",\"description\":\"Cade C..."
+    },
+    {
+      "name": "bitcoin_fees",
+      "ok": true,
+      "ms": 873,
+      "bytes": 132,
+      "preview": "{\"feesSatPerVb\":{\"fastestFee\":1,\"halfHourFee\":1,\"hourFee\":1,\"economyFee\":1,\"minimumFee\":1},\"unit\":\"sat/vB\",\"so..."
+    },
+    {
+      "name": "btc_usd_rate",
+      "ok": true,
+      "ms": 648,
+      "bytes": 623,
+      "preview": "{\"btcPriceUsd\":68742.62,\"allCurrencies\":{\"ARS\":106225358.35,\"AUD\":101170.99,\"BRL\":387894.06,\"CAD\":97976.18,\"CH..."
+    },
+    {
+      "name": "random_bear_image",
+      "ok": true,
+      "ms": 0,
+      "bytes": 66,
+      "preview": "{\"image\":\"https://placebear.com/600/600\",\"width\":600,\"height\":600}"
+    },
+    {
+      "name": "random_dog_placeholder",
+      "ok": true,
+      "ms": 1,
+      "bytes": 62,
+      "preview": "{\"image\":\"https://place.dog/600/600\",\"width\":600,\"height\":600}"
+    },
+    {
+      "name": "baidu_hot",
+      "ok": true,
+      "ms": 454,
+      "bytes": 1173,
+      "preview": "{\"board\":\"baidu_hot\",\"boardName\":\"百度热搜\",\"count\":5,\"items\":[{\"rank\":1,\"title\":\"习近平将出席APEC深圳会议\",\"pinned\":true,\"u..."
+    },
+    {
+      "name": "random_cat_image",
+      "ok": true,
+      "ms": 1047,
+      "bytes": 89,
+      "preview": "{\"image\":\"https://cdn2.thecatapi.com/images/dj.jpg\",\"width\":1936,\"height\":2592,\"id\":\"dj\"}"
+    },
+    {
+      "name": "random_dog_image",
+      "ok": true,
+      "ms": 943,
+      "bytes": 84,
+      "preview": "{\"image\":\"https://images.dog.ceo/breeds/pug/n02110958_11870.jpg\",\"status\":\"success\"}"
+    },
+    {
+      "name": "douyin_hot",
+      "ok": true,
+      "ms": 513,
+      "bytes": 395,
+      "preview": "{\"board\":\"douyin_hot\",\"snapshotAt\":\"2026-11-13 16:54:25\",\"count\":5,\"items\":[{\"rank\":1,\"title\":\"油价下调 加满一箱油少花约26..."
+    },
+    {
+      "name": "ithome_news",
+      "ok": true,
+      "ms": 265,
+      "bytes": 1151,
+      "preview": "{\"count\":5,\"items\":[{\"title\":\"京东自营 48.9 元：风影二硫化硒 1% 洗发水等 29.5 元大促（365 天免费试用）\",\"summary\":\"\",\"published\":\"2026-1..."
+    },
+    {
+      "name": "douban_movie",
+      "ok": true,
+      "ms": 605,
+      "bytes": 1378,
+      "preview": "{\"board\":\"影院热映\",\"total\":86,\"count\":5,\"items\":[{\"title\":\"心迷宫之三重罪\",\"info\":\"中国大陆 / 悬疑 犯罪 / 何念 / 姜武 杜光祎\",\"releaseD..."
+    },
+    {
+      "name": "thepaper_hot",
+      "ok": true,
+      "ms": 774,
+      "bytes": 955,
+      "preview": "{\"board\":\"澎湃热榜\",\"count\":5,\"items\":[{\"rank\":1,\"title\":\"重庆梁平：“饭店老板为连吃7碗米饭母女放钱”视频系摆拍，已立案调查\",\"published\":\"21小时前\",\"..."
+    },
+    {
+      "name": "wallstreetcn",
+      "ok": true,
+      "ms": 631,
+      "bytes": 1090,
+      "preview": "{\"channel\":\"global-7x24\",\"count\":5,\"items\":[{\"title\":null,\"text\":\"问界新M8正式上市，售价区间37.98-46.98万元。\",\"published\":\"2..."
+    },
+    {
+      "name": "juejin_hot",
+      "ok": true,
+      "ms": 1046,
+      "bytes": 1377,
+      "preview": "{\"count\":5,\"items\":[{\"title\":\"面试官问你：“AI 能写 80% 的代码了，公司为什么还需要你？”\",\"brief\":\"先说一个事实：2026 年的技术面试，已经和两年前完全不一样了。两年前面..."
+    },
+    {
+      "name": "eastmoney_index",
+      "ok": true,
+      "ms": 765,
+      "bytes": 846,
+      "preview": "{\"market\":\"A-share indices\",\"count\":5,\"items\":[{\"code\":\"000001\",\"name\":\"上证指数\",\"value\":3634.35,\"changePct\":-0.5..."
+    },
+    {
+      "name": "eastmoney_ashare",
+      "ok": true,
+      "ms": 772,
+      "bytes": 951,
+      "preview": "{\"board\":\"top-gainers\",\"total\":5564,\"count\":5,\"items\":[{\"code\":\"300528\",\"name\":\"幸福蓝海\",\"priceCny\":17.99,\"change..."
+    },
+    {
+      "name": "tencent_quote",
+      "ok": true,
+      "ms": 323,
+      "bytes": 1319,
+      "preview": "{\"count\":2,\"quotes\":[{\"symbol\":\"600519\",\"market\":\"1\",\"name\":\"贵州茅台\",\"price\":1435.26,\"prevClose\":1410.27,\"open\":..."
+    },
+    {
+      "name": "qqmusic_toplist",
+      "ok": true,
+      "ms": 452,
+      "bytes": 690,
+      "preview": "{\"chart\":\"巅峰榜·热歌\",\"updateDate\":\"2026-11-13\",\"count\":5,\"items\":[{\"rank\":1,\"song\":\"无中生有 Ex Nihilo\",\"artists\":[\"H..."
+    },
+    {
+      "name": "netease_hot",
+      "ok": true,
+      "ms": 510,
+      "bytes": 586,
+      "preview": "{\"chart\":\"热歌榜\",\"count\":5,\"items\":[{\"rank\":1,\"song\":\"时过境迁\",\"artists\":[\"苏艺馨Chency\"],\"album\":\"时过境迁\",\"popularity\":..."
+    },
+    {
+      "name": "open_meteo_marine",
+      "ok": true,
+      "ms": 1978,
+      "bytes": 193,
+      "preview": "{\"location\":{\"name\":null,\"country\":null,\"lat\":22.3,\"lon\":114.2},\"time\":\"2026-11-13T16:45\",\"waveHeightM\":0.7,\"w..."
+    },
+    {
+      "name": "sunrise_sunset",
+      "ok": true,
+      "ms": 2028,
+      "bytes": 516,
+      "preview": "{\"lat\":39.9,\"lon\":116.4,\"date\":null,\"tzid\":\"UTC\",\"results\":{\"sunrise\":\"2026-11-12T22:56:39+00:00\",\"sunset\":\"20..."
+    },
+    {
+      "name": "air_quality",
+      "ok": true,
+      "ms": 4474,
+      "bytes": 239,
+      "preview": "{\"location\":{\"name\":\"Beijing\",\"country\":\"China\",\"lat\":39.9075,\"lon\":116.39723},\"time\":\"2026-11-13T16:00\",\"pm2_..."
+    },
+    {
+      "name": "defillama_pools",
+      "ok": true,
+      "ms": 9796,
+      "bytes": 629,
+      "preview": "{\"status\":\"success\",\"totalPoolsInResponse\":3,\"pools\":[{\"pool\":\"747c1d2a-c668-4682-b9f9-296708a3dd90\",\"chain\":\"..."
+    },
+    {
+      "name": "usgs_quake",
+      "ok": true,
+      "ms": 4043,
+      "bytes": 1297,
+      "preview": "{\"feed\":\"2.5_day\",\"totalInFeed\":30,\"count\":5,\"items\":[{\"magnitude\":4.7,\"place\":\"27 km NNE of Labuan Lombok, In..."
+    },
+    {
+      "name": "carbon_intensity",
+      "ok": true,
+      "ms": 4000,
+      "bytes": 146,
+      "preview": "{\"from\":\"2026-11-13T08:00Z\",\"to\":\"2026-11-13T08:30Z\",\"forecastGco2PerKwh\":151,\"actualGco2PerKwh\":155,\"index\":\"..."
+    },
+    {
+      "name": "translate_text",
+      "ok": true,
+      "ms": 11349,
+      "bytes": 96,
+      "preview": "{\"from\":\"en\",\"to\":\"zh-CN\",\"original\":\"hello world\",\"translated\":\"Hello World\",\"matchScore\":0.85}"
+    },
+    {
+      "name": "worldbank_indicator",
+      "ok": true,
+      "ms": 2691,
+      "bytes": 337,
+      "preview": "{\"country\":\"CN\",\"indicator\":\"NY.GDP.MKTP.CD\",\"count\":3,\"series\":[{\"year\":\"2025\",\"value\":19498039388042.6,\"coun..."
+    },
+    {
+      "name": "erapi_fx",
+      "ok": true,
+      "ms": 3151,
+      "bytes": 222,
+      "preview": "{\"base\":\"USD\",\"updated\":\"Fri, 13 Nov 2026 00:02:31 +0000\",\"nextUpdate\":\"Sat, 14 Nov 2026 00:15:41 +0000\",\"prov..."
+    },
+    {
+      "name": "pubmed_search",
+      "ok": true,
+      "ms": 2517,
+      "bytes": 58,
+      "preview": "{\"query\":\"x402 payment\",\"total\":0,\"count\":0,\"articles\":[]}"
+    },
+    {
+      "name": "openf1",
+      "ok": true,
+      "ms": 2791,
+      "bytes": 5996,
+      "preview": "{\"series\":\"Formula 1\",\"count\":22,\"drivers\":[{\"number\":1,\"name\":\"Lando NORRIS\",\"acronym\":\"NOR\",\"team\":\"McLaren\"..."
+    },
+    {
+      "name": "zenodo_search",
+      "ok": true,
+      "ms": 3712,
+      "bytes": 781,
+      "preview": "{\"query\":\"climate dataset\",\"total\":419989,\"count\":3,\"records\":[{\"id\":6800385,\"title\":\"Dataset of code metrics\"..."
+    },
+    {
+      "name": "iss_position",
+      "ok": true,
+      "ms": 4039,
+      "bytes": 246,
+      "preview": "{\"name\":\"iss\",\"latitude\":-16.26291484007,\"longitude\":-71.138685846513,\"altitudeKm\":427.83898682397,\"velocityKm..."
+    },
+    {
+      "name": "crossref_search",
+      "ok": true,
+      "ms": 5457,
+      "bytes": 1183,
+      "preview": "{\"query\":\"x402 protocol\",\"total\":300744,\"count\":3,\"results\":[{\"doi\":\"10.1109/smartcomp-companion70724.2026.000..."
+    },
+    {
+      "name": "itunes_search",
+      "ok": true,
+      "ms": 254,
+      "bytes": 1811,
+      "preview": "{\"term\":\"lofi\",\"media\":\"music\",\"count\":3,\"results\":[{\"kind\":\"song\",\"name\":\"Daily Study - Lo-Fi for Focus & Stu..."
+    },
+    {
+      "name": "pypi_info",
+      "ok": true,
+      "ms": 3193,
+      "bytes": 725,
+      "preview": "{\"name\":\"requests\",\"version\":\"2.34.2\",\"summary\":\"Python HTTP for Humans.\",\"license\":\"Apache-2.0\",\"requiresPyth..."
+    },
+    {
+      "name": "crates_search",
+      "ok": true,
+      "ms": 2168,
+      "bytes": 597,
+      "preview": "{\"query\":\"serde\",\"total\":25487,\"count\":3,\"crates\":[{\"name\":\"serde\",\"maxVersion\":\"1.0.229\",\"downloads\":16995606..."
+    },
+    {
+      "name": "themealdb",
+      "ok": true,
+      "ms": 1130,
+      "bytes": 10511,
+      "preview": "{\"query\":\"chicken\",\"count\":10,\"meals\":[{\"id\":\"52795\",\"name\":\"Chicken Handi\",\"category\":\"Chicken\",\"area\":\"India..."
+    },
+    {
+      "name": "university_search",
+      "ok": true,
+      "ms": 869,
+      "bytes": 172,
+      "preview": "{\"count\":1,\"shown\":1,\"universities\":[{\"name\":\"Tsinghua University\",\"country\":\"China\",\"code\":\"CN\",\"webPages\":[\"..."
+    },
+    {
+      "name": "openfoodfacts",
+      "ok": true,
+      "ms": 1902,
+      "bytes": 830,
+      "preview": "{\"barcode\":\"0737628064502\",\"name\":\"Thai peanut noodle kit includes stir-fry rice noodles & thai peanut seasoni..."
+    },
+    {
+      "name": "jisho_search",
+      "ok": true,
+      "ms": 2184,
+      "bytes": 736,
+      "preview": "{\"keyword\":\"猫\",\"count\":3,\"results\":[{\"slug\":\"猫\",\"japanese\":[{\"word\":\"猫\",\"reading\":\"ねこ\"},{\"reading\":\"ネコ\"}],\"isC..."
+    },
+    {
+      "name": "opentdb_trivia",
+      "ok": true,
+      "ms": 1494,
+      "bytes": 689,
+      "preview": "{\"count\":3,\"questions\":[{\"category\":\"Entertainment: Video Games\",\"difficulty\":\"hard\",\"type\":\"boolean\",\"questio..."
+    },
+    {
+      "name": "advice_slip",
+      "ok": true,
+      "ms": 1374,
+      "bytes": 59,
+      "preview": "{\"id\":106,\"advice\":\"A problem shared is a problem halved.\"}"
+    },
+    {
+      "name": "useless_fact",
+      "ok": true,
+      "ms": 1364,
+      "bytes": 283,
+      "preview": "{\"id\":\"c67ee2b7913742a96247227dc9ac58b2\",\"fact\":\"In England, the Speaker of the House is not allowed to speak...."
+    },
+    {
+      "name": "codeforces_contests",
+      "ok": true,
+      "ms": 4071,
+      "bytes": 962,
+      "preview": "{\"upcomingOnly\":false,\"count\":5,\"contests\":[{\"id\":2282,\"name\":\"Kotlin Heroes: Episode 15\",\"type\":\"ICPC\",\"phase..."
+    },
+    {
+      "name": "random_fox",
+      "ok": true,
+      "ms": 1538,
+      "bytes": 89,
+      "preview": "{\"image\":\"https://randomfox.ca/images/101.jpg\",\"permalink\":\"https://randomfox.ca/?i=101\"}"
+    }
+  ]
+}

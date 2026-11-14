@@ -1,0 +1,12 @@
+# Production assets only — no debug/test scripts
+.tools/
+node_modules/
+.vercel/
+.DS_Store
+*.log
+.env.local
+data/
+docs/
+scripts-prod/
+.github/workflows/*
+!.github/workflows/*.yml

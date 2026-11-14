@@ -23,3 +23,9 @@ Thumbs.db
 .idea/
 .vscode/
 *.log
+
+.vercel
+.env*
+config/keys/
+data/keys/
+*.pem

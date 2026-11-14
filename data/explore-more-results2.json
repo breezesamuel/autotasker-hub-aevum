@@ -1,0 +1,200 @@
+[
+  {
+    "name": "OpenAI-models",
+    "url": "https://api.openai.com/v1/models",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "HuggingFace-tasks",
+    "url": "https://huggingface.co/api/tasks",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "HuggingFace-spaces",
+    "url": "https://huggingface.co/api/spaces?limit=3&sort=likes",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "TogetherAI-demo",
+    "url": "https://api.together.xyz/v1/models",
+    "status": 403,
+    "ok": false
+  },
+  {
+    "name": "OLLAMA-list",
+    "url": "http://localhost:11434/api/tags",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "CoinGecko-BTC-price",
+    "url": "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,cny",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "CoinGecko-ETH-price",
+    "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "MempoolBTC-fees",
+    "url": "https://mempool.space/api/v1/fees/recommended",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "name": "Blockchain-info-btc",
+    "url": "https://blockchain.info/ticker",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "name": "FlightRadar-free",
+    "url": "https://registry.flightradar24.com/flights.json",
+    "status": 403,
+    "ok": false
+  },
+  {
+    "name": "FlightStats-free",
+    "url": "https://developer.flightstats.com/",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "name": "OpenRailwayMap",
+    "url": "https://operations.osm.wales/api/v1/features?type=routes",
+    "status": 404,
+    "ok": false
+  },
+  {
+    "name": "BusAPI-DK",
+    "url": "https://www.au.dk/busapi/v1/stops/?format=json",
+    "status": 404,
+    "ok": false
+  },
+  {
+    "name": "TransitAPI-NY",
+    "url": "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-hts",
+    "status": 200,
+    "ok": false
+  },
+  {
+    "name": "Pexels-search",
+    "url": "https://api.pexels.com/v1/search?query=nature&per_page=2",
+    "status": 401,
+    "ok": true
+  },
+  {
+    "name": "Pixabay-search",
+    "url": "https://pixabay.com/api/?key=demo&q=nature&page=1",
+    "status": 400,
+    "ok": false
+  },
+  {
+    "name": "Imgur-random-gallery",
+    "url": "https://api.imgur.com/3/gallery/random/hot?sort=viral&time=week&limit=1&rscan=true",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "OpenLibrary-search",
+    "url": "https://openlibrary.org/search/authors.json?q=j.KING&limit=2",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "Gutenberg-search",
+    "url": "https://www.gutenberg.org/cache/epub//pg36547/pg36547-images.html",
+    "status": 404,
+    "ok": false
+  },
+  {
+    "name": "NewsAPI-free",
+    "url": "https://newsapi.org/v2/top-headlines?country=us&pageSize=2",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "MediaStack",
+    "url": "https://api.medastack.com/v1/news?countries=US&category=technology&limit=2&api_key=demo",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "Newscatcher-demos",
+    "url": "https://newsapi.g.newscatcherapi.com/docs/demo",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "Currents-API",
+    "url": "https://currentsapi.services/api/v1/latest_news?language=en&last_news=24&apikey=demo",
+    "status": 404,
+    "ok": false
+  },
+  {
+    "name": "BMI-calculator-API",
+    "url": "https://api.bmi-api.com/",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "CalorieNG",
+    "url": "https://calories.ninjaword.com/calories.php?q=apple",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "FitnessDB",
+    "url": "https://api.api-ninjas.com/v1/exercises?limit=3",
+    "status": 400,
+    "ok": true
+  },
+  {
+    "name": "RandomUser-US",
+    "url": "https://randomuser.me/api/?nat=us&results=1",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "name": "RandomUser-EU",
+    "url": "https://randomuser.me/api/?nat=gb&results=1",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "name": "PoemAPI",
+    "url": "https://api.quotable.io/quotes?limit=1&minLength=50",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "RandomDog-url",
+    "url": "https://dog.ceo/api/breeds/image/random/3",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "name": "RandomCat-url",
+    "url": "https://api.thecatapi.com/v1/images/search?limit=1",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "name": "PlaceDog",
+    "url": "https://place.dog/300/300",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "name": "PlaceBear",
+    "url": "https://placebear.com/300/200",
+    "status": 200,
+    "ok": true
+  }
+]

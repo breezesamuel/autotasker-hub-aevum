@@ -1,0 +1,70 @@
+{
+  "generatedAt": "2026-11-13T15:56:21.463Z",
+  "treasury": "0xb9A9E6d9C4Ad1635aA685bba2e235A515A94773C",
+  "chain": "Base",
+  "onchain": {
+    "usdcBalanceUsd": 0
+  },
+  "revenue": {
+    "realizedExternalUsd": 10.829,
+    "externalPayments": 2,
+    "houseSelfPayUsdExcluded": 81.025183
+  },
+  "allocatableUsd": 0,
+  "blockedReason": "allocatable $0.00 is below the $10.00 floor — first land real external revenue, then allocate",
+  "buckets": [
+    {
+      "bucket": "savings",
+      "pct": 0.3,
+      "targetUsdc": 0,
+      "currentUsdc": 0,
+      "moveUsdc": 0,
+      "venue": "金库内独立记账（cold-savings 子账），不参与任何 DeFi 合约",
+      "purpose": "储蓄 / 不冒险的底仓"
+    },
+    {
+      "bucket": "compound",
+      "pct": 0.6,
+      "targetUsdc": 0,
+      "currentUsdc": 0,
+      "moveUsdc": 0,
+      "venue": "Base 上 single-asset 稳定币池（白名单见 allowedVenues）",
+      "purpose": "复利投资：稳定币生息，收益滚入本金"
+    },
+    {
+      "bucket": "stable",
+      "pct": 0.1,
+      "targetUsdc": 0,
+      "currentUsdc": 0,
+      "moveUsdc": 0,
+      "venue": "金库内留存 USDC（不锁仓）",
+      "purpose": "稳定盘：可随时动用的运营/机会资金"
+    }
+  ],
+  "compoundVenue": {
+    "project": "morpho-blue",
+    "pool": "14170877-8941-4c7d-b12c-06517c70f1e7",
+    "symbol": "ETHENAUSDC",
+    "apy": 6.71,
+    "apyBase": 4.01,
+    "apyReward": 2.7,
+    "tvlUsd": 26003553,
+    "ilRisk": "no",
+    "stablecoin": true,
+    "exposure": "single",
+    "rewardTokens": 1,
+    "outlier": false,
+    "predictions": {
+      "predictedClass": "Down",
+      "predictedProbability": 78,
+      "binnedConfidence": 3
+    },
+    "scannedAt": "2026-11-13T14:03:01.775Z"
+  },
+  "invariants": {
+    "onlyExternalRevenueAllocated": true,
+    "houseSelfPayExcluded": true,
+    "treasuryIsSingleSourceOfTruth": "0xb9A9E6d9C4Ad1635aA685bba2e235A515A94773C",
+    "privateKeyOutsideThisMachine": true
+  }
+}
