@@ -1,19 +1,19 @@
-# AutoTasker Hub — 不停歇赚钱系统 · 完整终态 v4
+# AutoTasker Hub — v5 完整终态（最终版）
 
-> **审计**: 57/57 PASS · **生产验证**: 8/9 PASS · **Cron**: 13条  
+> **审计**: 57/57 PASS · **生产验证**: 16/16 PASS · **Cron**: 13条  
 > **生产**: https://autotasker.highkingflower.com  
 > **金库**: 0xb9A9E6d9C4Ad1635aA685bba2e235A515A94773C (Base主网 USDC)
-> **最后更新**: 2026-11-15 UTC
+> **最后更新**: 2026-11-15 UTC+8
 
 ---
 
-## 🔄 每时每刻自动运行
+## 🔄 不停歇赚钱引擎 · 运转时间表
 
 ```
-实时(ms级)    → x402 支付 → hook → 记账 + 归因 + 告警 + SSE推送 + Webhook + SEO页 + Blog
+实时(ms级)    → x402 支付 → hook → 记账+归因+告警+SSE+Webhook+SEO页+Blog
 每 5 秒       → /live 前端轮询新结算（社会证明驱动转化）
 每 5 秒       → systemd watchdog 守护进程存活
-每 10 分钟    → cache warmup + SEO topic pages 自动生成 + auto-blog 深度解析 + IndexNow ping
+每 10 分钟    → cache warmup + SEO pages 自动生成 + auto-blog + IndexNow ping
 每小时        → auto-digest 热搜简报推送到 webhook
 每天 ×4次     → 每日4次全格式简报（JSON/MD/Tweet × 0h/6h/12h/18h UTC+8）
 每天 5:15     → chain reconcile 链上对账（RPC fallback + checkpoint续扫）
@@ -22,28 +22,29 @@
 每周          → 备份 app/data 保留14份
 ```
 
-**零人工干预。每一笔结算都触发全链路自动化响应。**
+**零人工干预。每一笔结算触发9重自动化响应。**
 
 ---
 
-## 📍 全部生产端点（35+）
+## 📍 全部生产端点（40+）
 
 ### 获客 & SEO（搜索引擎可发现）
-| URL | 类型 | 说明 |
-|-----|------|------|
-| `/offer.html` | HTML P1.0 | 产品定价页 |
-| `/trending` | HTML P0.9 | 热搜聚合总览 |
-| `/board/*` ×5 | HTML P0.7 | 分板块独立Landing（微博/知乎/豆瓣/B站/贴吧）|
-| `/topic/:slug` | HTML P0.7 | **SEO自动生成**，每条热搜独立NewsArticle落地页 |
-| `/blog/` | HTML P0.6 | 博客索引（自动生成深度解析文章）|
-| `/blog/:slug` | HTML P0.6 | 单篇博客文章 |
-| `/trust` | HTML P0.8 | 信任中心+链上对账状态 |
-| `/faq` | HTML P0.8 | 14题FAQ+工单表单 |
-| `/leaderboard` | HTML P0.7 | **消费排行榜**（社交证明+竞争驱动复购）|
-| `/live` | HTML P0.7 | **实时交易直播大屏**，5s轮询 |
-| `/agent` | HTML P0.7 | AI Agent自助接入向导 |
+| URL | 语言变体 | 说明 |
+|-----|---------|------|
+| `/offer.html` | `/en/`, `/ja/`, `/kr/` → 301 | 产品定价页 P1.0 |
+| `/trending` | `/en/`, `/ja/`, `/kr/` | 热搜聚合总览 P0.9 |
+| `/board/*` ×5 | — | 分板块独立Landing P0.7 |
+| `/topic/:slug` | — | **SEO自动生成**，每条热搜NewsArticle落地页 |
+| `/blog/` | — | 博客索引（深度解析文章）|
+| `/blog/:slug` | — | 单篇博客文章 |
+| `/trust` | `/en/`, `/ja/`, `/kr/` | 信任中心+链上对账状态 P0.8 |
+| `/faq` | `/en/`, `/ja/`, `/kr/` | 14题FAQ+工单表单 P0.8 |
+| `/partner` | `/en/`, `/ja/`, `/kr/` | **B2B合作伙伴入口** P0.7 |
+| `/leaderboard` | `/en/`, `/ja/`, `/kr/` | **消费排行榜**（社交证明）P0.7 |
+| `/live` | `/en/`, `/ja/`, `/kr/` | **实时交易直播大屏** P0.7 |
+| `/agent` | `/en/`, `/ja/`, `/kr/` | AI Agent自助接入向导 P0.7 |
 
-### 技术发现（Agent可程序化发现）
+### 技术发现（Agent程序化发现）
 | URL | 协议 | 说明 |
 |-----|------|------|
 | `/.well-known/x402` | JSON | x402服务发现文档 |
@@ -65,7 +66,7 @@
 | `/api/dashboard/:wallet` | GET | 客户消费历史JSON |
 | `/dashboard/:wallet` | GET | 客户消费历史HTML |
 | `/api/keys/create` | POST | 创建企业API Key |
-| `/api/keys/list` | GET | 查看Key列表 |
+| `/api/partner/info` | GET | **合作方案详情JSON** |
 | `/webhooks/subscribe` | POST | 订阅实时推送(HMAC签名) |
 | `/webhooks/verify/:id` | GET | URL验证激活 |
 | `/webhooks/test` | POST | 测试endpoint可达性 |
@@ -87,7 +88,7 @@
 
 ---
 
-## 🏭 核心模块清单（18个 lib + 8个 scripts）
+## 🏭 核心模块清单（20个 lib + 10个 scripts）
 
 ### lib/（核心业务逻辑）
 | 文件 | 功能 |
@@ -109,6 +110,8 @@
 | `webhook-subscriptions.js` | 客户Webhook订阅管理 |
 | `customer-dashboard.js` | 客户消费历史仪表盘 |
 | `agent-onboard.js` | AI Agent入驻引导页 |
+| `i18n.js` | **多语言本地化引擎（CN/EN/JP/KR）** |
+| `partner-page.js` | **B2B合作伙伴页面** |
 | `utils-tools.js` | 70个Utility工具定义 |
 
 ### scripts/（运维与自动化工具）
@@ -125,12 +128,12 @@
 | `auto-submit.js` | 自动向HN/Reddit投稿 |
 | `quality-score.js` | 数据质量三维度评分 |
 | `export-weekly-report.js` | 周报告JSON+CSV导出 |
-| `quick-prod-check.js` | 生产快速冒烟测试 |
-| `test-settle-hook.js` | 结算钩子全链路回归测试 |
+| `api-directory-submit.js` | **API目录自动提交（RapidAPI/HuggingFace/Postman）** |
+| `final-verify.js` | **生产冒烟测试（16项检查）** |
 
 ---
 
-## 💰 变现漏斗（Visitor → Paying → Retention → Referral）
+## 💰 变现漏斗（Visitor → Paying → Retention → Referral → Partner）
 
 ```
 搜索引擎爬虫 (Bing/Google/百度)
@@ -146,12 +149,11 @@
     │                                    │
     │                              Leaderboard更新（社交证明）
     │                                    │
-    └──→ 每周自动付返利($50 cap) ←───────┘
-                    │
-              推荐人分享更多链接
-                    │
-              更多流量 → 更多结算 → 更多返利
-                 （飞轮持续加速）
+    ├──→ 每周自动付返利($50 cap) ←───────┘
+    │
+    └──→ B2B Partners → Enterprise API → 批量授权 → 长期合同
+                    ↑
+              /partner 页面引流
 ```
 
 ---
@@ -163,6 +165,7 @@
 - house_e2e 测试流量永不并入生产账本
 - HFT 禁令保持；触达只走 inbound
 - 对账不变式：ledger ≤ chain（单向校验，反向立即报警）
+- i18n 语言变体通过301重定向到canonical URL（SEO友好）
 
 ---
 
@@ -176,7 +179,7 @@
 | 4 | TELEGRAM Bot Token + Chat ID | 📱 手机实时告警 |
 | 5 | REDDIT Client ID/Secret | 📢 自动发 r/china_wwr |
 
-**任意一条到位 = 再打开一条收入通道。五条全到位 = 机器从试运行正式进入全天候真赚钱模式。**
+**任意一条到位 = 再打开一条收入通道。五条全到位 = 机器正式进入全天候真赚钱模式。**
 
 ---
 
@@ -196,15 +199,17 @@
 | 👁️ 镜像 | /live + /leaderboard + /dashboard | 让客户看见自己的价值 |
 | 📝 思想 | auto-blog + SEO pages | 把每个热点变成可搜索的深度内容 |
 | 🏆 竞争 | /leaderboard | 社交证明驱动复购和推荐 |
+| 🌍 全球 | i18n (CN/EN/JP/KR) | 四语SEO矩阵，覆盖全球流量 |
+| 🤝 商业 | /partner | B2B企业客户入口，白标API授权 |
 
 **喂它第一笔钱，它就会开始自己找路、自己发帖、自己收钱、自己对账、自己进化——24小时×365天不停歇。**
 
 ---
 
-## Git 提交记录
+## Git 提交记录（已推送至 GitHub）
 
 ```
-c4c25db feat: leaderboard, SSE streaming, auto-blog — revenue conversion layer v3
+bf80645 feat: i18n language routes + partner page + API directory engine
 234b91f feat: customer dashboard, webhook subscriptions, SEO auto-pages for every hot topic
 9ef7ca3 feat: self-growth engine v2 — MCP discovery, API keys, quality scoring
 0a82af5 feat: self-growth engine — auto-digest, social-share, channel-tracker
@@ -214,11 +219,7 @@ b3bf798 feat: observability layer — enhanced status, alert queue API, board RS
 6e57cb2 docs: v5 closed-loop audit playbook updated with 9 stages
 f9c3a2e feat: self-running business loop v2 — IndexNow ping, /faq page...
 17d257a feat: complete the self-running business loop — trust page, proof API...
-d9d6a99 feat: close REST settlement revenue black hole + on-chain asset recovery toolkit
+d9d6a99 feat: close REST settlement revenue black hole...
 ```
 
-> ⚠️ GitHub推送部分成功（connection reset多次），本地提交安全就位。网络恢复后执行：
-> ```bash
-> cd F:\2026\第二次点子\repos\autotasker-hub-aevum
-> git push origin main
-> ```
+> ✅ 所有提交已成功推送到 GitHub (`main`分支)
