@@ -55,6 +55,16 @@ CRON_TASKS = [
      "15 5 * * * cd " + APP + " && node scripts/reconcile-onchain.js --json >> " + LOGDIR + "/reconcile.log 2>&1  " + MARK + " daily-reconcile"),
     ("weekly-report-export",
      "20 5 * * 1 cd " + APP + " && mkdir -p data/reports && node scripts/export-weekly-report.js >> " + LOGDIR + "/service.log 2>&1  " + MARK + " weekly-report-export"),
+    ("daily-digest-0h",
+     "0 16 * * * cd " + APP + " && node scripts/auto-digest.js >> " + LOGDIR + "/digest.log 2>&1  " + MARK + " daily-digest-0h"),
+    ("daily-digest-6h",
+     "0 22 * * * cd " + APP + " && node scripts/auto-digest.js >> " + LOGDIR + "/digest.log 2>&1  " + MARK + " daily-digest-6h"),
+    ("daily-digest-12h",
+     "0 4 * * * cd " + APP + " && node scripts/auto-digest.js >> " + LOGDIR + "/digest.log 2>&1  " + MARK + " daily-digest-12h"),
+    ("daily-digest-18h",
+     "0 10 * * * cd " + APP + " && node scripts/auto-digest.js >> " + LOGDIR + "/digest.log 2>&1  " + MARK + " daily-digest-18h"),
+    ("weekly-channel-analysis",
+     "25 5 * * 1 cd " + APP + " && node scripts/channel-tracker.js --ingest >> " + LOGDIR + "/service.log 2>&1; node scripts/channel-tracker.js >> " + LOGDIR + "/channels.log 2>&1  " + MARK + " weekly-channel-analysis"),
 ]
 TAGS = {t for t, _ in CRON_TASKS}
 

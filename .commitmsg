@@ -1,12 +1,35 @@
-feat: observability layer — enhanced status, alert queue API, board RSS, Bazaar metadata, graceful shutdown
+feat: self-growth engine — auto-digest, social-share, channel-tracker, cron expansion
 
-- lib/x402-v4.js: GET /api/status now reports uptimeSeconds, memory (rss/heap), lastSettledAt timestamp, and alert queue pending count.
-- lib/x402-v4.js: NEW GET /api/alerts/queue — read-only queue stats (pending/sent/failed/total) without exposing payloads.
-- lib/x402-v4.js: GET /.well-known/x402 expanded with verification links (basescan, proof api, reconcile api), referral policy, full docs map, per-paid-route params.
-- lib/x402-v4.js: GET /feed.xml supports ?board=<name> filter for per-board RSS feeds; each board page already has alternate RSS link.
-- lib/x402-v4.js: process.on(SIGTERM/SIGINT) → drain alert queue then exit (graceful shutdown).
-- public/sitemap.xml: added .well-known/x402 entry (monthly, priority 0.5).
-- scripts/business-loop-audit.js: stage 9 summary line updated to show 9 stages.
-- docs/BUSINESS-CLOSED-LOOP-AUDIT.md: finalized with all 57 checks across 9 stages.
+This round transforms the system from a "working service" into a self-fueling
+growth machine that runs 24/7 looking for opportunities and amplifying reach.
 
-Verification: prod audit 57/57 PASS; /api/status shows uptime+memory; /api/alerts/queue returns {pending,sent,failed,total}; /.well-known/x402 has verification block; /feed.xml?board=weiboHot returns filtered items.
+NEW SCRIPTS:
+- scripts/auto-digest.js: daily hot-topic briefings in JSON/Markdown/Tweet format,
+  fire-and-forget webhook push (Telegram/Discord/Slack/webhook). Crontab'd 4x/day.
+- scripts/social-share.js: multi-platform copy generator (Weibo ≤140 chars, LinkedIn
+  industry post, Reddit thread, email newsletter, tweet thread). CLI + programmatic.
+- scripts/channel-tracker.js: attribution engine that classifies every HTTP request by
+  channel (organic/search/social/referral/api/direct) and ingests service.log to build
+  per-day per-channel traffic tables. Weekly report aggregates these numbers.
+
+CRON EXPANDED: 12 autotasker tasks (was 7):
+  - 4× daily digest (0h/6h/12h/18h UTC+8 = 16:00/22:00/04:00/10:00 UTC)
+  - weekly channel analysis (Monday 05:25)
+  - all previous tasks preserved (watchdog/warmup/backup/rebate-snapshot/pay/reconcile/report)
+
+ENHANCED ENDPOINTS (observability layer):
+- GET /api/status: now reports uptimeSeconds, memory (rss/heap MB), lastSettledAt timestamp,
+  alert queue pending count — ops can see the machine is alive without hitting the dashboard.
+- GET /api/alerts/queue: read-only, no auth, shows pending/sent/failed/total counts only.
+- GET /.well-known/x402: expanded with verification links, referral policy, full docs map,
+  per-paid-route params, bazaar status.
+- GET /feed.xml: supports ?board=<name> filter for per-board RSS feeds.
+- Graceful shutdown: SIGTERM/SIGINT → drain alert queue → exit within 5s.
+
+DOCS:
+- docs/AUTO-SCALE-ENGINE.md: complete architecture blueprint (5 subsystems × 15 modules),
+  Phase 1/Phase 2 roadmap, constraint list. Covers 100+ potential channels organized as
+  Intelligence → Content Factory → Distribution → Revenue Loop → Feedback cycle.
+
+VERIFICATION: prod audit 57/57 PASS; quick-prod-smoke 16/16 PASS; crontab verified at 12
+tasks with other projects' 6 lines untouched.
