@@ -12,14 +12,16 @@ REMOTE_TAR = '/root/autotasker-src.tar.gz'
 REMOTE_APP = '/www/autotasker/app'
 KEY = os.path.join(os.environ.get('USERPROFILE', ''), '.ssh', 'id_ed25519')
 REMOTE_ONLY = ('data/payments', 'data/revenue-ledger.json', 'data/referrals.json',
-               'data/support-tickets.json', 'data/treasury-state.json')
+               'data/support-tickets.json', 'data/treasury-state.json',
+               'data/onchain-reconcile.json', 'data/onchain-reconcile-report.json',
+               'data/reconcile.log', 'data/rebates/')
 
 # 1. tar.gz in memory (Python tarfile only — Windows tar is broken)
 print("Creating tar.gz...")
 buf = io.BytesIO()
 with tarfile.open(fileobj=buf, mode='w:gz') as tf:
     for name in ['server.js', 'index.js', 'package.json', 'package-lock.json',
-                 'lib', 'data', 'public', 'config']:
+                 'lib', 'data', 'public', 'config', 'scripts']:
         full = os.path.join(SRC, name)
         if os.path.exists(full):
             tf.add(full, arcname=name)

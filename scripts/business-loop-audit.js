@@ -67,6 +67,18 @@ async function check(stageObj, desc, pass, detail) {
   await check(s1, '/offer.html 200', offer.status === 200, 'status=' + offer.status);
   const trust = await req('GET', BASE + '/trust');
   await check(s1, '/trust 200 + canonical', trust.status === 200 && /rel="canonical"[^>]*\/trust/.test(trust.body), 'status=' + trust.status);
+  const faq = await req('GET', BASE + '/faq');
+  await check(s1, '/faq 200 + FAQPage JSON-LD', faq.status === 200 && /"@type":"FAQPage"/.test(faq.body), 'status=' + faq.status);
+  const faqCount = (faq.body.match(/<details/g) || []).length;
+  await check(s1, '/faq 问题条数 ≥10', faqCount >= 10, 'questions=' + faqCount);
+  let inKey = null;
+  try { inKey = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'config', 'indexnow.json'), 'utf8')).key; } catch (e) {}
+  if (inKey) {
+    const keyFile = await req('GET', BASE + '/' + inKey + '.txt');
+    await check(s1, 'IndexNow 键文件可访问且内容匹配', keyFile.status === 200 && keyFile.body.trim() === inKey, 'status=' + keyFile.status);
+  } else {
+    await check(s1, 'IndexNow 键文件可访问且内容匹配', false, 'config/indexnow.json missing');
+  }
 
   // ══ 2 触达 ══
   const s2 = stage(2, '触达 REACH', []);
@@ -156,6 +168,21 @@ async function check(stageObj, desc, pass, detail) {
   await check(s7, 'feed 内容充足（≥5 items）', feedFresh);
   const proof2 = await req('GET', BASE + '/api/x402/proof');
   await check(s7, 'proof 端点可缓存复用（60s）', proof2.status === 200 && /max-age=60/.test(proof2.headers['cache-control'] || ''), proof2.headers['cache-control']);
+
+  // ══ 8 对账 RECONCILIATION ══
+  const s8 = stage(8, '对账 RECONCILIATION', []);
+  const rec = await req('GET', BASE + '/api/x402/reconcile');
+  let rj = null;
+  try { rj = JSON.parse(rec.body); } catch (e) {}
+  await check(s8, '/api/x402/reconcile 200 可解析', rec.status === 200 && !!rj, 'status=' + rec.status);
+  await check(s8, '对账报告 treasury = 金库', !!rj && String(rj.treasury || '').toLowerCase() === TREASURY, rj && rj.treasury);
+  const recRun = !!rj && rj.status !== 'not-run';
+  await check(s8, '对账已运行（cron 05:15）', recRun, rj && rj.status);
+  if (recRun) {
+    await check(s8, '不变式成立（账本 ≤ 链上）', rj.ok === true && !rj.stale, 'ok=' + rj.ok + ' stale=' + rj.stale + ' age=' + rj.ageMinutes + 'm');
+    await check(s8, '链上入账金额 ≥ 账本收入', !!rj.onchain && !!rj.ledger && Number(rj.onchain.usd) + 1e-9 >= Number(rj.ledger.revenueUsd),
+      rj.onchain && rj.ledger ? '$' + rj.onchain.usd + ' >= $' + rj.ledger.revenueUsd : 'missing data');
+  }
 
   // ══ 汇总 ══
   let pass = 0, fail = 0;
