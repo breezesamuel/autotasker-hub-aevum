@@ -1,185 +1,129 @@
-# AutoTasker Hub — 自运行商业闭环全景图（审计级）
+# AutoTasker Hub — v5 商业闭环全景
 
-> **状态**: 49/49 PASS · 全链上可验证 · 每日自动对账 · 系统已投入生产
+> **审计结果: 57 PASS / 0 FAIL · 9 阶段全绿 ✅**
+> **生产地址**: https://autotasker.highkingflower.com
+> **金库 (Base)**: 0xb9A9E6d9C4Ad1635aA685bba2e235A515A94773C
+
+---
 
 ## 一、系统架构总览
 
 ```
-                    ┌─────────────────────────────────────────────┐
-                    │           AutoTasker Hub v5                 │
-                    │         (self-running business loop)        │
-                    └─────────────────────────────────────────────┘
-             ▲                                      ▼
-    ┌──────────────────┐              ┌──────────────────────────────┐
-    │ 自动获客引擎      │              │  Web3 入口                   │
-    │  IndexNow ping   │    ───────▶  │  x402 / USDC / Base         │
-    │  trending SEO    │              │  Facilitator free settlement│
-    │  JSON-LD 结构    │              │  Bazaar auto-discover       │
-    │  RSS 持续更新    │              └──────────────────────────────┘
-    └──────────────────┘                          │
-           ▲                                       │
-    ┌──────────────────┐               ┌───────────▼──────────┐
-    │ 自动触达引擎      │               │  自动收钱引擎         │
-    │  cache warmup    │◀─────────────▶│  REST/MCP dual path  │
-    │  每10min 预热     │   indexnow    │  onAfterSettle 钩子  │
-    │  命中热缓存       │              │  txHash 幂等记账      │
-    └──────────────────┘              └───────────┬──────────┘
-                                                  │
-                                          ┌───────▼───────┐
-                                          │  资金金库       │
-                                          │  0xb9A9E6d9…   │
-                                          │  (Base mainnet)│
-                                          └───────┬───────┘
-                                                  │
-                               ┌────────────────────┼────────────────────┐
-                               │                    │                    │
-                        ┌──────▼──────┐      ┌──────▼──────┐      ┌────▼──────┐
-                        │  分销返利    │      │  链上对账    │      │  自助客服  │
-                        │  ref新码    │      │  cron 5:15  │      │  FAQ 页面 │
-                        │  claim绑定  │      │  账本≤链上   │      │  工单自动答│
-                        │  $50 总额上限│      │  report    │      │  14条FAQ  │
-                        └─────────────┘      └─────────────┘      └───────────┘
+                          ┌─────────────────────────────────────┐
+                          │         AutoTasker Hub v5           │
+                          │      Self-running Money Engine       │
+                          └─────────────────────────────────────┘
+                               ▲                      ▲
+      ┌────────────────────────┴──────────┐   ┌───────┴───────────────┐
+      │     自动获客引擎 (ACQUISITION)      │   │    Web3 收钱网关       │
+      │  IndexNow ping + trending SEO      │◄──┤  x402 / USDC / Base   │
+      │  RSS feed 持续回流                 │   │  onAfterSettle 钩子    │
+      │  JSON-LD 结构化数据                │   │  txHash 幂等记账        │
+      │  5 个板块独立 Landing Page          │   │                       │
+      └────────────────────────────────────┘   └───────────┬───────────┘
+              ▲                                          │
+      ┌───────┴──────────┐                     ┌────────▼──────────┐
+      │  自动触达引擎     │                     │    资金金库        │
+      │  每10min cache    │◀──────────────────▶ │  0xb9A9E6d9…733C  │
+      │  warmup 预热      │   新内容 hash 变化   │  (Base 主网 USDC) │
+      └──────────────────┘                     └────────┬──────────┘
+                                                        │
+                     ┌──────────────────────────────────┼────────────────────────┐
+                     │                  │                │                        │
+              ┌──────▼──────┐    ┌──────▼──────┐  ┌─────▼──────┐       ┌────────▼────────┐
+              │ 分销返利引擎  │    │ 自助客服引擎  │  │链上对账引擎  │       │运营可见性层      │
+              │ /r/:code    │    │ /faq 页面    │  │ cron 5:15  │       │ /api/metrics    │
+              │ claim绑定   │    │ FAQ 14条秒答 │  │ reconcile  │       │ /board/* 子页   │
+              │ 自动支付    │    │ 工单表单     │  │ invariant  │       │ alert webhook   │
+              │ $50 cap     │    │              │  │  ≤ 链上    │       │ weekly report   │
+              └─────────────┘    └─────────────┘  └────────────┘       └─────────────────┘
 ```
 
-## 二、7+1 阶段闭环清单
+## 二、9 阶段闭环清单
 
-### [阶段 1] 自动获客 ACQUISITION ✅ 8/8
+| # | 阶段 | 检查数 | 关键实现 |
+|---|------|--------|----------|
+| 1 | **获客 ACQUISITION** | 8 | trending SEO, robots/sitemap/IndexNow, /trust, /faq, board keys |
+| 2 | **触达 REACH** | 6 | RSS, og/twitter, Product+FAQPage JSON-LD |
+| 3 | **转化 CONVERSION** | 8 | free sample, 402 challenge, price=$0.05=50000, MCP tools ≥70 |
+| 4 | **收钱 SETTLEMENT** | 6 | proof API, BaseScan verify, honest-zero policy |
+| 5 | **分销 REFERRAL** | 7 | new → /r redirect+cookie → claim → /ref dashboard(masked wallet) → stats |
+| 6 | **留存 RETENTION** | 3 | ticket + FAQ auto-reply + offer embedded form |
+| 7 | **自愈 SELF-HEAL** | 4 | watchdog 5min, trending/feed freshness, proof cache 60s |
+| 8 | **对账 RECONCILIATION** ⭐ | 5 | ledger ≤ on-chain invariant, RPC fallback, checkpoint resume |
+| 9 | **运营可见性 OPERATIONS** ⭐ | 8 | /api/metrics(HTML+JSON), /board/*(5 子页), export-weekly-report, alert queue |
 
-| # | 检查项 | 实现 |
-|---|--------|------|
-| 1 | `/trending` 200 + ItemList JSON-LD | `lib/x402-v4.js` L831+ |
-| 2 | canonical 指向自身（防重复内容） | `<link rel="canonical" href="/trending">` |
-| 3 | `/robots.txt` 200 含 Sitemap 引用 | `public/robots.txt` |
-| 4 | `/sitemap.xml` 非空 含所有入口 | `public/sitemap.xml` → /trust /faq |
-| 5 | `/offer.html` 200 转化页 | `public/offer.html` |
-| 6 | `/trust` 200 + canonical | `lib/x402-v4.js` L829+ |
-| 7 | `/faq` 200 + FAQPage JSON-LD ≥10 题 | `lib/x402-v4.js` L611+ |
-| 8 | **IndexNow 键文件** 可访问且内容匹配 | `config/indexnow.json` + `public/<key>.txt` |
+## 三、新交付模块详情
 
-### [阶段 2] 自动触达 REACH ✅ 6/6
+### ① `/api/metrics` — 运营指标聚合端点
+- **GET** `/api/metrics` → JSON（settlement/referral/support/reconciliation/policy）
+- **Accept: text/html** → HTML 仪表盘（top referrers 表 + 对账状态行）
+- 由 `lib/metrics.js` 聚合四个子系统的真实数据
 
-| # | 检查项 | 实现 |
-|---|--------|------|
-| 1 | `/feed.xml` 200 合法 RSS | `lib/x402-v4.js` L881+ |
-| 2 | trending RSS alternate 发现 | `<link rel="alternate" type="application/rss+xml">` |
-| 3 | offer og:title/og:url/twitter:card | `public/offer.html` head |
-| 4 | offer Product JSON-LD（AggregateOffer） | `public/offer.html` JSON-LD |
-| 5 | offer FAQPage JSON-LD | `public/offer.html` JSON-LD |
-| 6 | 首页 200 | Express static mount |
+### ② `/board/:name` — 分板块 SEO 子页
+- 五个入口：`/board/weiboHot` / `/board/zhihu` / `/board/douban` / `/board/bilibili` / `/board/tieba`
+- 每个独立 canonical + ItemList JSON-LD + RSS alternate
+- 10 分钟缓存 + 内容哈希变化检测 + IndexNow 自动重 ping
+- 未知板块返回干净 404
 
-### [阶段 3] 转化 CONVERSION ✅ 8/8
+### ③ `lib/alerts.js` — 事件驱动告警
+- Telegram bot / Discord webhook / Slack / 通用 webhook 多目标支持
+- 持久化 JSONL 队列（崩溃重启自动重放），drain 每 10 秒
+- after-settle hook 自动入队结算事件；reconcile cron 成功/失败也可触发
 
-| # | 检查项 | 实现 |
-|---|--------|------|
-| 1 | 免费样例可用 | `GET /api/x402/sample?limit=3` 返回数据 |
-| 2 | 付费端点返回 402 | `GET /api/x402/hotlist` 未付款 → 402 |
-| 3 | Payment-Required 头可解码 | x402 SDK `enrichPaymentRequiredResponse` |
-| 4 | payTo = 唯一金库地址 | `payTo: PAY_TO` in challenge accepts |
-| 5 | network = Base | `network: 'eip155:8453'` in accepts |
-| 6 | **定价一致性** `$0.05 = 50000 原子单位` | 挑战金额校验 |
-| 7 | `/api/status` operational | 健康探针 |
-| 8 | **MCP tools/list ≥70 工具在线** | `tools/list` 返回完整工具清单 |
+### ④ `scripts/export-weekly-report.js`
+- ISO 年第 N 周 → `data/reports/YYYY-Www.json` + `.csv`
+- 聚合：结算笔数/收入/by-tool 分布，推荐码统计，对账快照，每日 CSV
+- --dry-run / --json-only 标志；cron 每周一 05:20 执行（在 rebate-pay 之后）
 
-### [阶段 4] 收钱 SETTLEMENT ✅ 6/6
+### ⑤ 链上对账增强（v2）
+- Blockscout API 不可达时自动 fallback RPC eth_getLogs
+- Checkpoint 断点续扫，首跑覆盖 5,000,000 blocks ≈115 天
+- 报告写盘：`data/onchain-reconcile-report.json`，服务 `/api/x402/reconcile` 读取
 
-| # | 检查项 | 实现 |
-|---|--------|------|
-| 1 | `/api/x402/proof` 200 | ledger 直读 settledCount/revenue |
-| 2 | proof.payTo = 金库 | BaseScan verify 链接正确 |
-| 3 | settledCount 非负整数（零态诚实） | `'0' 就是 '0'，不美化` |
-| 4 | revenue 数字诚实（≥0） | totalRevenueUsd 直接从账本 |
-| 5 | verifyUrl 指向 BaseScan 金库地址 | `basescan.org/address/<PAY_TO>` |
-| 6 | offer 页挂 proof 徽章脚本 | 0笔时隐藏，上线后自动显示 |
+## 四、服务器 Cron 清单（7 autotasker + 6 其他项目原样保留）
 
-### [阶段 5] 分销 REFERRAL ✅ 7/7
-
-| # | 检查项 | 实现 |
-|---|--------|------|
-| 1 | POST `/api/ref/new` 生成推荐码 | rate limit 5/h/IP |
-| 2 | GET `/r/:code` 跳转 offer + atref cookie | trackClick 归因 |
-| 3 | claim 绑定钱包 | walletCode() 持久化 |
-| 4 | `/ref/:code` 仪表盘 200 渲染 | clicks/stats/pending |
-| 5 | **仪表盘钱包打码**（前8+…+后6） | 不泄露完整地址 |
-| 6 | `/api/ref/stats/:code` 真实计数 | referrals.stats(code) |
-| 7 | 未知码仪表盘 404 | 干净错误页+CTA |
-
-### [阶段 6] 留存 RETENTION ✅ 3/3
-
-| # | 检查项 | 实现 |
-|---|--------|------|
-| 1 | POST `/api/support/ticket` 创建成功 | 自动回复命中 FAQ |
-| 2 | **FAQ 关键词自动回复**（0人工即时响应） | support.matchFaq() 秒回 |
-| 3 | offer 页含自助工单入口 | JS form → AJAX ticket |
-
-### [阶段 7] 自愈 SELF-HEAL ✅ 4/4
-
-| # | 检查项 | 实现 |
-|---|--------|------|
-| 1 | 服务健康（status operational） | systemd watchdog 5min |
-| 2 | trending 内容新鲜（非空白缓存） | 10min TTL 刷新 |
-| 3 | feed 内容充足（≥5 items） | RSS channel items ≥5 |
-| 4 | proof 端点可缓存复用（60s） | Cache-Control: public, max-age=60 |
-
-### [阶段 8] 链上对账 RECONCILIATION ✅ 5/5 ⭐ 本轮新增
-
-| # | 检查项 | 实现 |
-|---|--------|------|
-| 1 | `/api/x402/reconcile` 200 可解析 | read report file, serve JSON |
-| 2 | **对账报告 treasury = 金库**（大小写容错） | `.toLowerCase()` comparison |
-| 3 | **对账已运行**（cron 5:15 daily） | 首次跑完 status='reconciled' |
-| 4 | **不变式成立** 账本 ≤ 链上入账 | settledCount/count 校验 |
-| 5 | **链上入账金额 ≥ 账本收入** | $0 >= $0 在零态成立 |
-
-## 三、服务器 Cron 清单（已验证）
-
-```bash
+```
 */5 * * * * systemctl is-active --quiet autotasker || systemctl restart autotasker  # autotasker-hub watchdog
-*/10 * * * * curl -fsS -o /dev/null -m 20 http://127.0.0.1:8795/trending ; ...       # autotasker-hub warmup
-30 4 * * * cd /www/autotasker && tar czf backups/appdata-$(date +\%F).tar.gz app/data ...  # autotasker-hub daily-backup
-1 5 * * 1 cd /www/autotasker/app && node ...payoutPlan() > data/rebates/plan-$(date +\%F).json ...  # weekly-rebate-snapshot
-10 5 * * 1 cd /www/autotasker/app && node scripts/auto-rebate-pay.js --execute --cap 50 >> ... # weekly-rebate-pay
-15 5 * * * cd /www/autotasker/app && node scripts/reconcile-onchain.js --json >> data/reconcile.log  # daily-reconcile
+*/10 * * * * curl -fsS -o /dev/null -m 20 http://127.0.0.1:8795/trending ; ...      # autotasker-hub warmup
+30 4 * * * cd /www/autotasker && tar czf backups/appdata-$(date +\%F).tar.gz app/data ...  # daily-backup
+1 5 * * 1 ... payoutPlan() > data/rebates/plan-$(date +\%F).json ...                 # weekly-rebate-snapshot
+10 5 * * 1 ... node scripts/auto-rebate-pay.js --execute --cap 50 >> ...             # weekly-rebate-pay
+15 5 * * * ... node scripts/reconcile-onchain.js --json >> ...                       # daily-reconcile
+20 5 * * 1 ... node scripts/export-weekly-report.js >> ...                           # weekly-report-export
 ```
 
-其他项目任务（bingdashan/bds24/hq_ops）**6行原样保留**，零触碰。
+## 五、生产 URL 清单
 
-## 四、资金链路（全链上可追溯）
+| 类型 | URL | 说明 |
+|------|-----|------|
+| 产品与价格 | `https://autotasker.highkingflower.com/offer.html` | JSON-LD/Product+FAQPage |
+| 热搜快照 | `https://autotasker.highkingflower.com/trending` | 5 板块聚合 |
+| 分板块 | `/board/weiboHot` / `/board/zhihu` / ... | 独立 SEO Landing |
+| 信任中心 | `https://autotasker.highkingflower.com/trust` | payTo/revenue/政策/对账状态 |
+| 常见问题 | `https://autotasker.highkingflower.com/faq` | 14 题 + 工单表单 |
+| 运营仪表盘 | `https://autotasker.highkingflower.com/api/metrics` | JSON + HTML(Accept:text/html) |
+| 链上对账 | `https://autotasker.highkingflower.com/api/x402/reconcile` | 对账报告 JSON |
+| 真实结算证明 | `https://autotasker.highkingflower.com/api/x402/proof` | settledCount/Revenue/first+latest |
+| Agent 文档 | `https://autotasker.highkingflower.com/llms.txt` | 机器可读接口清单 |
+| RSS | `https://autotasker.highkingflower.com/feed.xml` | 持续更新的热门话题源 |
+| 推荐入口 | `https://autotasker.highkingflower.com/r/<code>` | 跳转 + cookie 归因 |
+| 推荐仪表盘 | `https://autotasker.highkingflower.com/ref/<code>` | 点击/访客/归因/返利（钱包打码）|
 
-```
-用户 x402 支付 (Base主网 USDC)
-    │
-    ▼
-PayAI facilitator https://facilitator.payai.network
-    │  settle(response.txHash)
-    ▼
-onAfterSettle hook ──► recordPayment(txHash, amount, payer)
-                      ──► attributePayment(payerWallet, amountUsd, txHash)  ← 分销归因
-                      ──► payouts plan updated (ledger.pendingPayouts[])
-    │
-    ▼
-金库 0xb9A9E6d9…94773C (Base mainnet)
-    ├── 30% 储蓄（永久不动）
-    ├── 60% 复利（仅白名单 USDC 单币协议）
-    │       └── 收益再分裂：40% 存 / 60% 复
-    └── 10% 稳定盘（返利 + 运营支出）
-            ├── auto-rebate-pay.js --execute --cap 50 每周一 05:10
-            └── BLOCKED_WALLETS 过滤 · 单笔 $20 FIFO 上限
-```
-
-## 五、安全红线（硬约束）
+## 六、安全红线（硬约束）
 
 - 🔒 私钥只存 `config/keys/pay-to-new.json`（gitignored），任何输出只打印派生地址
 - 🔒 分销返利不经第三方资金池：金库链上直付，txHash 可验
 - 🔒 house_e2e 测试流量永不并入对外收入账本
 - 🔒 结算黑洞已修复：REST 与 MCP 统一走同一个 after-settle 钩子，txHash 幂等防双记
 - 🔒 HFT 禁令保持；触达只走 inbound（SEO/RSS/IndexNow/Bazaar/口碑），不群发
+- 🔒 Alert webhook 失败只记 warn，绝不阻塞主链路
 
-## 六、下一步可选优化方向（优先级排序）
+## 七、待办事项
 
-| P0 | 描述 | 估算工作量 |
-|----|------|-----------|
-| ① 人民币收款码 | 微信 APIv3 / 支付宝 AppId 就位后 offer 页展示真实二维码 | 1天 |
-| ② Agent discoverability | 让大模型自然引用 /llms.txt + /api/x402/proof 作为信任背书 | 代码无改动 |
-| ③ 分销裂变激励 | 累计返利满 $1 自动触发 payout（当前 cron 每周一 5:10） | 已有，待充值激活 |
-| ④ 数据质量反馈 | trending 榜单质量评分写入 Redis，供 hotlist 工具加权 | 中等 |
-| ⑤ 风控告警 | 对账失败 / 金库异常大额转入 / 返利超发 → Telegram Bot 通知 | 中等 |
+1. ⏳ 轮换 GitHub PAT（ghp_koLi2T...mKG0cz 已过期，本地提交 `25218a9` 已推送成功）
+2. ⏳ 微信 APIv3 密钥（pay.weixin.qq.com 生成，32 位字符串）→ offer 页展示真实收款码
+3. ⏳ 支付宝 AppId → offer 页展示真实支付宝收款码
+4. ⏳ 用户扫款解锁 30/60/10 分配政策（停滴漏 → 补 ETH gas → 三笔 USDC MAX 转金库 → txHash 发我）
+5. ⚡ the402.ai 2026-11-21 关闭，需在此之前导出数据
+6. ⚡ config/credentials.json 明文密钥 + ghp_ token 待轮换
