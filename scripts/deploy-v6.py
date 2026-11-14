@@ -14,7 +14,8 @@ KEY = os.path.join(os.environ.get('USERPROFILE', ''), '.ssh', 'id_ed25519')
 REMOTE_ONLY = ('data/payments', 'data/revenue-ledger.json', 'data/referrals.json',
                'data/support-tickets.json', 'data/treasury-state.json',
                'data/onchain-reconcile.json', 'data/onchain-reconcile-report.json',
-               'data/reconcile.log', 'data/rebates/')
+               'data/alert-queue.jsonl', 'data/reconcile.log', 'data/rebates/',
+               'data/reports/')
 
 # 1. tar.gz in memory (Python tarfile only — Windows tar is broken)
 print("Creating tar.gz...")

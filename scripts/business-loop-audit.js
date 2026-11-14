@@ -184,6 +184,26 @@ async function check(stageObj, desc, pass, detail) {
       rj.onchain && rj.ledger ? '$' + rj.onchain.usd + ' >= $' + rj.ledger.revenueUsd : 'missing data');
   }
 
+  // ══ 9 运营可见性 OPERATIONS ──────────────────────────────────────────────
+  const s9 = stage(9, '运营可见性 OPERATIONS', []);
+  const m = await req('GET', BASE + '/api/metrics');
+  let mj = null;
+  try { mj = JSON.parse(m.body); } catch (e) {}
+  await check(s9, '/api/metrics 200 可解析', m.status === 200 && !!mj, 'status=' + m.status);
+  await check(s9, 'metrics settlement 字段齐全', !!mj && mj.settlement && typeof mj.settlement.totalRevenueUsd === 'string', 'keys=' + Object.keys(mj || {}).join(','));
+  await check(s9, 'metrics referral.topReferrers 是数组', !!mj && Array.isArray(mj.referral && mj.referral.topReferrers), 'referral present=' + !!(mj && mj.referral));
+  const boardWeibo = await req('GET', BASE + '/board/weiboHot');
+  await check(s9, '/board/weiboHot 200 + ItemList JSON-LD', boardWeibo.status === 200 && /ItemList/.test(boardWeibo.body), 'status=' + boardWeibo.status + ' len=' + boardWeibo.body.length);
+  const boardZhihu = await req('GET', BASE + '/board/zhihu');
+  await check(s9, '/board/zhihu 200 + canonical', boardZhihu.status === 200 && /rel="canonical"[^>]*\/board\/zhihu/.test(boardZhihu.body), 'status=' + boardZhihu.status);
+  const unknownBoard = await req('GET', BASE + '/board/nonexistent-board');
+  await check(s9, '/board/未知板块 404', unknownBoard.status === 404, 'status=' + unknownBoard.status);
+  const reportScript = require('fs').existsSync(require('path').join(__dirname, '..', 'scripts', 'export-weekly-report.js'));
+  await check(s9, '周报告导出脚本存在', reportScript);
+  // metrics HTML 视图（Accept:text/html 触发 htmlView）
+  const mHtml = await req('GET', BASE + '/api/metrics', { headers: { accept: 'text/html' } });
+  await check(s9, '/api/metrics Accept:text/html 返回仪表盘 HTML', mHtml.status === 200 && /运营仪表盘/.test(mHtml.body), 'status=' + mHtml.status);
+
   // ══ 汇总 ══
   let pass = 0, fail = 0;
   console.log('\n══ 商业闭环审计 ' + BASE + ' ══');
@@ -195,6 +215,6 @@ async function check(stageObj, desc, pass, detail) {
       else { fail++; console.log('  [FAIL] ' + c.desc + '  -> ' + c.detail); }
     }
   }
-  console.log(`\n总计: ${pass} PASS / ${fail} FAIL — ${fail === 0 ? '商业闭环完整' : '存在断点'}`);
+  console.log(`\n总计: ${pass} PASS / ${fail} FAIL — ${fail === 0 ? '商业闭环完整 ✅（9 阶段全绿）' : '存在断点 ❌'}`);
   process.exit(fail === 0 ? 0 : 1);
 })().catch((e) => { console.error('AUDIT ERROR:', e.message); process.exit(1); });

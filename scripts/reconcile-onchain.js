@@ -32,8 +32,6 @@ const RPC_HOSTS = ['base-rpc.publicnode.com', 'base.drpc.org'];
 const TRANSFER_TOPIC = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
 const TO_TOPIC = '0x000000000000000000000000' + TREASURY.slice(2).toLowerCase();
 const STATE_FILE = path.join(__dirname, '..', 'data', 'onchain-reconcile.json');
-// 最近一次对账报告：由 cron 每日写，服务端 /api/x402/reconcile 只读暴露，
-// 审计脚本因此可以「纯 HTTP」校验链上对账状态，不必自己连链。
 const REPORT_FILE = path.join(__dirname, '..', 'data', 'onchain-reconcile-report.json');
 const CHUNK = 50000;
 const FIRST_RUN_LOOKBACK = Number(process.env.ONCHAIN_LOOKBACK || 0) || 5000000;
@@ -226,7 +224,8 @@ function ledgerSide() {
 
   if (AS_JSON) {
     console.log(JSON.stringify(out, null, 2));
-  } else {    console.log('== on-chain reconciliation ==');
+  } else {
+    console.log('== on-chain reconciliation ==');
     console.log('treasury :', out.treasury);
     if (out.error) console.log('ERROR    :', out.error);
     if (out.onchain) {

@@ -53,6 +53,8 @@ CRON_TASKS = [
      "10 5 * * 1 cd " + APP + " && mkdir -p " + LOGDIR + "/rebates && node scripts/auto-rebate-pay.js --execute --cap 50 >> " + LOGDIR + "/rebates/pay.log 2>&1  " + MARK + " weekly-rebate-pay"),
     ("daily-reconcile",
      "15 5 * * * cd " + APP + " && node scripts/reconcile-onchain.js --json >> " + LOGDIR + "/reconcile.log 2>&1  " + MARK + " daily-reconcile"),
+    ("weekly-report-export",
+     "20 5 * * 1 cd " + APP + " && mkdir -p data/reports && node scripts/export-weekly-report.js >> " + LOGDIR + "/service.log 2>&1  " + MARK + " weekly-report-export"),
 ]
 TAGS = {t for t, _ in CRON_TASKS}
 
