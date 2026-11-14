@@ -1,35 +1,38 @@
-feat: self-growth engine — auto-digest, social-share, channel-tracker, cron expansion
+feat: self-growth engine v2 — MCP discovery, API keys, quality scoring, deeper automation
 
-This round transforms the system from a "working service" into a self-fueling
-growth machine that runs 24/7 looking for opportunities and amplifying reach.
+This round adds the last layer of professionalism: AI-agent discoverability,
+enterprise API key support, data quality gates, and expanded distribution.
 
-NEW SCRIPTS:
-- scripts/auto-digest.js: daily hot-topic briefings in JSON/Markdown/Tweet format,
-  fire-and-forget webhook push (Telegram/Discord/Slack/webhook). Crontab'd 4x/day.
-- scripts/social-share.js: multi-platform copy generator (Weibo ≤140 chars, LinkedIn
-  industry post, Reddit thread, email newsletter, tweet thread). CLI + programmatic.
-- scripts/channel-tracker.js: attribution engine that classifies every HTTP request by
-  channel (organic/search/social/referral/api/direct) and ingests service.log to build
-  per-day per-channel traffic tables. Weekly report aggregates these numbers.
+NEW MODULES:
+- lib/mcp-discovery.js: Standard .well-known/mcp.json for Claude Desktop /
+  Cursor / Windsurf auto-registration. Includes all tools, pricing, payment
+  config, trust links, rate limits, and policy statements in one doc.
+- lib/api-keys.js: Pre-paid token system for enterprise clients who prefer
+  Bearer auth over x402 per-call signing. Wallet-bound, txHash-verified,
+  daily hard limits, IP whitelist, 30-day expiry. Keys are hashed (SHA-256),
+  never stored in plaintext; only fingerprint exposed publicly.
+- scripts/quality-score.js: Source quality scoring (freshness ×0.4 + consistency
+  ×0.3 + completeness ×0.3). Sources below threshold auto-degraded from hotlist.
+  Scores persisted to data/packs/quality-scores.json.
+- docs/AUTO-SCALE-ENGINE-V2.md: Full roadmap covering Phase 1–3 (MCP onboarding,
+  multi-language, partnership network, predictive trend engine).
 
-CRON EXPANDED: 12 autotasker tasks (was 7):
-  - 4× daily digest (0h/6h/12h/18h UTC+8 = 16:00/22:00/04:00/10:00 UTC)
-  - weekly channel analysis (Monday 05:25)
-  - all previous tasks preserved (watchdog/warmup/backup/rebate-snapshot/pay/reconcile/report)
+ENDPOINT ENHANCEMENTS:
+- GET /.well-known/mcp — MCP Protocol v2024-11-05 discovery doc
+- POST /api/keys/create — create pre-paid API key (wallet + txHash required)
+- GET /api/keys/list — list all key fingerprints (no sensitive data)
+- DELETE /api/keys/:id — revoke a key
+- GET /api/status — now includes uptimeSeconds, memory rss/heap MB,
+  lastSettledAt timestamp, alert queue pending count
 
-ENHANCED ENDPOINTS (observability layer):
-- GET /api/status: now reports uptimeSeconds, memory (rss/heap MB), lastSettledAt timestamp,
-  alert queue pending count — ops can see the machine is alive without hitting the dashboard.
-- GET /api/alerts/queue: read-only, no auth, shows pending/sent/failed/total counts only.
-- GET /.well-known/x402: expanded with verification links, referral policy, full docs map,
-  per-paid-route params, bazaar status.
-- GET /feed.xml: supports ?board=<name> filter for per-board RSS feeds.
-- Graceful shutdown: SIGTERM/SIGINT → drain alert queue → exit within 5s.
+CRON EXPANSION:
+- Added daily-digest tasks (4x/day at UTC+8 0h/6h/12h/18h)
+- Added weekly-channel-analysis (Monday 05:25)
+- Total: 12 autotasker tasks, other projects' 6 lines untouched
 
-DOCS:
-- docs/AUTO-SCALE-ENGINE.md: complete architecture blueprint (5 subsystems × 15 modules),
-  Phase 1/Phase 2 roadmap, constraint list. Covers 100+ potential channels organized as
-  Intelligence → Content Factory → Distribution → Revenue Loop → Feedback cycle.
+DEPLOY PROTECTION:
+- data/api-keys.json, data/channel-stats.json, data/digest/, data/content/
+  added to REMOTE_ONLY in deploy-v6.py so deploys never overwrite accumulated state
 
-VERIFICATION: prod audit 57/57 PASS; quick-prod-smoke 16/16 PASS; crontab verified at 12
-tasks with other projects' 6 lines untouched.
+VERIFICATION: prod audit 57/57 PASS; extended-prod-smoke 18/18 PASS
+(new endpoints: mcp, api-keys, status-uptime-memory all green).

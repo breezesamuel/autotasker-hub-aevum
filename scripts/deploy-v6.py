@@ -15,7 +15,8 @@ REMOTE_ONLY = ('data/payments', 'data/revenue-ledger.json', 'data/referrals.json
                'data/support-tickets.json', 'data/treasury-state.json',
                'data/onchain-reconcile.json', 'data/onchain-reconcile-report.json',
                'data/alert-queue.jsonl', 'data/reconcile.log', 'data/rebates/',
-               'data/reports/')
+               'data/reports/', 'data/api-keys.json', 'data/channel-stats.json',
+               'data/digest/', 'data/content/')
 
 # 1. tar.gz in memory (Python tarfile only — Windows tar is broken)
 print("Creating tar.gz...")
