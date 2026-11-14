@@ -10,6 +10,16 @@
 <meta property="og:title" content="AutoTasker Hub — 中文社媒热点数据 API">
 <meta property="og:description" content="x402/USDC 链上结算 + 人民币套餐，MCP 直连，推荐返利 10%">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://autotasker.highkingflower.com/offer.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AutoTasker Hub — 中文社媒热点数据 API">
+<meta name="twitter:description" content="微博/知乎/豆瓣/B站/贴吧实时数据。Agent 走 x402+USDC（Base 链上结算），企业走人民币套餐。推荐返利 10%，金库链上直付。">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Product","name":"中文社媒热点数据 API（AutoTasker Hub）","description":"微博热搜、知乎、豆瓣、B站、贴吧实时榜单数据。AI Agent 通过 x402 协议以 USDC 在 Base 链上按次结算；企业可选购人民币日报/导出/包月套餐。支持 MCP 接入。","brand":{"@type":"Brand","name":"AutoTasker Hub"},"url":"https://autotasker.highkingflower.com/offer.html","offers":{"@type":"AggregateOffer","priceCurrency":"USD","lowPrice":"0.01","highPrice":"0.50","offerCount":"4","offers":[{"@type":"Offer","name":"hotlist/search 单次调用","price":"0.05","priceCurrency":"USD"},{"@type":"Offer","name":"full 全量导出（单次）","price":"0.50","priceCurrency":"USD"},{"@type":"Offer","name":"工具集单次调用","price":"0.01","priceCurrency":"USD"},{"@type":"Offer","name":"sample_free 免费样例","price":"0","priceCurrency":"USD"}]}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"怎么付费？","acceptedAnswer":{"@type":"Answer","text":"AI Agent 用任意 x402 客户端以 USDC 在 Base 链上按次结算，无需注册；企业可选支付宝/微信人民币套餐。"}},{"@type":"Question","name":"数据多久更新一次？","acceptedAnswer":{"@type":"Answer","text":"每 10 分钟聚合刷新一次，榜单来自各平台公开榜单，存在平台侧几分钟的自然延迟。"}},{"@type":"Question","name":"推荐返利怎么结算？","acceptedAnswer":{"@type":"Answer","text":"推荐返利 10%：他人经你的链接支付后，金库从 Base 主网 USDC 直接转账给你的钱包，累计满 1 USDC 即付，每笔可按 txHash 在 BaseScan 查证。"}},{"@type":"Question","name":"需要注册账号吗？","acceptedAnswer":{"@type":"Answer","text":"Web3 侧无需注册、无 API key、无预充值；每笔支付即授权，链上结算。"}}]}
+</script>
 <style>
 :root{--brand:#4f46e5;--bg:#f8fafc;--ink:#0f172a;--mut:#64748b;--ok:#059669;--line:#e2e8f0}
 *{box-sizing:border-box}body{font-family:system-ui,'Segoe UI','Microsoft YaHei',sans-serif;margin:0;color:var(--ink);background:var(--bg);line-height:1.6}
@@ -59,6 +69,7 @@ a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}
     <span class="badge">🤖 MCP 直连</span>
     <span class="badge">💸 推荐返利 10%</span>
     <span class="badge">🔄 每 10 分钟更新</span>
+    <span class="badge" id="proofBadge" style="display:none">⛓ 链上结算 <span id="proofN">…</span> 笔</span>
   </div>
 </header>
 
@@ -154,7 +165,7 @@ a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}
 
 <footer>
   AutoTasker Hub · 数据来自公开榜单聚合 · 链上结算可验证 ·
-  <a href="/api/status">服务状态</a> · <a href="/feed.xml">RSS</a> · <a href="/sitemap.xml">站点地图</a>
+  <a href="/trust">信任中心</a> · <a href="/api/status">服务状态</a> · <a href="/feed.xml">RSS</a> · <a href="/sitemap.xml">站点地图</a>
 </footer>
 
 </div>
@@ -171,6 +182,14 @@ const show = (id, text, cls) => { const el = $(id); el.textContent = text; el.cl
     try { await fetch('/api/ref/track', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ code }) }); } catch (e) {}
   }
 })();
+
+// ── 诚实社会证明徽章：只显示账本里的真实结算数 ────────────────────────────
+fetch('/api/x402/proof').then(r => r.json()).then(d => {
+  if (!d.ok || !d.settledCount) return; // 0 笔时不展示，绝不夸大
+  $('proofN').textContent = d.settledCount + ' · $' + d.totalRevenueUsd;
+  $('proofBadge').style.display = '';
+  $('proofBadge').title = '真实链上结算笔数（BaseScan 按 payTo 地址可逐一核对）';
+}).catch(() => {});
 
 // ── 免费样例（转化钩子）───────────────────────────────────────────────────
 fetch('/api/x402/sample?limit=5').then(r => r.json()).then(d => {

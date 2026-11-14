@@ -64,7 +64,10 @@ async function main() {
       if (req.url === '/verify') return json({ isValid: true, payer: PAYER });
       if (req.url === '/settle') {
         settleCalls++;
-        return json({ success: true, transaction: mockTx[req.headers['x-mock-tx'] || 'hotlist'] || ('0xmock-' + Date.now()), network: 'eip155:8453', payer: PAYER, amount: '50000' });
+        // 1st settle = REST dance, 2nd = MCP — distinct txHashes, otherwise the app's
+        // SEEN_SETTLE_TX idempotency (correct anti-double-count) would skip the 2nd.
+        const txKey = settleCalls === 1 ? 'hotlist' : 'mcp';
+        return json({ success: true, transaction: mockTx[txKey] || ('0xmock-' + Date.now()), network: 'eip155:8453', payer: PAYER, amount: '50000' });
       }
       res.statusCode = 404; json({ error: 'not found', url: req.url });
     });
@@ -91,6 +94,13 @@ async function main() {
     try { const s = await get(PORT, '/api/status'); if (s.status === 200) { up = true; break; } } catch (e) {}
   }
   check('app boots with hook armed', up, bootLog.split('\n').find(l => /after-settle/.test(l)));
+
+  // ── 2b. referral binding BEFORE the paid calls (attribution needs the wallet
+  //        bound at settle time — attributePayment matches on walletCode live) ──
+  const codeRes = await post(PORT, '/api/ref/new', {});
+  const code = (JSON.parse(codeRes.body) || {}).code;
+  const claimRes = await post(PORT, '/api/ref/claim', { code, wallet: PAYER });
+  check('referral code created + wallet bound', !!(code && /"ok":true/.test(claimRes.body)), code + ' / ' + claimRes.body.slice(0, 60));
 
   // ── 3. REST path through paymentMiddleware (real-client two-step dance) ──
   async function get2(port, p, headers) {
@@ -124,16 +134,13 @@ async function main() {
     },
   } : null;
   const rest = payload
-    ? await get2(PORT, url, { 'PAYMENT-SIGNATURE': Buffer.from(JSON.stringify(payload)).toString('base64'), 'X-MOCK-TX': 'hotlist' })
+    ? await get2(PORT, url, { 'PAYMENT-SIGNATURE': Buffer.from(JSON.stringify(payload)).toString('base64') })
     : { status: 0, body: '(skipped — no challenge)' };
   check('REST paid call returns 200', rest.status === 200, rest.status + ' ' + rest.body.slice(0, 120));
   const restJson = (() => { try { return JSON.parse(rest.body); } catch (e) { return null; } })();
   check('REST paid call serves real data', !!(restJson && restJson.items && restJson.items.length), restJson ? restJson.items.length + ' items' : rest.body.slice(0, 100));
 
   // ── 4. MCP path (manual verify→settle→hook) ─────────────────────────────
-  const codeRes = await post(PORT, '/api/ref/new', {});
-  const code = (JSON.parse(codeRes.body) || {}).code;
-  await post(PORT, '/api/ref/claim', { code, wallet: PAYER });
   const mcpPayload = {
     x402Version: 2, scheme: 'exact', network: 'eip155:8453',
     resource: 'mcp://tool/get_hotlist',
@@ -142,7 +149,7 @@ async function main() {
   const mcp = await post(PORT, '/mcp', {
     jsonrpc: '2.0', id: 7, method: 'tools/call',
     params: { name: 'get_hotlist', arguments: { board: 'weiboHot', limit: 3 } },
-  }, { 'PAYMENT-SIGNATURE': Buffer.from(JSON.stringify(mcpPayload)).toString('base64'), 'X-MOCK-TX': 'mcp' });
+  }, { 'PAYMENT-SIGNATURE': Buffer.from(JSON.stringify(mcpPayload)).toString('base64') });
   check('MCP paid call returns 200', mcp.status === 200, mcp.status + ' ' + mcp.body.slice(0, 120));
   const mp = (() => { try { return JSON.parse(mcp.body); } catch (e) { return null; } })();
   check('MCP paid call serves data', !!(mp && mp.result && mp.result.content), mp ? JSON.stringify(mp).slice(0, 100) : '(unparseable)');
