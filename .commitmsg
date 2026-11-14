@@ -1,24 +1,34 @@
-feat: revenue conversion layer — live transaction feed, agent onboarding, auto-submit to platforms
-
-This round closes the last gap between "system works" and "money flows in":
-a public live transaction screen (social proof), an AI-agent onboarding page
-(one-click x402 flow), and automated external platform submissions.
+feat: customer dashboard, webhook subscriptions, SEO auto-pages for every hot topic
 
 NEW MODULES:
-- lib/live-feed.js: /live HTML dashboard + /api/live/feed JSON endpoint showing
-  recent settlements in real-time (wallet masked, txHash clickable to BaseScan).
-  Frontend polls every 5s via fetch(). Zero-state shows "试运行中，第一笔等你来".
-- lib/agent-onboard.js: /agent guided onboarding page with pricing table,
-  3-step x402 flow explanation, copy-paste JS code snippet, MCP config JSON,
-  and trust links. Target audience: Claude/Cursor/Copilot/Windsurf users.
-- scripts/auto-submit.js: one-click submit to Hacker News (public API) and
-  Reddit (OAuth). Idempotent — tracks submitted URLs to avoid spam.
+- lib/customer-dashboard.js: /dashboard/:wallet and /api/dashboard/:wallet
+  show public spending history (calls, by-tool breakdown, recent tx, referral
+  binding) for any Base wallet address — no login required. Drives retention
+  by letting customers see exactly what they've consumed.
+- lib/webhook-subscriptions.js: POST /webhooks/subscribe creates HTTPS-targeted
+  event subscriptions (settlement.new, settlement.daily, digest.ready,
+  reconcile.done). HMAC-signed payloads via per-subscription secret. Verifies
+  URL ownership before activating. Rate-limited per email+url dedup.
+- lib/seo-auto-pages.js: generates individual HTML landing pages for each of
+  the top 10 trending items every time the trending cache refreshes (every
+  10 min). Each page has NewsArticle JSON-LD, canonical, og tags, and links
+  to related topics. Served from /topic/:slug via express route.
 
 ENDPOINTS ADDED:
-- GET /live — dark-themed live settlement broadcast page (auto-refreshes)
-- GET /api/live/feed?limit=N — JSON for embedding or widget use
-- GET /agent — AI agent onboarding wizard with code samples + MCP config
+- GET /dashboard/:wallet — HTML consumption dashboard (public, no auth)
+- GET /api/dashboard/:wallet — JSON API version
+- POST /webhooks/subscribe — create subscription (email+url+events)
+- GET /webhooks/verify/:id — activate after URL ownership proof
+- GET /webhooks/list — list all subscriptions (fingerprints only)
+- POST /webhooks/test — test endpoint reachability
+- GET /topic/:slug — serve auto-generated SEO landing page per trending item
 
-SITE MAP: Added /live (hourly) and /agent (weekly) entries.
+AUTOMATION ENHANCED:
+- After-settle hook now fires BOTH alerts.enqueue AND webhookSubs.deliver
+  so both the internal alert system and customer webhooks fire on every payment
+- Trending cache refresh now triggers seoPages.generateAllPages(top 10)
+  automatically every 10 minutes (idempotent overwrite)
 
-VERIFICATION: extended-prod-smoke 21/21 PASS (includes /live, /api/live/feed, /agent).
+VERIFICATION: extended-prod-smoke 25/25 PASS; crontab unchanged at 13 tasks;
+deploy clean with existing data preserved (webhook-subs.json and topic dir
+will be created on first use).

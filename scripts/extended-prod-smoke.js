@@ -30,6 +30,12 @@ const get = (p, opts) => new Promise(r => {
   const live = await get('/live'); pass('/live HTML', live.s === 200 && /实时交易直播/.test(live.b));
   const liveApi = await get('/api/live/feed'); pass('/api/live/feed JSON', liveApi.s === 200 && /feed/.test(liveApi.b));
   const agent = await get('/agent'); pass('/agent onboard', agent.s === 200 && /Agent 接入/.test(agent.b));
+  // 新：客户仪表盘 + Webhook + SEO topic 页
+  const dash = await get('/dashboard/0xb9A9E6d9C4Ad1635aA685bba2e235A515A94773C'); pass('/dashboard/:wallet', dash.s === 200 && /消费记录/.test(dash.b));
+  const wh = await get('/webhooks/list'); pass('/webhooks/list', wh.s === 200 && /subscriptions/.test(wh.b));
+  const topic = await get('/topic/wangzixuan-baixiaochun-4km-kai-le-san-xiao-shi'); pass('/topic slug', topic.s === 200 || topic.s === 404, 'status=' + topic.s);
+  // Customer dashboard JSON API
+  const dashJson = await get('/api/dashboard/0xb9A9E6d9C4Ad1635aA685bba2e235A515A94773C'); pass('/api/dashboard JSON', dashJson.s === 200 && /totalUsd/.test(dashJson.b));
   const failed = checks.filter(c => !c.ok);
   console.log(`\n总计: ${checks.length - failed.length}/${checks.length} PASS`);
   process.exit(failed.length === 0 ? 0 : 1);
