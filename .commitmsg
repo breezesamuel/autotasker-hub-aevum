@@ -1,0 +1,16 @@
+feat: auto-money engine — referral rebates, self-serve support, SEO content loop
+
+- lib/referrals.js: distribution engine (/r/:code clicks -> wallet claim ->
+  10% rebate liability -> treasury-direct payout). Honest accounting: revenue
+  stays 100%, rebate is an expense liability. Idempotent by txHash.
+- lib/support.js: self-service tickets with keyword FAQ auto-reply.
+- x402-v4: /r/:code, /api/ref/*, /api/support/*, /trending (SEO), /feed.xml,
+  express.static(offers/robots/sitemap), MCP-path attribution hook.
+- public/offer.html: RMB direct-sales landing (Alipay/WeChat merchant
+  placeholders) + referral widgets + FAQ; robots.txt + sitemap.xml.
+- scripts/referral-payout.js: rebate payout planner (--record to settle).
+- scripts/deploy-v6.py: deploy with remote-only data protection.
+- scripts/smoke-test-growth.js: 26-check suite (local 26/0, prod 26/0).
+- treasury-allocate.js: gainSplitLoop (--record-gain auto 40/60 split,
+  --from double-entry, pending-move auto-close).
+- docs/AUTO-MONEY-ENGINE.md: 9-module architecture + runbook.

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T15:56:21.463Z",
+  "generatedAt": "2026-11-14T10:10:00.555Z",
   "treasury": "0xb9A9E6d9C4Ad1635aA685bba2e235A515A94773C",
   "chain": "Base",
   "onchain": {
@@ -60,6 +60,21 @@
       "binnedConfidence": 3
     },
     "scannedAt": "2026-11-13T14:03:01.775Z"
+  },
+  "gainSplitLoop": {
+    "policy": {
+      "enabled": true,
+      "on": "已实现并到账的复利收益（利息/奖励，按月结算）",
+      "toSavingsPct": 0.4,
+      "toCompoundPct": 0.6,
+      "note": "每次增值的 40% 强制转入储蓄子账（永不回投），60% 滚回复利仓位复投——依次循环"
+    },
+    "realizedGainsUsd": 0,
+    "splitSoFar": {
+      "savingsUsd": 0,
+      "compoundUsd": 0
+    },
+    "pendingWithdraws": []
   },
   "invariants": {
     "onlyExternalRevenueAllocated": true,

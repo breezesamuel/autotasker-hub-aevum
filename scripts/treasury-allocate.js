@@ -17,7 +17,9 @@
  * Usage:
  *   node scripts/treasury-allocate.js                 # plan only
  *   node scripts/treasury-allocate.js --json          # machine output
- *   node scripts/treasury-allocate.js --record savings 12.5 0xTXHASH   # log an executed move
+ *   node scripts/treasury-allocate.js --record savings 12.5 0xTXHASH           # log an executed move
+ *   node scripts/treasury-allocate.js --record savings 12.5 0xTX --from compound  # move between buckets
+ *   node scripts/treasury-allocate.js --record-gain 4.2 0xTXHASH               # realized yield -> auto 40/60 split
  */
 const fs = require('fs');
 const path = require('path');
@@ -109,18 +111,90 @@ function topYield(policy) {
 
 async function main() {
   if (args[0] === '--record') {
-    const [, bucket, amount, tx] = args;
+    const rest = args.slice(1);
+    // optional --from <bucket>: subtract the amount from a source bucket as well
+    // (e.g. withdrawing realized yield from the compound venue into savings)
+    const fromIdx = rest.indexOf('--from');
+    let from = null;
+    if (fromIdx !== -1) {
+      from = rest[fromIdx + 1] || null;
+      rest.splice(fromIdx, 2);
+    }
+    const [bucket, amount, tx] = rest;
     if (!bucket || !amount || !tx) {
-      console.error('usage: node scripts/treasury-allocate.js --record <bucket> <usdcAmount> <txHash>');
+      console.error('usage: node scripts/treasury-allocate.js --record <bucket> <usdcAmount> <txHash> [--from <bucket>]');
       process.exit(1);
     }
     const state = readJson(STATE_FILE, { buckets: {}, history: [] });
     state.buckets = state.buckets || {};
     state.buckets[bucket] = Number(((state.buckets[bucket] || 0) + Number(amount)).toFixed(6));
+    if (from && from !== bucket) {
+      state.buckets[from] = Number(((state.buckets[from] || 0) - Number(amount)).toFixed(6));
+    }
     state.history = state.history || [];
-    state.history.push({ at: new Date().toISOString(), bucket, amountUsdc: Number(amount), tx });
+    state.history.push({ at: new Date().toISOString(), bucket, amountUsdc: Number(amount), tx, from: from || undefined });
+    // close any pending move this recording fulfills (same bucket, same amount);
+    // if the pending move specifies a fromBucket, the transfer applies too (double-entry)
+    state.pendingMoves = (state.pendingMoves || []).filter((m) => {
+      const closes = m.bucket === bucket && m.status === 'pending_user_signature' &&
+        Math.abs(Number(m.amountUsdc) - Number(amount)) < 1e-6;
+      if (closes && m.fromBucket && m.fromBucket !== bucket) {
+        state.buckets[m.fromBucket] = Number(((state.buckets[m.fromBucket] || 0) - Number(amount)).toFixed(6));
+        state.history.push({ at: new Date().toISOString(), bucket: m.fromBucket, amountUsdc: -Number(amount), tx, via: m.id });
+      }
+      return !closes;
+    });
     writeJson(STATE_FILE, state);
-    console.log(`recorded ${amount} USDC -> ${bucket} (tx ${tx})`);
+    console.log(`recorded ${amount} USDC -> ${bucket}${from ? ` (from ${from})` : ''} (tx ${tx})`);
+    const stillPending = (state.pendingMoves || []).length;
+    if (stillPending) console.log(`pending moves remaining: ${stillPending}`);
+    return;
+  }
+
+  if (args[0] === '--record-gain') {
+    const [, amount, tx] = args;
+    if (!amount || !tx) {
+      console.error('usage: node scripts/treasury-allocate.js --record-gain <usdcAmount> <txHash>');
+      process.exit(1);
+    }
+    const policy = readJson(POLICY_FILE, null);
+    if (!policy) throw new Error('missing config/treasury-policy.json');
+    const split = policy.rules && policy.rules.gainSplitLoop;
+    if (!split || !split.enabled) throw new Error('gainSplitLoop is not enabled in treasury-policy.json');
+    const G = Number(amount);
+    if (!(G > 0)) { console.error('gain must be a positive USDC amount'); process.exit(1); }
+    const toSavings = Number((G * split.toSavingsPct).toFixed(6));
+    const toCompound = Number((G - toSavings).toFixed(6));
+    const state = readJson(STATE_FILE, { buckets: {}, gains: [], pendingMoves: [] });
+    state.buckets = state.buckets || {};
+    state.gains = state.gains || [];
+    state.pendingMoves = state.pendingMoves || [];
+    // The full gain landed in the compound venue (interest accrues on-pool) — book it there...
+    state.buckets.compound = Number(((state.buckets.compound || 0) + G).toFixed(6));
+    state.gains.push({
+      at: new Date().toISOString(),
+      amountUsdc: G,
+      tx,
+      toSavingsUsdc: toSavings,
+      toCompoundUsdc: toCompound,
+    });
+    // ...then queue the policy split: 40% must LEAVE the pool into the savings sub-ledger.
+    state.pendingMoves.push({
+      id: 'gain-' + Date.now(),
+      kind: 'gain_split_withdraw',
+      bucket: 'savings',
+      fromBucket: 'compound',
+      amountUsdc: toSavings,
+      action: `withdraw ${toSavings} USDC from compound venue -> treasury; park in savings sub-ledger (never re-invested)`,
+      sourceTx: tx,
+      status: 'pending_user_signature',
+    });
+    writeJson(STATE_FILE, state);
+    console.log(`gain ${usd(G)} recorded (tx ${tx})`);
+    console.log(`policy split  ${split.toSavingsPct * 100}% savings / ${split.toCompoundPct * 100}% compound:`);
+    console.log(`  ${usd(toCompound)} stays in compound venue (reinvested in place, no tx needed)`);
+    console.log(`  ${usd(toSavings)} -> PENDING: withdraw from pool into savings, then run:`);
+    console.log(`    node scripts/treasury-allocate.js --record savings ${toSavings} <withdrawTxHash>`);
     return;
   }
 
@@ -162,6 +236,22 @@ async function main() {
   const compoundRow = rows.find((r) => r.bucket === 'compound');
   const pick = topYield(policy);
 
+  // ── gainSplitLoop state: realized yield, its 40/60 split, pending withdraws ──
+  const gains = state.gains || [];
+  const pending = state.pendingMoves || [];
+  const gainsTotal = Number(gains.reduce((a, g) => a + Number(g.amountUsdc || 0), 0).toFixed(6));
+  const gainsSavings = Number(gains.reduce((a, g) => a + Number(g.toSavingsUsdc || 0), 0).toFixed(6));
+  const gainsCompound = Number((gainsTotal - gainsSavings).toFixed(6));
+  const gainsSection = {
+    policy: policy.rules.gainSplitLoop || null,
+    realizedGainsUsd: gainsTotal,
+    splitSoFar: { savingsUsd: gainsSavings, compoundUsd: gainsCompound },
+    pendingWithdraws: pending.map((m) => ({
+      id: m.id, bucket: m.bucket, fromBucket: m.fromBucket,
+      amountUsdc: m.amountUsdc, action: m.action, status: m.status,
+    })),
+  };
+
   const plan = {
     generatedAt: new Date().toISOString(),
     treasury: policy.treasury.address,
@@ -178,6 +268,7 @@ async function main() {
       : null,
     buckets: rows,
     compoundVenue: pick,
+    gainSplitLoop: gainsSection,
     invariants: {
       onlyExternalRevenueAllocated: true,
       houseSelfPayExcluded: true,
@@ -217,6 +308,14 @@ async function main() {
     console.log('                     variable rate — not a promise. re-check weekly.');
   } else {
     console.log('compound venue       run `node scripts/yield-scan.js` first');
+  }
+  if (gainsSection.policy && gainsSection.policy.enabled) {
+    console.log('');
+    console.log('gain split loop      ' + (gainsSection.policy.toSavingsPct * 100) + '% savings / ' + (gainsSection.policy.toCompoundPct * 100) + '% compound');
+    console.log('realized gains       ' + usd(gainsTotal) + '  (' + usd(gainsSavings) + ' -> savings, ' + usd(gainsCompound) + ' re-invested)');
+    for (const m of gainsSection.pendingWithdraws) {
+      console.log('PENDING WITHDRAW     ' + usd(m.amountUsdc) + ' ' + m.fromBucket + ' -> ' + m.bucket + '   [' + m.id + ']');
+    }
   }
   if (plan.blockedReason) {
     console.log('');

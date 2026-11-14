@@ -55,8 +55,16 @@
     "forbidLeverage": true,
     "forbidLockups": true,
     "forbidHft": true,
+    "forbidHftReason": "2026-11-14 用户确认保持禁令：$98 级本金做高频=手续费绞肉机，改用单币生息池达成 ≥5% APY 目标",
     "forbidPromisesOfReturn": true,
-    "reviewCadenceDays": 7
+    "reviewCadenceDays": 7,
+    "gainSplitLoop": {
+      "enabled": true,
+      "on": "已实现并到账的复利收益（利息/奖励，按月结算）",
+      "toSavingsPct": 0.4,
+      "toCompoundPct": 0.6,
+      "note": "每次增值的 40% 强制转入储蓄子账（永不回投），60% 滚回复利仓位复投——依次循环"
+    }
   },
   "allowedVenues": [
     { "project": "aave-v3", "why": "Base 上最大的借贷市场，USDC 单币存款，可随时取" },

@@ -31,3 +31,7 @@ data/keys/
 *.pem
 
 tmp_id.txt
+
+# runtime business ledgers (production is the source of truth)
+data/referrals.json
+data/support-tickets.json
