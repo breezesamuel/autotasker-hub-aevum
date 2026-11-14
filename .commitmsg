@@ -1,4 +1,37 @@
-docs: session summary + SKILL audit install guide
+feat: close REST settlement revenue black hole + on-chain asset recovery toolkit
 
-- SESSION-SUMMARY-2026-11-14.md: full delivery record for this session
-- SKILL-AUDIT-INSTALL-GUIDE.md: 12-candidate review, P0-P2 order, install commands
+MONEY-ENGINE FIX (critical):
+- lib/x402-v4.js: unified resourceServer.onAfterSettle recorder — REST paymentMiddleware
+  settlements were previously settled on-chain but never recorded in the ledger and never
+  attributed to referral codes (only the manual MCP path recorded). One hook now covers
+  both paths, idempotent by txHash; the manual MCP record block was removed to prevent
+  double-counting.
+- lib/x402-v4.js: clientIp() trusts X-Real-IP (nginx-overwritten) then the LAST XFF entry
+  (nginx $proxy_add_x_forwarded_for appends the real client); the first XFF entry was
+  attacker-controlled, defeating the per-IP rate limiter.
+- lib/x402-v4.js: rate-limit safety valve now evicts the oldest 2500 buckets instead of
+  RATE.clear() (a flood of unique spoofed keys could nuke everyone else's limits).
+- scripts/test-settle-hook.js: local full-chain proof with a mock facilitator — REST and
+  MCP paid calls both verify, settle, hit the hook, land in the ledger with exact prices
+  and accrue the 10% referral rebate.
+
+PROBE / AUDIT TOOLING:
+- scripts/probe-x402-wire.js: dumps the live 402 challenge (Payment-Required header,
+  x402Version 2, exact/payTo/asset/amount verified), MCP initialize + 74-tool list,
+  referral redirect chain.
+- scripts/diag-prod3.py / diag-prod4.py: server-side systemd unit, nginx vhost + XFF
+  headers, data-file health, TLS/certbot timers, log destinations.
+- scripts/prod-deep-audit.js / e2e-prod-only.js fixes from earlier probe round.
+
+USDC RECOVERY:
+- scripts/onchain-balance.js: live Base RPC balances for treasury + 3 legacy wallets.
+- scripts/onchain-token-multicall.js: token inventory across Base blue chips (USDC-only
+  non-zero). onchain-token-scan.js kept for getLogs-based discovery.
+- scripts/key-inventory.js: safe local key audit — derives addresses only, never prints
+  key material. Found: treasury key in config/keys/pay-to-new.json; legacy wallets'
+  keys are user-held.
+- docs/USDC-RECOVERY-RUNBOOK-2026-11-14.md: exact sweep runbook (amounts, gas top-up
+  for 0xFC24, drip-bot warning, BaseScan path, post-sweep 30/60/10 accounting).
+
+Verification: local settle-hook test 8/8 PASS (mock facilitator), prod E2E 12/12,
+prod deep-audit green. Sweep total identified on-chain: ~$274 (USDC $163.005 + ETH ~0.058).
