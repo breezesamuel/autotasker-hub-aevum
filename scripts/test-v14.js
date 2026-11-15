@@ -96,6 +96,30 @@ check('report shape', rep.stats.workersRegistered >= 3 && rep.workers.avgReputat
   check('bounty auto-match no-invented-fees', Number(am.totalFeeUsd) >= 0 && am.autoClaimed.length === 0 || Number(am.totalFeeUsd) > 0,
     'consistent');
 
+  // ── v15b: subscription security (no free credits without a real settled payment) ──
+  var sm = require('../lib/subscription-manager');
+  // fake txHash (not in ledger) must be rejected
+  var fakeTx = sm.createSubscription('0x00000000000000000000000000000000000000a1', 'trend-digest', '0x000fake');
+  check('sub fake-tx-rejected', fakeTx.ok === false && /ledger/.test(fakeTx.reason), 'reason=' + fakeTx.reason);
+  // autoBill day-1 free: a freshly-created sub must not be billed on creation day
+  // (simulate by writing a sub directly, then autoBill should skip it if lastBilledAt==today)
+  var subFile = path.join(__dirname, '..', 'data', 'subscriptions.json');
+  try {
+    fs.writeFileSync(subFile, JSON.stringify({ version: 1, subs: [
+      { id: 'sub_test1', wallet: '0x00000000000000000000000000000000000000a2', tier: 'trend-digest', active: true,
+        creditsRemaining: 30, lastBilledAt: new Date().toISOString(), txHash: '0xnotreal' }
+    ], stats: { totalActive: 1, totalPaused: 0, totalRevenueUsd: 0 } }, null, 2));
+    var bill = sm.autoBill();
+    check('sub autobill-day1-free', bill.billed === 0, 'billed=' + bill.billed + ' (creation day is free)');
+    // simulate yesterday's billing → should bill now
+    var db = JSON.parse(fs.readFileSync(subFile, 'utf8'));
+    db.subs[0].lastBilledAt = new Date(Date.now() - 86400000).toISOString();
+    fs.writeFileSync(subFile, JSON.stringify(db, null, 2));
+    var bill2 = sm.autoBill();
+    check('sub autobill-next-day', bill2.billed === 1, 'billed=' + bill2.billed + ' (yesterday → charge today)');
+    fs.unlinkSync(subFile);
+  } catch (e) { console.log('[FAIL] sub autobill test crashed: ' + e.message); fail++; }
+
   console.log('\nTotal:' + (pass + fail) + ' PASS:' + pass + ' FAIL:' + fail);
   process.exit(fail === 0 ? 0 : 1);
 })().catch(e => { console.error('[FAIL] test crashed: ' + String(e && e.message).slice(0, 120)); process.exit(1); });
