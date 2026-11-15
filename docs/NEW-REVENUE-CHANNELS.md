@@ -75,6 +75,21 @@
 
 测试：test-v13b **26/26**（新增 4 项 regime 单测）。本地 / GitHub / 生产同步。
 
+## 深挖 · 变现转化引擎（v16c · 本轮"找 100+ 挣钱法"落地）
+**问题**：系统有 84 付费工具、4 档订阅、x402 按次计费，但**所有免费端点只回数据、不谈价**——漏斗永远不闭合。
+
+**实现 `lib/monetization.js`（纯函数，不会弄坏路由）：**
+- `offerFor(endpoint, callsPerMonth)`：算清"按次 vs 订阅"的盈亏平衡，给出**该推哪档**
+  - 诚实原则：某用户按次账单已低于最便宜档 → **不推订阅**（`recommend: null`，让按次赢），避免给 $0.5/月 的用户硬塞 $99
+  - 量够才升级：full @900/月（$450 按次）→ 推 all-access $99（省 $351）
+- `/api/subscribe/offer`、`/api/subscribe/offer/:endpoint?calls=N`：价格对比 API
+- **免费 sample 端点内嵌 `paywall` CTA**：每个免费调用都附带"按次 $X/次，订阅省 $Y/月"
+- 修复档位设计缺口：base 数据（hotlist/search）原来只有 $99 档覆盖 → 现在 2/5/15 档都覆盖
+
+生产实测：`/api/x402/sample` 返回 `keys: sample,totalInPack,paywall`，`paywall` = 真实 payback CTA。
+
+**测试**：test-v14b 19/19（+4 项 monetization 单测：light-no-upsell / heavy-all-access / market-scan-saves / pricing-conversation-shape）。
+
 ## 深挖 · 预付额度层落地（2026-11-15 · 本轮）
 **发现的真 bug：整个 API-key + 订阅额度体系是死代码。** `api-keys.js` 发 key、`subscription-manager.js` 发信用池、`gig-rewards.spendPoints` 发免费调用——但**没有任何请求路径消费它们**，key 拿到手什么也干不了，all-access "无限" 权益无执行点。
 
