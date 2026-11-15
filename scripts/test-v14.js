@@ -120,6 +120,16 @@ check('report shape', rep.stats.workersRegistered >= 3 && rep.workers.avgReputat
     fs.unlinkSync(subFile);
   } catch (e) { console.log('[FAIL] sub autobill test crashed: ' + e.message); fail++; }
 
+  // ── v15b: high-ticket tier + entitlement gate ──
+  var tiers = sm.listTiers();
+  check('sub 4-tiers-listed', tiers.length === 4 && tiers.some(t => t.id === 'all-access' && t.priceUsd === 99 && t.unlimited),
+    'tiers=' + tiers.map(t => t.id).join(','));
+  // weekly-report entitlement requires an active all-access sub; a wallet with none → 403 logic
+  // (status-based; here we just confirm the tier exists with the weeklyReport entitlement)
+  var aa = sm.TIERS['all-access'];
+  check('sub all-access-entitlements', aa && aa.entitlements && aa.entitlements.weeklyReport === true && aa.entitlements.unlimitedUtil === true,
+    'entitlements=' + JSON.stringify(aa.entitlements));
+
   console.log('\nTotal:' + (pass + fail) + ' PASS:' + pass + ' FAIL:' + fail);
   process.exit(fail === 0 ? 0 : 1);
 })().catch(e => { console.error('[FAIL] test crashed: ' + String(e && e.message).slice(0, 120)); process.exit(1); });

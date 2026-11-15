@@ -58,5 +58,33 @@ check('dedupe same titles', g3.ok === false || overlap === 0, 'overlap=' + overl
 var rep = sq.report();
 check('report shape', rep.byPlatform.x && rep.pending >= 0, 'pending=' + rep.pending + ' posted=' + rep.stats.posted);
 
+// ── v15b: pre-paid entitlement gate (module-level, no HTTP) ──────────────
+var subs = require('../lib/subscription-manager');
+var prepaid = require('../lib/prepaid-auth');
+// mirrorTarget maps the pre-paid path to the x402 target it mirrors
+check('prepaid mirror-target', prepaid.mirrorTarget('/api/prepaid/daily_report') === 'daily_report' &&
+  prepaid.mirrorTarget('/api/prepaid/util/fx_rates') === 'util/fx_rates',
+  'daily_report / util passthrough');
+// consumeCredit: decrement a wallet's pool; all-access is a no-op (unlimited)
+var subFile = path.join(__dirname, '..', 'data', 'subscriptions.json');
+try {
+  fs.writeFileSync(subFile, JSON.stringify({ version: 1, subs: [
+    { id: 'sub_cp1', wallet: '0x00000000000000000000000000000000000000c1', tier: 'trend-digest', active: true, creditsRemaining: 2, unlimited: false, endpoints: ['daily_report'] },
+    { id: 'sub_cp2', wallet: '0x00000000000000000000000000000000000000c2', tier: 'all-access', active: true, creditsRemaining: 999, unlimited: true, endpoints: ['daily_report'] },
+  ], stats: { totalActive: 2, totalPaused: 0, totalRevenueUsd: 0 } }, null, 2));
+  var c1 = subs.consumeCredit('0x00000000000000000000000000000000000000C1', 1);
+  check('prepaid consume-credit', c1.ok === true && c1.creditsRemaining === 1, 'remaining=' + c1.creditsRemaining);
+  var c2 = subs.consumeCredit('0x00000000000000000000000000000000000000C2', 1); // all-access → no-op
+  var db = JSON.parse(fs.readFileSync(subFile, 'utf8'));
+  var aa = db.subs.find(s => s.tier === 'all-access');
+  check('prepaid all-access-unlimited', aa.creditsRemaining === 999, 'all-access pool untouched=' + aa.creditsRemaining);
+  // draining to 0 auto-pauses
+  subs.consumeCredit('0x00000000000000000000000000000000000000C1', 5);
+  db = JSON.parse(fs.readFileSync(subFile, 'utf8'));
+  var td = db.subs.find(s => s.tier === 'trend-digest');
+  check('prepaid drain-auto-pause', td.creditsRemaining === 0 && td.active === false, 'paused on 0 credits');
+  fs.unlinkSync(subFile);
+} catch (e) { console.log('[FAIL] prepaid test crashed: ' + e.message); fail++; }
+
 console.log('\nTotal:' + (pass + fail) + ' PASS:' + pass + ' FAIL:' + fail);
 process.exit(fail === 0 ? 0 : 1);
