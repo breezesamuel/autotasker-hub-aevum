@@ -86,5 +86,20 @@ try {
   fs.unlinkSync(subFile);
 } catch (e) { console.log('[FAIL] prepaid test crashed: ' + e.message); fail++; }
 
+// ── v16c: monetization conversion engine (honest payback math, no bad upsells) ──
+var mono = require('../lib/monetization');
+// light hotlist user: ppc is cheaper than any sub → recommend null (no bad upsell)
+var lightHot = mono.offerFor('hotlist', 30);
+check('mono light-hotlist-no-upsell', lightHot.recommend === null, 'ppc $'+lightHot.estPayPerCallMonthly+'/mo < any tier');
+// heavy full user: all-access beats $450/mo ppc → recommend all-access
+var heavyFull = mono.offerFor('full', 900);
+check('mono heavy-full-recs-all-access', heavyFull.recommend && heavyFull.recommend.id === 'all-access', 'ppc $'+heavyFull.estPayPerCallMonthly+'/mo');
+// crossover math: full-stack at 300/mo market_scan saves vs $30 ppc
+var ms = mono.offerFor('market_scan', 300);
+check('mono market-scan-300-sub-saves', ms.recommend && ms.recommend.priceUsd < ms.estPayPerCallMonthly, 'tier $'+(ms.recommend?ms.recommend.priceUsd:'?')+' vs ppc $'+ms.estPayPerCallMonthly);
+// pricingConversation shape
+var pc = mono.pricingConversation();
+check('mono pricing-conversation-shape', pc.payPerCall && pc.tiers.length === 4 && pc.crossover.length === 6, 'tiers=' + pc.tiers.length + ' crossover=' + pc.crossover.length);
+
 console.log('\nTotal:' + (pass + fail) + ' PASS:' + pass + ' FAIL:' + fail);
 process.exit(fail === 0 ? 0 : 1);
