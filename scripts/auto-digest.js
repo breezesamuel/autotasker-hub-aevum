@@ -199,5 +199,30 @@ function pushWebhooks(payload) {
     : null;
   pushWebhooks(pushPayload);
 
+  // IndexNow: 每次 digest 更新 → 立即通知搜索引擎重新抓取 /trending + /feed.xml（被动流量入口）
+  if (!DRY_RUN) {
+    try {
+      const fsig = require('fs');
+      const pathsig = require('path');
+      const ig = require('crypto');
+      let inKey = null;
+      try { inKey = JSON.parse(fsig.readFileSync(pathsig.join(ROOT, 'config', 'indexnow.json'), 'utf8')).key; } catch (e) {}
+      if (inKey) {
+        const body = JSON.stringify({
+          host: 'autotasker.highkingflower.com',
+          key: inKey,
+          keyLocation: 'https://autotasker.highkingflower.com/' + inKey + '.txt',
+          urlList: ['https://autotasker.highkingflower.com/trending', 'https://autotasker.highkingflower.com/feed.xml', 'https://autotasker.highkingflower.com/offer.html'],
+        });
+        const r = require('https').request('https://api.indexnow.org/indexnow', {
+          method: 'POST', timeout: 8000,
+          headers: { 'content-type': 'application/json', 'content-length': Buffer.byteLength(body) },
+        }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => console.log('[digest] indexnow', res.statusCode, b.slice(0, 60))); });
+        r.on('error', e => console.log('[digest] indexnow failed:', e.message));
+        r.write(body); r.end();
+      }
+    } catch (e) { /* never break the digest for a ping */ }
+  }
+
   console.log(`[digest] done · ${Object.keys(outputs).length} formats · ${items.length} items`);
 })();

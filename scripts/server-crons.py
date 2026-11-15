@@ -75,6 +75,8 @@ CRON_TASKS = [
      "5 3 * * * cd " + APP + " && node scripts/dormant-finder.js >> " + LOGDIR + "/service.log 2>&1  " + MARK + " dormant-refresh"),
     ("bounty-bump",
      "35 */6 * * * curl -fsS -o /dev/null -m 30 -X POST http://127.0.0.1:8795/api/bounty/bump-stale >> " + LOGDIR + "/service.log 2>&1  " + MARK + " bounty-bump"),
+    ("bounty-auto-match",
+     "0 3,15 * * * curl -fsS -o /dev/null -m 30 -X POST 'http://127.0.0.1:8795/api/bounty/auto-match?max=20' >> " + LOGDIR + "/service.log 2>&1  " + MARK + " bounty-auto-match"),
     ("social-queue",
      "40 5 * * * curl -fsS -o /dev/null -m 30 -X POST http://127.0.0.1:8795/api/social/generate >> " + LOGDIR + "/service.log 2>&1  " + MARK + " social-queue"),
     ("trading-loop",

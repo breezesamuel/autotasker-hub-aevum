@@ -136,9 +136,9 @@ function buildThesis(quote) {
 
 async function runOnce() {
   const t0 = Date.now();
-  const scan = await scan();
-  const quotes = scan.quotes || [];
-  const out = { at: new Date().toISOString(), scanned: quotes.length, opened: [], gated: [], settled: [], skipped: null, sources: scan.sources };
+  const scanOut = await scan();
+  const quotes = scanOut.quotes || [];
+  const out = { at: new Date().toISOString(), scanned: quotes.length, opened: [], gated: [], settled: [], skipped: null, sources: scanOut.sources };
   if (!quotes.length) { out.skipped = 'no market data reachable (all 4 sources failed from this network)'; return out; }
 
   // 6. settle matured open theses first (close before opening new risk)

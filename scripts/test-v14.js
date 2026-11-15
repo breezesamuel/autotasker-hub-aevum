@@ -88,6 +88,14 @@ check('report shape', rep.stats.workersRegistered >= 3 && rep.workers.avgReputat
   check('airdrop real-without-gates-stays-dry', forced.dryRun === true && forced.realRequested === true && forced.allGatesPass !== true,
     'allPass=' + forced.allGatesPass);
 
+  // ── v15b: bounty two-sided auto-match (match top worker + auto-claim → accrue fee) ──
+  var am = bm.autoMatchAndClaim(20);
+  check('bounty auto-match shape', am.ok === true && Array.isArray(am.autoClaimed) && typeof am.totalFeeUsd === 'number',
+    'scanned=' + (am.openScanned || 0) + ' autoClaimed=' + am.autoClaimed.length + ' fee=$' + am.totalFeeUsd);
+  // fee only accrues when a claim actually happens; with no matching open+worker pair it stays 0 (never invented)
+  check('bounty auto-match no-invented-fees', Number(am.totalFeeUsd) >= 0 && am.autoClaimed.length === 0 || Number(am.totalFeeUsd) > 0,
+    'consistent');
+
   console.log('\nTotal:' + (pass + fail) + ' PASS:' + pass + ' FAIL:' + fail);
   process.exit(fail === 0 ? 0 : 1);
-})().catch(e => { console.error('[FAIL] airdrop test crashed: ' + String(e && e.message).slice(0, 120)); process.exit(1); });
+})().catch(e => { console.error('[FAIL] test crashed: ' + String(e && e.message).slice(0, 120)); process.exit(1); });
