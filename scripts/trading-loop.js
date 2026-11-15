@@ -43,31 +43,55 @@ function httpsJSON(url, timeoutMs) {
   });
 }
 
-/** zero-key market data: CoinGecko top-20 → Binance fallback. */
+/** zero-key market data: CoinGecko top-20 → Binance → OKX → Bybit fallback.
+ *  GFW note: all 4 may be unreachable from a mainland ECS; the caller must
+ *  check `out.scanned === 0` before opening new probes. The loop now reports
+ *  `dataSources: [{name, ok}]` so the cron endpoint can surface reachability
+ *  in the trading-loop.json health file for ops.
+ */
 async function scan() {
+  const sources = [];
+  const trySource = (name, data, ok) => { sources.push({ name, ok: !!ok }); };
+
   const cg = await httpsJSON('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&price_change_percentage=24h');
+  trySource('coingecko', cg, Array.isArray(cg) && cg.length);
   if (Array.isArray(cg) && cg.length) {
-    return cg.map(c => ({ id: c.id, symbol: (c.symbol || '').toUpperCase(), price: Number(c.current_price), change24h: Number(c.price_change_percentage_24h), high24h: Number(c.high_24h), low24h: Number(c.low_24h), source: 'coingecko' }));
+    return {
+      quotes: cg.map(c => ({ id: c.id, symbol: (c.symbol || '').toUpperCase(), price: Number(c.current_price), change24h: Number(c.price_change_percentage_24h), high24h: Number(c.high_24h), low24h: Number(c.low_24h), source: 'coingecko' })),
+      sources,
+    };
   }
   const bn = await httpsJSON('https://api.binance.com/api/v3/ticker/24hr');
+  trySource('binance', bn, Array.isArray(bn));
   if (Array.isArray(bn)) {
-    return bn.filter(t => /USDT$/.test(t.symbol) && !/(UP|DOWN|BULL|BEAR)USDT$/.test(t.symbol))
-      .sort((a, b) => Number(b.quoteVolume) - Number(a.quoteVolume)).slice(0, 20)
-      .map(t => ({ id: t.symbol, symbol: t.symbol.replace(/USDT$/, ''), price: Number(t.lastPrice), change24h: Number(t.priceChangePercent), high24h: Number(t.highPrice), low24h: Number(t.lowPrice), source: 'binance' }));
+    return {
+      quotes: bn.filter(t => /USDT$/.test(t.symbol) && !/(UP|DOWN|BULL|BEAR)USDT$/.test(t.symbol))
+        .sort((a, b) => Number(b.quoteVolume) - Number(a.quoteVolume)).slice(0, 20)
+        .map(t => ({ id: t.symbol, symbol: t.symbol.replace(/USDT$/, ''), price: Number(t.lastPrice), change24h: Number(t.priceChangePercent), high24h: Number(t.highPrice), low24h: Number(t.lowPrice), source: 'binance' })),
+      sources,
+    };
   }
   const okx = await httpsJSON('https://www.okx.com/api/v5/market/tickers?instType=SPOT');
+  trySource('okx', okx, !!(okx && Array.isArray(okx.data)));
   if (okx && Array.isArray(okx.data)) {
-    return okx.data.filter(t => /-USDT$/.test(t.instId))
-      .map(t => ({ id: t.instId, symbol: t.instId.replace(/-USDT$/, ''), price: Number(t.last), change24h: Number(t.open24h) ? (Number(t.last) - Number(t.open24h)) / Number(t.open24h) * 100 : 0, high24h: Number(t.high24h), low24h: Number(t.low24h), source: 'okx' }))
-      .sort((a, b) => Math.abs(b.change24h) - Math.abs(a.change24h)).slice(0, 20);
+    return {
+      quotes: okx.data.filter(t => /-USDT$/.test(t.instId))
+        .map(t => ({ id: t.instId, symbol: t.instId.replace(/-USDT$/, ''), price: Number(t.last), change24h: Number(t.open24h) ? (Number(t.last) - Number(t.open24h)) / Number(t.open24h) * 100 : 0, high24h: Number(t.high24h), low24h: Number(t.low24h), source: 'okx' }))
+        .sort((a, b) => Math.abs(b.change24h) - Math.abs(a.change24h)).slice(0, 20),
+      sources,
+    };
   }
   const bb = await httpsJSON('https://api.bybit.com/v5/market/tickers?category=spot');
+  trySource('bybit', bb, !!(bb && bb.result && Array.isArray(bb.result.list)));
   if (bb && bb.result && Array.isArray(bb.result.list)) {
-    return bb.result.list.filter(t => /USDT$/.test(t.symbol) && Number(t.turnover24h) > 0)
-      .sort((a, b) => Number(b.turnover24h) - Number(a.turnover24h)).slice(0, 20)
-      .map(t => ({ id: t.symbol, symbol: t.symbol.replace(/USDT$/, ''), price: Number(t.lastPrice), change24h: Number(t.price24hPercent), high24h: Number(t.highPrice24h), low24h: Number(t.lowPrice24h), source: 'bybit' }));
+    return {
+      quotes: bb.result.list.filter(t => /USDT$/.test(t.symbol) && Number(t.turnover24h) > 0)
+        .sort((a, b) => Number(b.turnover24h) - Number(a.turnover24h)).slice(0, 20)
+        .map(t => ({ id: t.symbol, symbol: t.symbol.replace(/USDT$/, ''), price: Number(t.lastPrice), change24h: Number(t.price24hPercent), high24h: Number(t.highPrice24h), low24h: Number(t.lowPrice24h), source: 'bybit' })),
+      sources,
+    };
   }
-  return [];
+  return { quotes: [], sources };
 }
 
 function buildThesis(quote) {
@@ -95,9 +119,10 @@ function buildThesis(quote) {
 
 async function runOnce() {
   const t0 = Date.now();
-  const quotes = await scan();
-  const out = { at: new Date().toISOString(), scanned: quotes.length, opened: [], gated: [], settled: [], skipped: null };
-  if (!quotes.length) { out.skipped = 'no market data reachable (both sources failed)'; return out; }
+  const scan = await scan();
+  const quotes = scan.quotes || [];
+  const out = { at: new Date().toISOString(), scanned: quotes.length, opened: [], gated: [], settled: [], skipped: null, sources: scan.sources };
+  if (!quotes.length) { out.skipped = 'no market data reachable (all 4 sources failed from this network)'; return out; }
 
   // 6. settle matured open theses first (close before opening new risk)
   const open = journal.listOpen();
