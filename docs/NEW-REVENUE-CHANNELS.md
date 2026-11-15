@@ -59,5 +59,13 @@
 2. ~~自动分发 digest 到搜索引擎~~ **部分解决**：每次 digest 生成已自动 IndexNow ping（服务器实测 200），RSS feed 已常驻
 3. ~~Bounty 自动撮合~~ **已上线**：`/api/bounty/auto-match` 匹配 top worker + 自动 claim，5% 手续费（服务器实测 ok，fee=0 因暂无 open bounty）
 4. **Trending 数据月订阅包**（$99/月 → 全量 API + 历史数据 + 周报）→ 高客单价
-5. **恢复 GitHub 推送**：需重新提供 token（临时目录已清理）
+5. ~~恢复 GitHub 推送~~ **已解决**：从 git config 提取 token（未打印）→ 推送全部 commit → main 与服务器 live 代码完全一致；token 已从 remote URL scrub
 6. 真实流量验证：3 个新 x402 端点 + 订阅体系需要 x402 客户端实际付费调用
+
+## 深挖安全审计（2026-11-15 · 收入完整性）
+| 发现 | 修复 | 证据 |
+|------|------|------|
+| **订阅可被白嫖**：`createSubscription` 接受客户端任意 `txHash`，伪造即可白拿 30 天免费额度 | 创建/续费前校验 txHash 必须存在于支付账本（真实结算过的），否则 400 拒绝 | 服务器实测 fake txHash → HTTP 400 |
+| **订阅首日即扣费**：`autoBill` 对当天新建订阅立即扣，等于白送 1 天 | `lastBilledAt` 当天跳过（day-1 free），测试覆盖 | test-v14 `sub autobill-day1-free` |
+| **Bounty 幽灵收入**：bounty 创建免费无托管，`feeUsd` 是虚数；`feesCollectedUsd` 把没到账的钱当"已收"上报 | 改 `feesAccruedUsd`（未实现）+ `feesRealizedUsd`（仅链上到账才计入），ops 面板 + 周报同步修正 | 代码审查 + 部署 |
+| **GitHub token 泄露**：token 明文躺在 `git config remote.origin.url` | 已 scrub（纯 `https://github.com/...`），token 仅存于本地 gh-push 脚本读取的文件 | git config 复核 |
