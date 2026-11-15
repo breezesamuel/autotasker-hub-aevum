@@ -58,9 +58,22 @@
 1. ~~市场数据源被墙~~ **已解决**（Gate.io 可直连，已上线）
 2. ~~自动分发 digest 到搜索引擎~~ **部分解决**：每次 digest 生成已自动 IndexNow ping（服务器实测 200），RSS feed 已常驻
 3. ~~Bounty 自动撮合~~ **已上线**：`/api/bounty/auto-match` 匹配 top worker + 自动 claim，5% 手续费（服务器实测 ok，fee=0 因暂无 open bounty）
-4. **Trending 数据月订阅包**（$99/月 → 全量 API + 历史数据 + 周报）→ 高客单价
+4. ~~高客单价订阅包~~ **已上线**：all-access $99/月（unlimited util + 历史 + 周报权益）+ `/api/prepaid/*` 镜像层
 5. ~~恢复 GitHub 推送~~ **已解决**：从 git config 提取 token（未打印）→ 推送全部 commit → main 与服务器 live 代码完全一致；token 已从 remote URL scrub
 6. 真实流量验证：3 个新 x402 端点 + 订阅体系需要 x402 客户端实际付费调用
+
+## 深挖 · v16b 投资研究升级（2026-11-15 · 本轮）
+**问题**：edge-gate 的 `regime.blocked` 一直硬编码 `false`——"按行情阻断"从未用数据触发；v16 循环只在"做什么"上推理，不在"何时该做"上推理。
+
+**修复（`lib/market-regime.js`，数据驱动行情分类）：**
+- 从 20 币 quote 算 breadth（上涨占比）+ 中位 24h 涨跌 + 中位 |涨跌| → bull / bear / range + high-vol
+- 熊 → 禁新开 long；牛 → 禁新开 short；high-vol → 探测风险砍半
+- 只让 gate **更保守**（能 block/shrink，永不解锁），保持 fail-closed
+- **生产实测**：cron 跑出 `regime: "bear (up 0.2 · med -1.045% · 20 quotes)"`，EVAA 的 long probe 被 `regime-blocked (bear)` 拦下
+
+**决策可测量（`/api/trading/calibration`）：** "40% 决策正确率"从口号变成指标：`probeHitRate`（前向实盘胜率，含费后）+ `gateSelectivity`（拦截率）。本地样本 15 closed → probeHitRate 0.133 / avgResultR −0.62，**动量 probe 目前亏钱**，gate 正确把它压在 MANUAL_REVIEW（fail-closed 对，不该 auto-allow 负期望策略）。
+
+测试：test-v13b **26/26**（新增 4 项 regime 单测）。本地 / GitHub / 生产同步。
 
 ## 深挖 · 预付额度层落地（2026-11-15 · 本轮）
 **发现的真 bug：整个 API-key + 订阅额度体系是死代码。** `api-keys.js` 发 key、`subscription-manager.js` 发信用池、`gig-rewards.spendPoints` 发免费调用——但**没有任何请求路径消费它们**，key 拿到手什么也干不了，all-access "无限" 权益无执行点。
