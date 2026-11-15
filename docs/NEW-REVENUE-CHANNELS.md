@@ -62,6 +62,21 @@
 5. ~~恢复 GitHub 推送~~ **已解决**：从 git config 提取 token（未打印）→ 推送全部 commit → main 与服务器 live 代码完全一致；token 已从 remote URL scrub
 6. 真实流量验证：3 个新 x402 端点 + 订阅体系需要 x402 客户端实际付费调用
 
+## 深挖 · 预付额度层落地（2026-11-15 · 本轮）
+**发现的真 bug：整个 API-key + 订阅额度体系是死代码。** `api-keys.js` 发 key、`subscription-manager.js` 发信用池、`gig-rewards.spendPoints` 发免费调用——但**没有任何请求路径消费它们**，key 拿到手什么也干不了，all-access "无限" 权益无执行点。
+
+修复：新增 **`/api/prepaid/*` 镜像层**（`lib/prepaid-auth.js`）
+- 订阅者/密钥持有者调 `/api/prepaid/<route>`，`keyAuthMiddleware` 校验 key + 钱包订阅池余额，命中即免 x402 结算免费取数
+- 匿名 agent 仍走 `/api/x402/<route>` 按次付费（x402 路由原样未动，fail-closed）
+- 每次消费扣 `consumeCredit`；池空自动暂停；all-access 无限不扣
+- 服务端实测：无 key → 401，weekly-report 无 wallet → 400（安全兜底生效）
+
+**新增高客单价档 `all-access` $99/月**（unlimited util + 历史数据 + 周报权益）
+- `/api/subscribe/weekly-report`：仅活跃 all-access 订阅可取最新周报 JSON（其余 403）
+- 订阅档 2/5/15/**99**，`/api/subscribe/plans` 全列出
+
+测试：test-v14b 15/15（含 consume-credit / all-access-unlimited / drain-auto-pause）。
+
 ## 深挖安全审计（2026-11-15 · 收入完整性）
 | 发现 | 修复 | 证据 |
 |------|------|------|
