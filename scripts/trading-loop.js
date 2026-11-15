@@ -23,6 +23,7 @@ const https = require('https');
 const journal = require('../lib/trading-journal');
 const edgeGate = require('../lib/edge-gate');
 const calibration = require('../lib/edge-calibration');
+const marketRegime = require('../lib/market-regime');
 
 const HOLD_HOURS = 24;
 const FEES_R = 0.02;
@@ -141,6 +142,10 @@ async function runOnce() {
   const out = { at: new Date().toISOString(), scanned: quotes.length, opened: [], gated: [], settled: [], skipped: null, sources: scanOut.sources };
   if (!quotes.length) { out.skipped = 'no market data reachable (all 4 sources failed from this network)'; return out; }
 
+  // data-driven market regime (replaces the old hardcoded regime.blocked:false)
+  const regime = marketRegime.classify(quotes);
+  out.regime = regime.summary;
+
   // 6. settle matured open theses first (close before opening new risk)
   const open = journal.listOpen();
   for (const th of open) {
@@ -179,7 +184,12 @@ async function runOnce() {
     out.skipped = 'strongest mover ' + top.symbol + ' already has an open thesis (no pyramiding)';
   } else if (top && Math.abs(top.change24h) >= MOMENTUM_PROBE_PCT) {
     const th = buildThesis(top);
-    // policy: blocked categories + haircut
+    // data-driven regime gate: don't open a long into a bear tape or a short into
+    // a bull tape (regime is computed from live quote breadth, not a hardcoded false).
+    if (marketRegime.shouldBlockProbe(th.side, regime)) {
+      journal.gateOut(th, 'BLOCKED', ['regime: ' + regime.summary + ' — ' + th.side + ' probe against trend']);
+      out.gated.push({ asset: th.asset, decision: 'BLOCKED', why: 'regime-blocked (' + regime.regime + ')' });
+    } else {
     const blocked = calibration.blockedCategories();
     const conf = calibration.haircutConfidence(th.category, th.confidence);
     th.confidence = conf;
@@ -191,18 +201,24 @@ async function runOnce() {
       const g = edgeGate.evaluate({
         thesis: th,
         account: journal.accountState(),
-        regime: { blocked: false, label: 'unmanaged (paper loop)' },
+        // feed the real regime into the gate: blockLongs/blockShorts now drive
+        // cb.push('market regime blocked by operator') on a data basis.
+        regime: { blocked: marketRegime.shouldBlockProbe(th.side, regime), label: regime.summary },
         edge: { expectancyR: stats.expectancyR, sampleSize: stats.closed, winRate: stats.winRate, payoff: stats.payoff },
       });
       if (g.decision === 'ALLOWED') {
-        th.actualRiskPct = Math.max(0.1, Math.min(g.sizing.riskPct, th.plannedRiskPct));
+        // high-vol haircut: halve the sized risk when the tape is whipsawing
+        let sizedRisk = Math.max(0.1, Math.min(g.sizing.riskPct, th.plannedRiskPct));
+        if (regime.highVol && regime.sizeHaircut < 1) sizedRisk = +(sizedRisk * regime.sizeHaircut).toFixed(3);
+        th.actualRiskPct = sizedRisk;
         const r = journal.openThesis(th);
-        if (r.ok) out.opened.push({ id: r.thesis.id, asset: r.thesis.asset, side: r.thesis.side, riskPct: r.thesis.actualRiskPct, sizing: g.sizing.method });
+        if (r.ok) out.opened.push({ id: r.thesis.id, asset: r.thesis.asset, side: r.thesis.side, riskPct: r.thesis.actualRiskPct, sizing: g.sizing.method + (regime.highVol ? '+highvol' : '') });
         else out.gated.push({ asset: th.asset, decision: 'INVALID', why: r.reason });
       } else {
         journal.gateOut(th, g.decision, g.reasons);
         out.gated.push({ asset: th.asset, decision: g.decision, why: (g.reasons[0] || g.checks.filter(c => !c.pass).map(c => c.name).join(',')) });
       }
+    }
     }
   } else {
     out.skipped = 'no mover beyond ±' + MOMENTUM_PROBE_PCT + '% (top: ' + (top ? top.symbol + ' ' + top.change24h.toFixed(1) + '%' : 'n/a') + ')';

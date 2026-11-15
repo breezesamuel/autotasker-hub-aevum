@@ -128,5 +128,17 @@ const newPricingOk = routeKeys.every(k => {
 });
 check('new-revenue-routes-have-accepts', newPricingOk, 'accepts arrays populated');
 
+// ── v16b: data-driven market regime feeds the edge-gate ─────────────────────
+var mr = require('../lib/market-regime');
+var bull = Array.from({ length: 20 }, (_, i) => ({ change24h: i < 16 ? 3 : -1 }));
+var bear = Array.from({ length: 20 }, (_, i) => ({ change24h: i < 4 ? 2 : -3 }));
+var hb = mr.classify(bull), hbear = mr.classify(bear);
+check('regime-bull-blocks-shorts', hb.regime === 'bull' && hb.blockShorts === true && hb.blockLongs === false, 'upFrac=' + hb.upFraction);
+check('regime-bear-blocks-longs', hbear.regime === 'bear' && hbear.blockLongs === true && hbear.blockShorts === false, 'upFrac=' + hbear.upFraction);
+var hv = mr.classify(Array.from({ length: 20 }, (_, i) => ({ change24h: i < 10 ? 9 : -7 })));
+check('regime-highvol-halves-size', hv.highVol === true && hv.sizeHaircut === 0.5, 'medAbs=' + hv.medianAbsPct);
+var empty = mr.classify([]);
+check('regime-no-data-neutral', empty.regime === 'range' && empty.blockLongs === false && empty.blockShorts === false, 'n=0 neutral');
+
 console.log('\nTotal:' + (pass + fail) + ' PASS:' + pass + ' FAIL:' + fail);
 process.exit(fail === 0 ? 0 : 1);
