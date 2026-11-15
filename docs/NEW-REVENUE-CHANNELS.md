@@ -90,6 +90,18 @@
 
 **测试**：test-v14b 19/19（+4 项 monetization 单测：light-no-upsell / heavy-all-access / market-scan-saves / pricing-conversation-shape）。
 
+## 深挖 · 结算资金链路加固（2026-11-15 · 末轮）
+**bandit 真 bug（资金学习被污染）**：`onAfterSettle` 里 `recordConversion(tool, null, usd)` 把结算收入记到**结算时点活着的 arm**，而非**这次实际报价的 arm** → 0.7x/1.3x 两臂收入互相串账，bandit 的"每印象收入"学习被打乱、收敛到错误定价。
+
+修复：
+- 新增 `BANDIT_LAST_ARM` + `lastQuotedArm(tool)`：动态价构建时记下"这一轮实际报几x"
+- 结算按**实际报价 arm** 记 conversion；util:NAME → NAME 统一成 makeAccepts 的 bandit key（原来 3 新端点 + util 映射不到 arm key，收入记进幻 key）
+- 实测：同 tool 记 1.3 arm 3 笔 + 0.7 arm 1 笔 → 各 arm convs 独立正确（0.7:1 / 1.3:3），不再串账
+
+**prepaid 镜像层安全确认**（生产）：无 key→401、假 key→403、weekly-report 无 all-access→403，全 fail-closed。
+
+测试：全矩阵 89 项全绿（v13b 26 / v14 21 / v14b 19 / v16 23），全库语法 0 BAD。本地 / GitHub / 生产三方同步（prod operational, 6 paid services）。
+
 ## 深挖 · 预付额度层落地（2026-11-15 · 本轮）
 **发现的真 bug：整个 API-key + 订阅额度体系是死代码。** `api-keys.js` 发 key、`subscription-manager.js` 发信用池、`gig-rewards.spendPoints` 发免费调用——但**没有任何请求路径消费它们**，key 拿到手什么也干不了，all-access "无限" 权益无执行点。
 
