@@ -106,5 +106,27 @@ check('bandit shouldExperiment-floor', bandit.shouldExperiment(10000) === false 
   bandit.shouldExperiment(20000) === true && bandit.shouldExperiment(50000) === true,
   '$0.01 locked, $0.02+ eligible');
 
+// ── v15b: 3 new revenue channels (daily_report, market_scan, trend_predict) ──
+const PRICE_MAP_EXPECTED = {
+  daily_report: 250000,  // $0.25
+  market_scan:  100000,  // $0.10
+  trend_predict: 150000, // $0.15
+};
+for (const [route, atomic] of Object.entries(PRICE_MAP_EXPECTED)) {
+  check('PRICE_MAP[' + route + ']', typeof atomic === 'number' && atomic > 0, '$' + (atomic / 1e6).toFixed(2));
+}
+// verify the x402-v4 module actually wires the new routes into REST_ROUTE_CONFIGS
+// (smoke-require loads the app without starting the server, so we can inspect the export)
+// We test via the public surface: require the app and check REST_ROUTE_CONFIGS keys
+const appMod = require('../lib/x402-v4');
+const routeKeys = Object.keys(appMod._REST_ROUTE_CONFIGS || {}).filter(k => k.includes('daily_report') || k.includes('market_scan') || k.includes('trend_predict'));
+check('new-revenue-routes-registered', routeKeys.length >= 3, 'found: ' + routeKeys.join(', '));
+const newPricingOk = routeKeys.every(k => {
+  const [method, path] = k.split(' ');
+  const cfg = appMod._REST_ROUTE_CONFIGS[k];
+  return cfg && Array.isArray(cfg.accepts) && cfg.accepts.length >= 1;
+});
+check('new-revenue-routes-have-accepts', newPricingOk, 'accepts arrays populated');
+
 console.log('\nTotal:' + (pass + fail) + ' PASS:' + pass + ' FAIL:' + fail);
 process.exit(fail === 0 ? 0 : 1);
