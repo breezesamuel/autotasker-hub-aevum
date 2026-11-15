@@ -91,6 +91,8 @@ CRON_TASKS = [
      "for f in " + LOGDIR + "/*.log; do [ -f \"$f\" ] || continue; sz=$(stat -c\\%s \"$f\" 2>/dev/null || echo 0); "
      "[ \"$sz\" -gt 50000000 ] && tail -c 3000000 \"$f\" > \"$f.tmp\" && mv \"$f.tmp\" \"$f\"; done; "
      "journalctl --vacuum-size=200M >/dev/null 2>&1 || true  " + MARK + " diskguard"),
+    ("sub-auto-bill",
+     "5 4 * * * curl -fsS -o /dev/null -m 15 -X POST http://127.0.0.1:8795/api/subscribe/auto-bill >> " + LOGDIR + "/service.log 2>&1  " + MARK + " sub-auto-bill"),
 ]
 TAGS = {t for t, _ in CRON_TASKS}
 
