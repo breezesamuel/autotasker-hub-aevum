@@ -1,0 +1,186 @@
+{
+  "fetchedAt": "2026-11-13T14:03:01.775Z",
+  "source": "https://yields.llama.fi/pools",
+  "filters": {
+    "chain": "Base",
+    "minApy": 5,
+    "minTvlUsd": 5000000,
+    "singleAsset": true,
+    "stablecoin": true
+  },
+  "note": "APY is variable and can change or fall to zero; TVL is pool size, not a safety guarantee. Reward-APY is token emissions, not cash.",
+  "count": 9,
+  "pools": [
+    {
+      "project": "veranta",
+      "pool": "ae3397ed-1f0f-4aa4-ab62-44413ea8cd9e",
+      "symbol": "USDC",
+      "apy": 27.89,
+      "apyBase": 27.89,
+      "apyReward": null,
+      "tvlUsd": 9601225,
+      "ilRisk": "no",
+      "stablecoin": true,
+      "exposure": "single",
+      "rewardTokens": 0,
+      "outlier": false,
+      "predictions": {
+        "predictedClass": "Down",
+        "predictedProbability": 95,
+        "binnedConfidence": 3
+      }
+    },
+    {
+      "project": "zerobase-cedefi",
+      "pool": "79788d49-3f2f-4dd3-ac58-50c191486b6f",
+      "symbol": "USDC",
+      "apy": 9,
+      "apyBase": 7,
+      "apyReward": 2,
+      "tvlUsd": 10519469,
+      "ilRisk": "no",
+      "stablecoin": true,
+      "exposure": "single",
+      "rewardTokens": 1,
+      "outlier": false,
+      "predictions": {
+        "predictedClass": "Stable/Up",
+        "predictedProbability": 54,
+        "binnedConfidence": 1
+      }
+    },
+    {
+      "project": "midas-rwa",
+      "pool": "70267deb-6203-537d-b013-c861e063419c",
+      "symbol": "USDC",
+      "apy": 7.48,
+      "apyBase": 7.48,
+      "apyReward": null,
+      "tvlUsd": 104129832,
+      "ilRisk": "no",
+      "stablecoin": true,
+      "exposure": "single",
+      "rewardTokens": 0,
+      "outlier": false,
+      "predictions": {
+        "predictedClass": "Down",
+        "predictedProbability": 66,
+        "binnedConfidence": 2
+      }
+    },
+    {
+      "project": "morpho-blue",
+      "pool": "14170877-8941-4c7d-b12c-06517c70f1e7",
+      "symbol": "ETHENAUSDC",
+      "apy": 6.71,
+      "apyBase": 4.01,
+      "apyReward": 2.7,
+      "tvlUsd": 26003553,
+      "ilRisk": "no",
+      "stablecoin": true,
+      "exposure": "single",
+      "rewardTokens": 1,
+      "outlier": false,
+      "predictions": {
+        "predictedClass": "Down",
+        "predictedProbability": 78,
+        "binnedConfidence": 3
+      }
+    },
+    {
+      "project": "morpho-blue",
+      "pool": "097b18e2-9232-4c44-bd2e-502de4ba889e",
+      "symbol": "CSCBUSDC",
+      "apy": 6.07,
+      "apyBase": 4.67,
+      "apyReward": 1.4,
+      "tvlUsd": 35141711,
+      "ilRisk": "no",
+      "stablecoin": true,
+      "exposure": "single",
+      "rewardTokens": 1,
+      "outlier": false,
+      "predictions": {
+        "predictedClass": "Down",
+        "predictedProbability": 57.99999999999999,
+        "binnedConfidence": 1
+      }
+    },
+    {
+      "project": "aave-v3",
+      "pool": "7e0661bf-8cf3-45e6-9424-31916d4c7b84",
+      "symbol": "USDC",
+      "apy": 5.76,
+      "apyBase": 5.76,
+      "apyReward": null,
+      "tvlUsd": 14935924,
+      "ilRisk": "no",
+      "stablecoin": true,
+      "exposure": "single",
+      "rewardTokens": 0,
+      "outlier": false,
+      "predictions": {
+        "predictedClass": "Stable/Up",
+        "predictedProbability": 60,
+        "binnedConfidence": 1
+      }
+    },
+    {
+      "project": "morpho-blue",
+      "pool": "8276be38-acc6-4005-ab0d-62680f49f4df",
+      "symbol": "SIRLOINUSDC",
+      "apy": 5.61,
+      "apyBase": 3.34,
+      "apyReward": 2.28,
+      "tvlUsd": 458051645,
+      "ilRisk": "no",
+      "stablecoin": true,
+      "exposure": "single",
+      "rewardTokens": 2,
+      "outlier": false,
+      "predictions": {
+        "predictedClass": "Down",
+        "predictedProbability": 59,
+        "binnedConfidence": 1
+      }
+    },
+    {
+      "project": "centrifuge-protocol",
+      "pool": "82469f6f-951d-4578-b47e-fb4df326f059",
+      "symbol": "USDC",
+      "apy": 5.41,
+      "apyBase": 5.41,
+      "apyReward": null,
+      "tvlUsd": 22848702,
+      "ilRisk": "no",
+      "stablecoin": true,
+      "exposure": "single",
+      "rewardTokens": 0,
+      "outlier": false,
+      "predictions": {
+        "predictedClass": "Down",
+        "predictedProbability": 63,
+        "binnedConfidence": 2
+      }
+    },
+    {
+      "project": "morpho-blue",
+      "pool": "832c94db-4948-4f14-aa65-af6e737d984e",
+      "symbol": "BBQUSDC",
+      "apy": 5.11,
+      "apyBase": 5.11,
+      "apyReward": 0,
+      "tvlUsd": 25381819,
+      "ilRisk": "no",
+      "stablecoin": true,
+      "exposure": "single",
+      "rewardTokens": 0,
+      "outlier": false,
+      "predictions": {
+        "predictedClass": "Stable/Up",
+        "predictedProbability": 60,
+        "binnedConfidence": 1
+      }
+    }
+  ]
+}

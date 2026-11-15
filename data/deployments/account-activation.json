@@ -1,0 +1,28 @@
+{
+  "network": "QDay Aevum Testnet",
+  "chainId": 44005,
+  "from": "0xBC6f31fB67e832b61E9563cdbCA7B4F37778419f",
+  "transfers": [
+    {
+      "name": "houseWallet",
+      "address": "0x74a9f91763c28571af7a52987f425f62825cf5d8",
+      "amount": "1.0",
+      "role": "90% commission recipient",
+      "txHash": "0x98fe465adffa93e57ef9d5157ba3699d9e82f5f3846e53f7e283558587cf5db6",
+      "block": 2962618,
+      "before": "0",
+      "after": "1000000000000000000"
+    },
+    {
+      "name": "treasury",
+      "address": "0x367F1b3D8Ca90D1e087481a9A40d585Bf3451a03",
+      "amount": "1.0",
+      "role": "0.5% facilitator fee recipient / x402 payTo",
+      "txHash": "0x12f849553156f5598099e5fe7ae5e64a556ba13dd5d50c792f4f7c1503feca30",
+      "block": 2962622,
+      "before": "0",
+      "after": "1000000000000000000"
+    }
+  ],
+  "at": "2026-11-12T07:44:44.018Z"
+}

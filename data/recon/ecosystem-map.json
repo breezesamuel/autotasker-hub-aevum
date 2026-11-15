@@ -1,0 +1,110 @@
+{
+  "scannedAt": "2026-11-12T11:16:45.149Z",
+  "actors": [
+    {
+      "name": "x402 Foundation",
+      "github": "https://github.com/x402-foundation/x402",
+      "website": "https://x402.org",
+      "slack": "http://slack.x402.org/",
+      "stars": 6800,
+      "forks": 2300,
+      "fit": "CANONICAL PROTOCOL OWNER",
+      "why": "They maintain the official x402 spec. Our CapitalMobilizerV2 is a production implementation of batch-settlement scheme. Case study would be highly valuable to them.",
+      "action": "Submit as featured case study on x402.org; join slack; contribute batch-settlement examples to the repo",
+      "contact": null
+    },
+    {
+      "name": "Reddi Agent Protocol (nissan)",
+      "github": "https://github.com/nissan/reddi-agent-protocol",
+      "website": "https://agent-protocol.reddi.tech",
+      "twitter": "@reddiagent",
+      "stars": 0,
+      "forks": 2,
+      "fit": "SAME VERTICAL — Solana x402 agent marketplace",
+      "why": "They build x402 escrow + commit-reveal reputation on Solana; we prove the pattern on EVM with $805 gross settled. Cross-chain proof is powerful.",
+      "action": "Cross-reference proof: our 988 tx benchmark vs their devnet-local claims; offer joint blog post comparing Arc/EVM vs Solana settlement patterns",
+      "contact": "hello@reddi.tech"
+    },
+    {
+      "name": "Judge Protocol (vijaygopalbalasa)",
+      "github": "https://github.com/vijaygopalbalasa/judge-protocol",
+      "website": "https://judge-protocol-api.vercel.app",
+      "stars": 0,
+      "forks": 0,
+      "fit": "COMPLEMENTARY — Deterministic evaluators for escrow",
+      "why": "They solve \"did the provider deliver?\" after payment; we solve \"how to split commission during payment.\" Combined = full trustless agent commerce stack.",
+      "action": "Integrate our router with their JudgeEvaluator: route funds through escrow → judge verifies work → auto-split via our contract",
+      "contact": null
+    },
+    {
+      "name": "Agentic.Market",
+      "url": "https://agentic.market",
+      "fit": "DIRECTORY — x402 service discoverability",
+      "why": "Community-maintained x402 service directory. Listing our router here = free discovery traffic for our API clients.",
+      "action": "Submit our router endpoint to Agentic.Market listing",
+      "contact": null
+    },
+    {
+      "name": "Pay.sh",
+      "url": "https://pay.sh",
+      "fit": "FACILITATOR — x402 facilitator provider",
+      "why": "If we switch our facilitator from AgentPay to Pay.sh, could unlock more networks and potentially lower fees.",
+      "action": "Compare facilitator rates; if better, switch and re-run benchmark",
+      "contact": null
+    },
+    {
+      "name": "x402-list.com",
+      "url": "https://x402-list.com",
+      "fit": "DIRECTORY — Service registry",
+      "why": "Another community directory for x402-enabled endpoints. Free visibility.",
+      "action": "Submit our autotasker-hub.vercel.app/x402 endpoint",
+      "contact": null
+    },
+    {
+      "name": "MCP Registry (official)",
+      "url": "https://registry.modelcontextprotocol.io",
+      "fit": "DISTRIBUTION — MCP server discovery",
+      "why": "Our x402 paywall endpoint can be registered as an MCP server tool, exposing our routing capability to any agent using Cursor/Claude/OpenCode.",
+      "action": "Build and publish an MCP server that exposes chargeBatch() as a tool — lets any agent pay for data via x402",
+      "contact": null
+    }
+  ],
+  "bounties": [
+    {
+      "name": "swap.io x402 video",
+      "reward": "$500 USDC",
+      "deadline": "Nov 14",
+      "status": "BLOCKED-API-KEY"
+    },
+    {
+      "name": "OOBE Protocol autonomous agent",
+      "reward": "$500 USDC",
+      "deadline": "Dec 10",
+      "status": "HUMAN-ONLY"
+    },
+    {
+      "name": "MultiHopper challenge",
+      "reward": "up to $50k+revshare",
+      "deadline": "Dec 14",
+      "status": "HUMAN-ONLY"
+    },
+    {
+      "name": "Aevum Builder Challenge #1",
+      "reward": "$3,000 total",
+      "deadline": "Dec 11",
+      "status": "OPEN-DECEMBER"
+    },
+    {
+      "name": "Code4rena K2 audit",
+      "reward": "$135,000 USDC",
+      "deadline": "May 27 2026",
+      "status": "WARDEN-REGISTER"
+    },
+    {
+      "name": "Code4rena Rujira audit",
+      "reward": "$40,000 USDC",
+      "deadline": "Jan 16 2026",
+      "status": "WARDEN-REGISTER"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.js" }],
+  "headers": [
+    { "source": "/(.*)", "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }] }
+  ],
+  "functions": {
+    "index.js": { "memory": 512, "maxDuration": 30 }
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_NODE_ENV": "production"
+    }
+  }
+}

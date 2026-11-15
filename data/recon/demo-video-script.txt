@@ -1,0 +1,75 @@
+# AutoTasker Hub — Demo Video Script
+# Total runtime target: ~3:45
+# Generate with: node scripts/p1-demo-video-prep.js
+
+## How to use this script
+1. Open OBS or your preferred screen recorder
+2. Switch to each screen location at the timestamp shown
+3. Read the narration line aloud (or use TTS)
+4. Keep camera off or use a simple facecam inset if desired
+
+## Shot List
+[0:00–0:15] Vercel landing page: https://autotasker-hub.vercel.app
+  Action: Open browser, show hero section with live stats
+  Narration: ""AutoTasker Hub is a machine-payable data marketplace built on x402. Real settlements, real splits, all verifiable on chain.""
+  Note: Already deployed at autotasker-hub.vercel.app
+
+[0:15–0:35] Terminal: curl free sample endpoint
+  Action: Run: curl https://autotasker-hub.vercel.app/api/x402/sample?limit=3
+  Narration: ""This is the free sample endpoint — no payment required. Real China public market data, returned instantly.""
+  Note: Shows the API works without payment
+
+[0:35–1:00] Terminal: curl paid endpoint (gets 402)
+  Action: Run: curl https://autotasker-hub.vercel.app/api/x402/hotlist
+  Narration: ""Now hit the paid endpoint. We get a 402 Payment Required, and inside accepts[0] you see three things named in three places: the facilitator, the asset tUSD8, the amount. That triple-naming is an x402 requirement.""
+  Note: Facilitator must appear in root, accepts[0].facilitator, accepts[0].extra.facilitator
+
+[1:00–1:25] Block explorer: contract address
+  Action: Navigate to https://explorer-test.qday.info/address/0xDf75267820b1Cc631723bB00da97e7642518e917
+  Narration: ""The settlement layer is CapitalMobilizerV2, deployed on QDay Aevum testnet. It's not a simulation — every number here is a real transaction hash you can click into.""
+  Note: Contract address: 0xDf752678...8e917
+
+[1:25–1:55] Block explorer: batch transaction detail
+  Action: Click into tx 0xc04c1631... (the 10-payment batch), point out gas per payment
+  Narration: ""A single charge costs about 221k gas. But batch ten charges into one transaction and it drops to 23,745 gas per payment. At one gwei that fraction of a cent makes sub-five-cent API pricing actually viable.""
+  Note: Batch tx: 0xc04c16314286a30d985d8d45a59ad8f3e0eff73398c70ef4c9be9e279175509a
+
+[1:55–2:20] Terminal: show float-velocity benchmark record
+  Action: cat data/deployments/float-velocity-benchmark.json | head -50
+  Narration: ""Here's the proof: 988 real settlements on official tUSD8. Same 47.95 token carried eight hundred five dollars gross. System float conserved at one hundred percent because gas is paid in tQDAY, not in the settlement token. And every single transaction passes the invariant check.""
+  Note: Key numbers: 988 payments, $805.40 gross, 16.8x velocity, 100% conserved
+
+[2:20–2:45] Terminal: run commission-proof or wallet status
+  Action: node scripts/float-status.js
+  Narration: ""Three ledgers, three destinations. House wallet received zero point six eight zero five eight. Referrer received zero point zero seven five six two. Treasury received zero point zero zero three eight. And the router balance is exactly zero because everything that came in was paid out.""
+  Note: Runs float-status.js showing real balances
+
+[2:45–3:10] GitHub: docs/CAPITAL-POLICY.md or docs/ONCHAIN-EVIDENCE.md
+  Action: Scroll to the realized revenue = $0 line
+  Narration: ""One honest line in the documentation: realized revenue is zero dollars. tUSD8 has no market value. What we proved is the rail works and the arithmetic is exact. That's the difference between a hackathon project and a product.""
+  Note: Critical honesty moment — builds judge trust
+
+[3:10–3:30] Quick scroll through GitHub repo structure
+  Action: Show README.md top section with real contract address
+  Narration: ""Everything is reproduced from the repo. Anyone can clone, deploy against their own token, and verify the same split arithmetic. The deployment guide takes about one command.""
+  Note: Shows reproducibility and open-source credibility
+
+[3:30–3:45] Back to Vercel landing page or DoraHacks submission form
+  Action: Final shot of the live site
+  Narration: ""Machine pays, provider gets paid in the same transaction, platform and referrer shares are provable on chain, and the whole thing costs a fraction of a cent per sale. This is what machine-payable infrastructure looks like.""
+  Note: Close with the pitch one-liner
+
+## Technical requirements
+- MetaMask set to QDay Aevum testnet (chainId 44005) before recording
+- Terminal open in the project root
+- Browser tabs pre-opened to:
+  - https://autotasker-hub.vercel.app
+  - https://explorer-test.qday.info/address/0xDf75267820b1Cc631723bB00da97e7642518e917
+- Node scripts pre-installed: npm install (once)
+- The .env with QDAY_PRIVATE_KEY set to the testnet deployer key
+
+## Tips
+- Do NOT rush the 402 response reveal — let the terminal output read clearly
+- When showing the float-conservation number, pause for 2 seconds
+- The "realized revenue is zero" line is the most important honesty moment — say it slowly
+- Export as MP4, target size under 100 MB for DoraHacks upload

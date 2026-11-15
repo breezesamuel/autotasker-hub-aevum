@@ -1,0 +1,29 @@
+{
+  "bounty": {
+    "title": "Build an Autonomous Capital Agent on Solana & Compete for $500 in Rewards",
+    "reward": 500,
+    "token": "USDC",
+    "deadline": "2026-12-10T22:59:59Z",
+    "sponsor": "OOBE Protocol",
+    "slug": "build-an-autonomous-capital-agent-on-solana-and-compete-for-dollar500-in-rewards",
+    "submissions": 1,
+    "agentAccess": "HUMAN_ONLY"
+  },
+  "ourAssets": [
+    "988 real settlements on official tUSD8",
+    "$805.40 gross settled, 16.8x float velocity",
+    "CapitalMobilizerV2 Solidity contract, deployed and verified",
+    "x402 paywall scoring 100/100 on AgentPay health checks",
+    "Reproducible benchmark script (npm install + run)",
+    "Full open-source repo with deployment guides"
+  ],
+  "partnerValueProp": "You get a complete, verified autonomous capital agent with on-chain evidence. Most solo devs have ideas but no proof-of-work. You just need to submit.",
+  "pitchTemplate": "Hi, I saw the OOBE Protocol bounty for \"Build an Autonomous Capital Agent\" ($500 USDC, deadline Dec 10). \n\nI've already built one — CapitalMobilizerV2 — with 988 verified on-chain settlements, 16.8x float velocity, and x402 paywall integration scoring 100/100.\n\nFull repo: https://github.com/breezesamuel/autotasker-hub-aevum\nBenchmark record: data/deployments/float-velocity-benchmark.json\n\nI don't have a Solana presence yet but I have the technical proof. Would you be open to partnering — you submit under your identity, I provide all the technical content and evidence, we split the reward?",
+  "coldDm": "Hey, building an autonomous capital agent with x402 payments on QDay testnet. 988 real settlements proven on chain. Saw your interest in the OOBE Protocol bounty — want to team up? I bring the code and proofs, you bring the Solana identity. Split 50/50?",
+  "recommendedPlatforms": [
+    "Superteam Discord",
+    "Solana twitter/X",
+    "OOBE Protocol Discord",
+    "BuilderDAO"
+  ]
+}

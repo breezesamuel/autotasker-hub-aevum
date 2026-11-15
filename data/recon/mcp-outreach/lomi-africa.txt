@@ -1,0 +1,33 @@
+To: hello@lomi.africa
+Twitter: @lomiafrica
+Discord: —
+Subject: x402 settlement rails for Lomi — agent-driven campaign funding & payouts
+
+Hi lomi team,
+
+Your MCP docs are excellent — the self-service provisioning flow
+(lomi_register_agent → lomi_provision → lomi_partners mint_key) and the
+agent sandbox with test-only keys shows you're already thinking about
+autonomous agent wallets. That's exactly where x402 fits.
+
+CapitalMobilizerV2 (our x402 routing contract) proved 988 real on-chain
+settlements ($805.40 gross) with exact math on every split — house,
+referrer, facilitator — enforced atomically.
+
+Use case for Lomi:
+  An AI agent uses your lomi MCP to create a campaign → auto-negotiates CPM
+  with creators → locks funds via x402 header → releases only on verified view
+  count. No escrow middleman, no manual payment orchestration.
+  Your provision flow gives the agent a test key; our contract handles the
+  settlement logic on-chain. Both layers together = autonomous commerce.
+
+Question: does Lomi see room for a settlement wrapper around your agent
+provisioning? We could build the integration as a joint case study — happy
+to prototype if useful.
+
+Benchmark record: https://github.com/breezesamuel/autotasker-hub-aevum/blob/main/data/deployments/float-velocity-benchmark.json
+Contract: 0xDf7526...8e917 (QDay Aevum testnet)
+
+Liao Xianyun
+AutoTasker Hub | x402 payment infrastructure
+https://autotasker-hub.vercel.app

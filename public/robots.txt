@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Allow: /trending
+Allow: /offer.html
+Disallow: /api/
+Disallow: /r/
+Disallow: /mcp
+
+Sitemap: https://autotasker.highkingflower.com/sitemap.xml

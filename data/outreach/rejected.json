@@ -1,0 +1,74 @@
+[
+  {
+    "id": "lead_1794562963099_s7igm",
+    "company": "Personal Buyer",
+    "contactName": "John Doe",
+    "email": "johndoe1985@gmail.com",
+    "phone": "",
+    "country": "US",
+    "industry": "retail",
+    "productInterest": "price data",
+    "source": "random_scrape",
+    "sourceUrl": "",
+    "basis": "public_business_listing",
+    "status": "rejected",
+    "addedAt": "2026-11-13T09:42:43.099Z",
+    "rejectedReasons": [
+      "personal_mailbox_not_a_business_contact"
+    ]
+  },
+  {
+    "id": "lead_1794562963099_m419d",
+    "company": "Duplicate Of Yuanhe",
+    "contactName": "Other Person",
+    "email": "purchase@yuanhe-elec.com",
+    "phone": "",
+    "country": "CN",
+    "industry": "electronics",
+    "productInterest": "pcb",
+    "source": "forum_post",
+    "sourceUrl": "",
+    "basis": "public_business_listing",
+    "status": "rejected",
+    "addedAt": "2026-11-13T09:42:43.099Z",
+    "rejectedReasons": [
+      "duplicate_domain"
+    ]
+  },
+  {
+    "id": "lead_1794562963099_db975",
+    "company": "City Procurement Office",
+    "contactName": "Officer",
+    "email": "bids@city.gov.example",
+    "phone": "",
+    "country": "US",
+    "industry": "government",
+    "productInterest": "tender data",
+    "source": "government_site",
+    "sourceUrl": "",
+    "basis": "public_business_listing",
+    "status": "rejected",
+    "addedAt": "2026-11-13T09:42:43.099Z",
+    "rejectedReasons": [
+      "government_or_academic_domain"
+    ]
+  },
+  {
+    "id": "lead_1794562963099_0og3o",
+    "company": "No Basis Ltd",
+    "contactName": "Sam Tan",
+    "email": "sam@nobasis.com",
+    "phone": "+65-6000-0000",
+    "country": "SG",
+    "industry": "trading",
+    "productInterest": "data",
+    "source": "referral",
+    "sourceUrl": "",
+    "basis": "",
+    "status": "rejected",
+    "addedAt": "2026-11-13T09:42:43.099Z",
+    "rejectedReasons": [
+      "missing_valid_legal_basis (need one of public_business_listing, inbound_enquiry, existing_customer, consent)"
+    ]
+  }
+]

@@ -1,0 +1,82 @@
+{
+  "pinned": true,
+  "packs": [
+    {
+      "repo": "tradermonty/claude-trading-skills",
+      "sha": "fdfff010e1efe181ebe9c11a0109ef5f8b736147",
+      "branch": "main",
+      "license": "MIT",
+      "files": 136,
+      "vendoredAt": "2026-11-15T09:19:58.474866Z"
+    },
+    {
+      "repo": "agiprolabs/claude-trading-skills",
+      "sha": "981e1d736cdc02bdc1c55c74ec9224e956414706",
+      "branch": "main",
+      "license": "MIT",
+      "files": 37,
+      "vendoredAt": "2026-11-15T09:20:05.329990Z"
+    },
+    {
+      "repo": "JerryLiu369/awesome-quant-skills",
+      "sha": "b191d2747a1c89347096c4181d1bceecb74006f3",
+      "branch": "main",
+      "license": "MIT",
+      "files": 48,
+      "vendoredAt": "2026-11-15T09:20:09.404217Z"
+    },
+    {
+      "repo": "galleonlabs/hypergrok-trading-desk",
+      "sha": "e5c5d55b8cbba39a20f297d72e6ea3981de233d1",
+      "branch": "main",
+      "license": "MIT",
+      "files": 54,
+      "vendoredAt": "2026-11-15T09:20:13.926754Z"
+    },
+    {
+      "repo": "roman-rr/trading-skills",
+      "sha": null,
+      "branch": null,
+      "license": "NOASSERTION",
+      "files": 0,
+      "vendoredAt": null,
+      "note": "external MCP signal source: https://signals.x70.ai/mcp (3 free signals, verified hit rate)"
+    },
+    {
+      "repo": "YichengYang-Ethan/oracle3-prediction-market-agent",
+      "sha": null,
+      "branch": null,
+      "license": "Apache-2.0",
+      "files": 0,
+      "vendoredAt": null,
+      "note": "reference: pip install oracle3; MCP server for Kalshi/Polymarket, zero-key public reads, fee-inclusive net-edge calc"
+    },
+    {
+      "repo": "51bitquant/ai-hedge-fund-crypto",
+      "sha": null,
+      "branch": null,
+      "license": "MIT",
+      "files": 0,
+      "vendoredAt": null,
+      "note": "reference: LangGraph DAG multi-timeframe ensemble architecture study"
+    },
+    {
+      "repo": "virattt/ai-hedge-fund",
+      "sha": null,
+      "branch": null,
+      "license": "MIT",
+      "files": 0,
+      "vendoredAt": null,
+      "note": "reference: paper-trading ledger + backtest replay patterns (64k stars)"
+    },
+    {
+      "repo": "TauricResearch/TradingAgents",
+      "sha": null,
+      "branch": null,
+      "license": "Apache-2.0",
+      "files": 0,
+      "vendoredAt": null,
+      "note": "reference: multi-agent debate framework (122k stars)"
+    }
+  ]
+}

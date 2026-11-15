@@ -1,0 +1,32 @@
+To: DM/Contact Form
+Twitter: @UGCapp_
+Discord: discord.gg/YFgRG3UstV
+Subject: x402 per-view micropayment channel for UGC automated campaigns
+
+Hi UGC team,
+
+Love what you're building — "The Human Ad Network." Verified views, real people,
+on-chain-ready settlement. That last piece is exactly our lane.
+
+We built CapitalMobilizerV2: an x402 commission router that proved 988
+on-chain settlements with exact math on every split. The pattern maps
+directly onto your agency model:
+
+  AI agent creates brief via your Campaign API → matches with creators/clippers
+  via slot webhook → locks budget via x402 before content goes live → releases
+  funds atomically on verified view count. 5% agency commission flows automatically
+  to the right wallet.
+
+You already have Agent Credentials (scoped keys with spend limits) — we add
+the settlement rail. Together = fully autonomous campaign orchestration.
+
+MCP docs + API reference at developer.ugc.africa/docs/api/overview look
+like a perfect match for this pattern.
+
+Interested in a technical deep-dive or pilot? Happy to build the x402 wrapper.
+
+Source + benchmark: https://github.com/breezesamuel/autotasker-hub-aevum
+
+Liao Xianyun
+AutoTasker Hub | x402 payment infrastructure
+https://autotasker-hub.vercel.app

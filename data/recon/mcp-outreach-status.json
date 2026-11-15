@@ -1,0 +1,50 @@
+{
+  "sentAt": "2026-11-12T11:13:17.950Z",
+  "totalTargets": 7,
+  "sentBySmtp": 2,
+  "dmOnly": 5,
+  "targets": [
+    {
+      "name": "inference.sh",
+      "email": "hello@inference.sh",
+      "twitter": null,
+      "status": "sent"
+    },
+    {
+      "name": "tide",
+      "email": null,
+      "twitter": "@tide_ad",
+      "status": "dm-required"
+    },
+    {
+      "name": "lomi.africa",
+      "email": "hello@lomi.africa",
+      "twitter": "@lomiafrica",
+      "status": "sent"
+    },
+    {
+      "name": "UGC Africa",
+      "email": null,
+      "twitter": "@UGCapp_",
+      "status": "dm-required"
+    },
+    {
+      "name": "Apogee",
+      "email": null,
+      "twitter": null,
+      "status": "dm-required"
+    },
+    {
+      "name": "Getlead",
+      "email": null,
+      "twitter": null,
+      "status": "dm-required"
+    },
+    {
+      "name": "Pantheon",
+      "email": null,
+      "twitter": null,
+      "status": "dm-required"
+    }
+  ]
+}

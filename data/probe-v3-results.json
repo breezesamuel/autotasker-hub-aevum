@@ -1,0 +1,236 @@
+[
+  {
+    "name": "CoinGecko-trending",
+    "url": "https://api.coingecko.com/api/v3/search/trending",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "CoinGecko-coins-page1",
+    "url": "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=3&page=1&sparkline=false",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "CoinGecko-BTC-historical",
+    "url": "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "CryptoCompare-top",
+    "url": "https://min-api.cryptocompare.com/data/top/totalmarcks?limit=5&tsym=USD",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "CoinRanking-coins",
+    "url": "https://api.coinranking.com/v2/coins?limit=3",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "Football-data-PL-table",
+    "url": "https://www.football-data.org.uk/merchandise/docs/2024/league_tables/E1_2024_CL.png",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "API-Sports-free",
+    "url": "https://v3.football.api-sports.io/standings?league=39&season=2024",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "Sportmonks-demo",
+    "url": "https://sdk.sportmonks.com/",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "LiveScore-API",
+    "url": "https://livescores.dev/documentation/",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "TheSportsDB-all",
+    "url": "https://www.thesportsdb.com/api/v1/json/3/query_all_players.php?s=Nadal",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "Spotify-web-api-search",
+    "url": "https://api.spotify.com/v1/search?q=lofi&type=track&limit=2",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "Deezer-search",
+    "url": "https://api.deezer.com/search?q=lofi&limit=2",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "Jamendo-search",
+    "url": "https://api.jamendo.com/v3.0/tracks/?client_id=demo&format=json&limit=3&musicclass=pop",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "iTunes-search",
+    "url": "https://itunes.apple.com/search?term=lofi&media=music&limit=3",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "name": "Billboard-hot100",
+    "url": "https://api.billboard.com/v1/charts/hot-100",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "TMDB-popular-movies",
+    "url": "https://api.themoviedb.org/3/movie/popular?api_key=demo&page=1",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "OMDb-search",
+    "url": "http://www.omdbapi.com/?s=matrix&r=json",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "Metacritic-featured",
+    "url": "https://www.metacritic.com/browse/game/",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "OpenAQ-air-quality",
+    "url": "https://api.openaq.org/v2/latest?limit=3&city=Beijing",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "Windy-api-demo",
+    "url": "https://embed.v2.windy.com/",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "NASA-EO",
+    "url": "https://earthobservatory.nasa.gov/rest-api/?table=globalbiogeochemistry",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "Crossref-search",
+    "url": "https://api.crossref.org/works?query=kubernetes&rows=3",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "name": "ORCID-search",
+    "url": "https://pub.orcid.org/v3.0/search/?q=author-name:last-name%3ADoe",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "PubMed-search",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=covid+19&retmax=3&retmode=json",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "name": "Zenodo-search",
+    "url": "https://zenodo.org/api/records?page=1&size=3",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "name": "ArXiv-recent-CS",
+    "url": "https://export.arxiv.org/api/query?search_query=cat:cs.AI&max_results=3&sortBy=submittedDate&sortOrder=descending",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "AviationAPI-demo",
+    "url": "https://avs-website-production.s3.amazonaws.com/",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "FlightAware-free",
+    "url": "https://flightaware.com/public/flights/search?where1=&where2=",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "OpenSky-network-latest",
+    "url": "https://opensky-network.org/api/states/all",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "Reddit-hot",
+    "url": "https://www.reddit.com/r/technology/hot.json?limit=3",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "HackerNews-best",
+    "url": "https://hn.algolia.com/api/v1/search_by_date?tags=front_page&hitsPerPage=3&numericFilters=points>100",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "name": "DevTo-articles",
+    "url": "https://dev.to/api/articles?per_page=3&tag=node",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "name": "Medium-top-writers",
+    "url": "https://medium.com/feed/tag/javascript",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "CalorieAPI",
+    "url": "https://caloapi.herokuapp.com/foods/search?query=apple",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "Edamam-nutrition",
+    "url": "https://api.edamam.com/api/recipes/v2?type=public&q=chicken",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "RecipeAPI-demo",
+    "url": "https://api.worldathletics.org/",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "TimezoneDB",
+    "url": "https://timedate1.timeapi.io/timezone/?country=cn&city=beijing",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "WorldTimeAPI-specific",
+    "url": "https://worldtimeapi.org/api/timezone/America/New_York",
+    "status": 0,
+    "ok": false
+  },
+  {
+    "name": "CalendarLayer",
+    "url": "https://calendarlayer.apis.google.com/calendar/v3/calendars/en.usa%23holiday%40group.v.calendar.google.com/events",
+    "status": 0,
+    "ok": false
+  }
+]

@@ -1,0 +1,13 @@
+# .vercel — Vercel build configuration for Aevum entry
+
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/index.js", "use": "@vercel/node" },
+    { "src": "api/agents.js", "use": "@vercel/node" },
+    { "src": "api/dashboard.js", "use": "@vercel/node" }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api/index.js" }
+  ]
+}

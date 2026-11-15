@@ -1,0 +1,43 @@
+# dependencies
+node_modules/
+# builds / kit outputs (not source of truth)
+dist/
+
+# secrets — never commit private keys
+.env
+.env.*
+!.env.example
+config/keys/*.key
+config/keys/qday-wallet.json
+*.keystore
+data/actors.json
+
+# build output
+out/
+artifacts/
+cache/
+typechain-types/
+hardhat-*
+
+# editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+
+.vercel
+.env*
+config/keys/
+data/keys/
+*.pem
+
+tmp_id.txt
+
+# runtime business ledgers (production is the source of truth)
+data/referrals.json
+data/support-tickets.json
+
+# ops artifacts (recovery watcher state + step logs) - never commit
+data/ops/
+logs/

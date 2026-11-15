@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "note": "只有 class=external 且已 settled 的条目计入可分配基数。house_self_pay 永久单列，永不并入收入。每笔都要么有 txHash，要么有可复现的公开端点证据（basis）。",
+  "ledgerStatus": {
+    "fabricatedLedgerArchived": "data/payments/ledger.fabricated-20261113.json",
+    "fabricatedClaimUsd": 224.7,
+    "truthRule": "对外只报 external_usdc；$91.002 / $103.926 等含自家铺量的数字不得作为收入"
+  },
+  "schema": {
+    "id": "string",
+    "at": "ISO8601",
+    "class": "external | house_self_pay",
+    "amountUsdc": "number",
+    "receivedBy": "0x address that the funds actually landed in",
+    "asset": "USDC on eip155:8453",
+    "txHash": "0x… (null only when basis is an aggregate public endpoint)",
+    "basis": "how this number can be re-verified",
+    "status": "settled | pending | reverted"
+  },
+  "entries": [
+    {
+      "id": "facilitator-external-lifetime",
+      "at": "2026-11-13T12:00:00.000Z",
+      "class": "external",
+      "amountUsdc": 10.829,
+      "receivedBy": "0x367F1b3D8Ca90D1e087481a9A40d585Bf3451a03",
+      "asset": "USDC on eip155:8453",
+      "txHash": null,
+      "basis": "x402-agent-pay.com public /api/settlement-pulse: external bucket, 266 settled payments, lifetime; total settled 391 / $91.002 of which house_e2e 125 / $80.173",
+      "status": "settled",
+      "caveat": "aggregate figure from the facilitator's own counter, not per-tx reconciled; treat as an upper bound on external revenue"
+    },
+    {
+      "id": "x402-real-inflow-30d",
+      "at": "2026-11-13T11:00:00.000Z",
+      "class": "external",
+      "amountUsdc": 0.097,
+      "receivedBy": "0x367F1b3D8Ca90D1e087481a9A40d585Bf3451a03",
+      "asset": "USDC on eip155:8453",
+      "txHash": null,
+      "basis": "30-day treasury inflow fingerprint: 26 REAL_X402 transfers, data/inflow-classification.json",
+      "status": "settled",
+      "caveat": "overlaps the facilitator aggregate; do not add the two. Allocator uses the larger single figure."
+    },
+    {
+      "id": "house-e2e-lifetime",
+      "at": "2026-11-13T12:00:00.000Z",
+      "class": "house_self_pay",
+      "amountUsdc": 80.173,
+      "receivedBy": "0x367F1b3D8Ca90D1e087481a9A40d585Bf3451a03",
+      "asset": "USDC on eip155:8453",
+      "txHash": null,
+      "basis": "x402-agent-pay.com /api/settlement-pulse house_e2e bucket: 125 settled payments, self-funded",
+      "status": "settled"
+    },
+    {
+      "id": "self-dex-sale-30d",
+      "at": "2026-11-13T11:00:00.000Z",
+      "class": "house_self_pay",
+      "amountUsdc": 0.852183,
+      "receivedBy": "0x367F1b3D8Ca90D1e087481a9A40d585Bf3451a03",
+      "asset": "USDC on eip155:8453",
+      "txHash": null,
+      "basis": "30-day inflow fingerprint: 13 SELF_DEX_SALE transfers (own token sold via router 0x4752ba5d…ad24)",
+      "status": "settled"
+    }
+  ]
+}

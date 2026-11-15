@@ -1,0 +1,37 @@
+name: Deploy to Vercel (optional mirror)
+
+# HISTORY: this workflow used to run on every push with `vercel/action@main`,
+# which has been archived for years — so every single push produced a red run and
+# a failure email. The ECS box is the production surface; Vercel is an optional
+# static-ish mirror. Until a valid VERCEL_TOKEN exists, this stays manual and
+# exits green with a "skipped" note instead of spamming failures.
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Gate on token presence
+        id: gate
+        env:
+          TOKEN_PRESENT: ${{ secrets.VERCEL_TOKEN != '' }}
+        run: |
+          if [ "$TOKEN_PRESENT" = "true" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Vercel mirror skipped::no VERCEL_TOKEN secret configured; ECS remains the primary surface"
+          fi
+
+      - name: Deploy with the Vercel CLI
+        if: steps.gate.outputs.run == 'true'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID || 'prj_JfsTeob0CDZOTJgIdIbTanGvagI7' }}
+        run: |
+          npx --yes vercel@39 deploy --prod --yes --token "$VERCEL_TOKEN" 2>&1 | tail -20

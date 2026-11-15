@@ -1,0 +1,353 @@
+[
+  {
+    "category": "CoinGecko-trending",
+    "url": "https://api.coingecko.com/api/v3/search/trending",
+    "status": 0,
+    "ok": false,
+    "error": "fetch failed"
+  },
+  {
+    "category": "CoinMarketCap-top10",
+    "url": "https://api.coinmarketcap.com/datafeed/v1/popular.json",
+    "status": 0,
+    "ok": false,
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Cryptocompare",
+    "url": "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH&tsyms=USD,CNY",
+    "status": 401,
+    "ok": true
+  },
+  {
+    "category": "DeFiLlama-chains",
+    "url": "https://api.llama.fi/chains",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "DefiLlama-pools",
+    "url": "https://yields.llama.fi/pools?page=0&limit=3",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "GH-Trending-Repos",
+    "url": "https://api.github.com/search/repositories?q=created:>today&sort=stars&per_page=3",
+    "status": 422,
+    "ok": false
+  },
+  {
+    "category": "GH-Trending-Developers",
+    "url": "https://github.com/trending?since=daily",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "GH-Org-AutoTasker",
+    "url": "https://api.github.com/users/breezesamuel/orgs",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "GH-Repo-autotasker",
+    "url": "https://api.github.com/repos/breezesamuel/autotasker-hub-aevum",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "GH-Issues-x402",
+    "url": "https://api.github.com/search/issues?q=repo:x402-foundation/x402+created:>2026-11-01&sort=updated&per_page=5",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "SportODDS-free",
+    "url": "https://the-odds-api.com/free-odds-rss",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "ESPN-API-baseball",
+    "url": "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/news",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "ESPN-API-football",
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/news",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "FootballData-PL",
+    "url": "https://www.football-data.org.uk/",
+    "status": 0,
+    "ok": false,
+    "error": "fetch failed"
+  },
+  {
+    "category": "TMDB-Discover",
+    "url": "https://api.themoviedb.org/3/discover/movie?api_key=test&page=1",
+    "status": 0,
+    "ok": false,
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "IMDb-search-title",
+    "url": "https://imdb-api.com/",
+    "status": 0,
+    "ok": false,
+    "error": "fetch failed"
+  },
+  {
+    "category": "Letterboxd-API",
+    "url": "https://letterboxd.com/api/",
+    "status": 403,
+    "ok": false
+  },
+  {
+    "category": "Trakt-movies-popular",
+    "url": "https://api.trakt.tv/movies/popular?limits=3",
+    "status": 403,
+    "ok": false
+  },
+  {
+    "category": "WikidataSPARQL-sun",
+    "url": "https://query.wikidata.org/sparql?query=SELECT%20%3Fitem%20%3FitemLabel%20WHERE%20%7B%3Fitem%20wdt%3AP31%20wd%3AQ5.%20SERVICE%20kbd%3Awikibase%3Amalaka%20%7B%7D%20%7D&limit=3",
+    "status": 400,
+    "ok": false
+  },
+  {
+    "category": "WikiPedia-random",
+    "url": "https://en.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=3&format=json",
+    "status": 0,
+    "ok": false,
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "WikiMedia-images",
+    "url": "https://commons.wikimedia.org/w/api.php?action=query&list=categorymembers&cmtitle=Category:Featured_pictures&cmlimit=3&format=json",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "OpenStreetMapNominatim-search",
+    "url": "https://nominatim.openstreetmap.org/search?q=London&format=json&limit=1",
+    "status": 0,
+    "ok": false,
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Quandl-dataset",
+    "url": "https://data.nasdaq.com/api/v3/datasets/BSE/ALLSHARE.csv",
+    "status": 403,
+    "ok": false
+  },
+  {
+    "category": "TechCrunch-RSS-json",
+    "url": "https://techcrunch.com/feed/",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "Reuters-RSS",
+    "url": "https://www.reutersagency.com/feed/?best-regions=world",
+    "status": 404,
+    "ok": false
+  },
+  {
+    "category": "HackerNewsFrontPage",
+    "url": "https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=3",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "WolframAlpha-demo",
+    "url": "https://api.wolframalpha.com/v2/query?appid=demo&q=what+is+pi+in+radians",
+    "status": 401,
+    "ok": false
+  },
+  {
+    "category": "Symbolab-demo",
+    "url": "https://api.symbolab.com/",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "OpenCalc-solvers",
+    "url": "https://open-watson.com/api/equation/solve?equation=x%5E2+%3D+4",
+    "status": 0,
+    "ok": false,
+    "error": "fetch failed"
+  },
+  {
+    "category": "Desmos-API",
+    "url": "https://api.desmos.com/api/v1/graphs",
+    "status": 0,
+    "ok": false,
+    "error": "fetch failed"
+  },
+  {
+    "category": "NumPy-online-calc",
+    "url": "https://numpy.org/",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "MyMemory-translator",
+    "url": "https://api.mymemory.translated.net/get?q=hello&langpair=en|es",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "GoogleTranslate-demo",
+    "url": "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ja&dt=t&q=hello",
+    "status": 0,
+    "ok": false,
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "LibreTranslate-demo",
+    "url": "https://libretranslate.de/translate",
+    "status": 403,
+    "ok": false
+  },
+  {
+    "category": "TranslateShell",
+    "url": "https://mymemory.translated.net/api/demo",
+    "status": 404,
+    "ok": false
+  },
+  {
+    "category": "ConvertAPI-docs",
+    "url": "https://v2.convertapi.com/test/convert/pdf/to/docx",
+    "status": 0,
+    "ok": false,
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "CloudConvert-demo",
+    "url": "https://cloudconvert.com/api/v2/convert",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "Zamzar",
+    "url": "https://zAMZAR.COM/api/",
+    "status": 404,
+    "ok": false
+  },
+  {
+    "category": "Imgur-upload-demo",
+    "url": "https://api.imgur.com/3/image",
+    "status": 0,
+    "ok": false,
+    "error": "fetch failed"
+  },
+  {
+    "category": "CrafterAI",
+    "url": "https://crafterai.com/",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "Pixabay-search",
+    "url": "https://pixabay.com/api/docs/#search-photos",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "Unsplash-random",
+    "url": "https://source.unsplash.com/random/400x300",
+    "status": 503,
+    "ok": false
+  },
+  {
+    "category": "MapsGeoCode-nominatim",
+    "url": "https://nominatim.openstreetmap.org/search?q=Tokyo&format=json&limit=1",
+    "status": 0,
+    "ok": false,
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "OverpassQuery-Tokyo",
+    "url": "https://overpass-api.de/api/interpreter?data=[out:json];node[\"name\"=\"Tokyo\"];out;",
+    "status": 406,
+    "ok": false
+  },
+  {
+    "category": "OpenTripPlanner",
+    "url": "https://otp.demo.transit.app/",
+    "status": 0,
+    "ok": false,
+    "error": "fetch failed"
+  },
+  {
+    "category": "MapboxDemo",
+    "url": "https://docs.mapbox.com/help/examples/",
+    "status": 404,
+    "ok": false
+  },
+  {
+    "category": "DateConvert",
+    "url": "https://dateutil.readthedocs.io/",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "RegexHelper",
+    "url": "https://regex101.com/",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "Base64Encode",
+    "url": "https://www.base64encode.org/",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "JSONLint",
+    "url": "https://jsonlint.com/",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "DiffChecker",
+    "url": "https://diffchecker.com/",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "BoredAPI-multi",
+    "url": "https://bored-api.appbrewery.com/random",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "QuoteAPI",
+    "url": "https://quotable.io/quotes?limit=1",
+    "status": 0,
+    "ok": false,
+    "error": "fetch failed"
+  },
+  {
+    "category": "FactOfTheDay",
+    "url": "https://catfact.ninja/fact",
+    "status": 200,
+    "ok": true
+  },
+  {
+    "category": "RandomDogURL",
+    "url": "https://dog.ceo/api/breeds/image/random",
+    "status": 200,
+    "ok": false
+  },
+  {
+    "category": "PlaceBear",
+    "url": "https://placebear.com/200/200",
+    "status": 200,
+    "ok": true
+  }
+]

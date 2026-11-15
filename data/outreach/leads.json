@@ -1,0 +1,47 @@
+[
+  {
+    "id": "lead_1794562963086_d05bn",
+    "company": "Shenzhen Yuanhe Electronics Co Ltd",
+    "contactName": "Wang Lei",
+    "email": "sales@yuanhe-elec.com",
+    "phone": "+86-755-1234-5678",
+    "country": "CN",
+    "industry": "electronics",
+    "productInterest": "custom pcb assembly",
+    "source": "canton_fair_exhibitor_list_2026",
+    "sourceUrl": "https://example.org/canton2026",
+    "basis": "public_business_listing",
+    "status": "validated",
+    "addedAt": "2026-11-13T09:42:43.086Z"
+  },
+  {
+    "id": "lead_1794562963098_fqoqo",
+    "company": "Ningbo Haitong Import Export Co",
+    "contactName": "Liu Fang",
+    "email": "info@haitong-trade.cn",
+    "phone": "+86-574-8765-4321",
+    "country": "CN",
+    "industry": "trading",
+    "productInterest": "china market data api",
+    "source": "alibaba_supplier_profile",
+    "sourceUrl": "https://example.org/alibaba/123",
+    "basis": "public_business_listing",
+    "status": "validated",
+    "addedAt": "2026-11-13T09:42:43.098Z"
+  },
+  {
+    "id": "lead_1794562963098_p1nx3",
+    "company": "Helios Robotics GmbH",
+    "contactName": "Anna Weber",
+    "email": "a.weber@helios-robotics.de",
+    "phone": "+49-30-555-0100",
+    "country": "DE",
+    "industry": "robotics",
+    "productInterest": "edge gateway hardware",
+    "source": "hannover_messe_exhibitor",
+    "sourceUrl": "https://example.org/hannover",
+    "basis": "public_business_listing",
+    "status": "validated",
+    "addedAt": "2026-11-13T09:42:43.099Z"
+  }
+]

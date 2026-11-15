@@ -1,0 +1,47 @@
+name: uptime
+
+# External watchdog: the on-box cron watchdog (*/5 systemctl is-active) cannot
+# help when the box itself is frozen — exactly what happened 2026-11-15 (TCP
+# accepted, zero app bytes from 5 different countries). This runs on GitHub's
+# network, so a failure here = the site is genuinely down and GitHub notifies
+# the repo owner.
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Public status endpoint must answer 200
+        run: |
+          code=$(curl -s -o /tmp/status.json -w '%{http_code}' --max-time 25 \
+            https://autotasker.highkingflower.com/api/status || true)
+          echo "http_code=$code"
+          head -c 300 /tmp/status.json || true
+          if [ "$code" != "200" ]; then
+            echo "::error title=AutoTasker Hub DOWN::/api/status returned '$code'"
+            exit 1
+          fi
+
+      - name: x402 revenue surface must quote a 402 challenge
+        run: |
+          code=$(curl -s -o /tmp/pay.txt -D /tmp/pay.h -w '%{http_code}' --max-time 25 \
+            https://autotasker.highkingflower.com/api/x402/util/weather || true)
+          echo "http_code=$code"
+          grep -i -E '^(www-authenticate|x-|payment)' /tmp/pay.h | head -5 || true
+          head -c 400 /tmp/pay.txt || true
+          if [ "$code" != "402" ]; then
+            echo "::error title=x402 surface broken::paid endpoint returned '$code' (expected 402)"
+            exit 1
+          fi
+
+      - name: Origin address must still be the one DNS points at
+        run: |
+          ip=$(getent hosts autotasker.highkingflower.com | awk '{print $1}' | head -1)
+          echo "resolved=$ip expected=8.155.53.12"
+          if [ "$ip" != "8.155.53.12" ]; then
+            echo "::warning title=DNS drift::domain now resolves to '$ip' - update scripts/deploy-v6.py + watch-recover.py"
+          fi

@@ -1,0 +1,124 @@
+{
+  "network": "QDay Aevum Testnet",
+  "chainId": 44005,
+  "explorer": "https://explorer-test.qday.info",
+  "token": {
+    "name": "DemoUSD6",
+    "address": "0xc85C58C96897E7c8BD9F600392de99f1E1cA801a",
+    "txHash": "0xc72e29d754e6d1bc6902b517a7b619e7e23b77e26b7e30d223b9824d669415b7",
+    "decimals": 6,
+    "note": "test harness token, no monetary value"
+  },
+  "router": {
+    "name": "CapitalMobilizerV2",
+    "address": "0xA7Fd7DB0233502aeA9Cfd1E4bFeAfcb7672B318d",
+    "txHash": "0xbaa2967dcb93f2e4b433344309e9146c5da1a328d81b270ccebf8e7823ac251c"
+  },
+  "counterparties": {
+    "provider": "0x43fa599876a8c29f533ad010ff715a550930b75c",
+    "referrer": "0x4fa961321475163245e5052f432e425aec4152b8",
+    "houseWallet": "0x74a9f91763c28571af7a52987f425f62825cf5d8",
+    "treasury": "0x367F1b3D8Ca90D1e087481a9A40d585Bf3451a03"
+  },
+  "charges": [
+    {
+      "channel": "DATA_API",
+      "amount": "0.05",
+      "txHash": "0xc1f78d74624249863b8e0999443442e27a4e6afef057d5ee72f613f7602f6d8f",
+      "block": 2962331,
+      "gasUsed": "210266",
+      "gross": "50000",
+      "commission": "50000",
+      "payee": "0",
+      "house": "44775",
+      "referrer": "4975",
+      "facilitator": "250",
+      "sumsOk": true
+    },
+    {
+      "channel": "UNCLAIMED_PROPERTY",
+      "amount": "12.34",
+      "txHash": "0xbab90430c61c37da9b8ff69b3d4f04bd5b74a008ea6684f20e9b62d1c1e55634",
+      "block": 2962353,
+      "gasUsed": "134106",
+      "gross": "12340000",
+      "commission": "2468000",
+      "payee": "9872000",
+      "house": "2210094",
+      "referrer": "245566",
+      "facilitator": "12340",
+      "sumsOk": true
+    },
+    {
+      "channel": "ESCROW_RELEASE",
+      "amount": "250.00",
+      "txHash": "0x9508bdae8ab4a69be8f025304561ce12d02613ff15617326cb0f838a86ba98b8",
+      "block": 2962378,
+      "gasUsed": "117018",
+      "gross": "250000000",
+      "commission": "2500000",
+      "payee": "247500000",
+      "house": "2238750",
+      "referrer": "248750",
+      "facilitator": "12500",
+      "sumsOk": true
+    },
+    {
+      "channel": "INSURANCE_CLAIMS",
+      "amount": "40.00",
+      "txHash": "0x9dfb1e9bb01809eddb6266182efaafe23afdb49e18ce010d02e4bd7abdc28b1c",
+      "block": 2962385,
+      "gasUsed": "183834",
+      "gross": "40000000",
+      "commission": "10000000",
+      "payee": "30000000",
+      "house": "8955000",
+      "referrer": "995000",
+      "facilitator": "50000",
+      "sumsOk": true
+    },
+    {
+      "channel": "LOYALTY_CONVERSION",
+      "amount": "8.00",
+      "txHash": "0xaf4f4d9e778bf0f69d8f07dc562dc298a276142872a955677e6e9e815824b803",
+      "block": 2962403,
+      "gasUsed": "168294",
+      "gross": "8000000",
+      "commission": "1200000",
+      "payee": "6800000",
+      "house": "1074600",
+      "referrer": "119400",
+      "facilitator": "6000",
+      "sumsOk": true
+    }
+  ],
+  "batch": {
+    "count": 20,
+    "txHash": "0xf192ed5b9e00588a1d6217c2d3c3f7d9b56c8179781f5c65478036d7eba676f4",
+    "gasUsed": "374702",
+    "gasPerPayment": "18735.10",
+    "singleChargeGas": 210266,
+    "savingsPct": "91.09"
+  },
+  "payouts": {
+    "withdrawHouse": "0xbb83d3576bb30eba9614eaf19ae1f227b2b8f22a3bb38723e4142a524f62a205",
+    "payReferrer": "0xc7859e0c91f29ae427b2a4eca5304813821c96cddf983292223fe23a40e50ea2",
+    "withdrawFacilitator": "0x9fb46cdf86a5c4335fc4a4607aa1659d6869d7cd41f9919d5e8b091d7fba90a7",
+    "houseGain": "1970100",
+    "referrerGain": "218900",
+    "treasuryGain": "86090"
+  },
+  "invariant": {
+    "contractBalance": "0",
+    "accountedBalance": "0",
+    "ok": true
+  },
+  "globalStats": {
+    "ops": "25",
+    "gross": "311390000",
+    "commission": "17218000"
+  },
+  "arithmeticAllOk": true,
+  "generatedAt": "2026-11-12T07:41:41.319Z",
+  "elapsedMs": 181589
+}

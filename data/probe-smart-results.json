@@ -1,0 +1,1141 @@
+[
+  {
+    "category": "Health",
+    "name": "Psychologie et Sérénité",
+    "url": "https://psychologieetserenite.com/api",
+    "status": 302,
+    "responseTimeMs": 826,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Finance",
+    "name": "Seiche",
+    "url": "https://seiche.info",
+    "status": 200,
+    "responseTimeMs": 827,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Development",
+    "name": "Image-Charts",
+    "url": "https://documentation.image-charts.com/",
+    "status": 200,
+    "responseTimeMs": 858,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Entertainment",
+    "name": "JokeAPI",
+    "url": "https://jokeapi.dev/",
+    "status": 200,
+    "responseTimeMs": 833,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Finance",
+    "name": "LiquiLens",
+    "url": "https://liquilens.in",
+    "status": 200,
+    "responseTimeMs": 872,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Games & Comics",
+    "name": "Genshin Impact",
+    "url": "https://genshin.dev",
+    "status": 200,
+    "responseTimeMs": 1440,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Animals",
+    "name": "HTTP Dog",
+    "url": "https://http.dog/",
+    "status": 403,
+    "responseTimeMs": 1108,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Books",
+    "name": "Bhagavad Gita telugu",
+    "url": "https://gita-api.vercel.app",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Games & Comics",
+    "name": "CheapShark",
+    "url": "https://www.cheapshark.com/api",
+    "status": 301,
+    "responseTimeMs": 833,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Finance",
+    "name": "Bullbear Advisors",
+    "url": "https://rapidapi.com/otha1920/api/bullbear-advisor",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Food & Drink",
+    "name": "The Report of the Week",
+    "url": "https://github.com/andyklimczak/TheReportOfTheWeek-API",
+    "status": 200,
+    "responseTimeMs": 788,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Video",
+    "name": "An API of Ice And Fire",
+    "url": "https://anapioficeandfire.com/",
+    "status": 200,
+    "responseTimeMs": 1538,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Science & Math",
+    "name": "SHARE",
+    "url": "https://share.osf.io/api/v2/",
+    "status": 200,
+    "responseTimeMs": 1800,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Games & Comics",
+    "name": "CSGO",
+    "url": "https://bymykel.github.io/CSGO-API/",
+    "status": 301,
+    "responseTimeMs": 683,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Development",
+    "name": "Corsfix",
+    "url": "https://corsfix.com/docs/cors-proxy/api",
+    "status": 200,
+    "responseTimeMs": 849,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Books",
+    "name": "Greenlit Books",
+    "url": "https://greenlitbooks.com/developers",
+    "status": 200,
+    "responseTimeMs": 408,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Games & Comics",
+    "name": "RoWatcher",
+    "url": "https://rowatcher.com",
+    "status": 200,
+    "responseTimeMs": 2102,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Sports & Fitness",
+    "name": "MoviOdds",
+    "url": "https://moviodds.com",
+    "status": 200,
+    "responseTimeMs": 1964,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Development",
+    "name": "Ciprand",
+    "url": "https://github.com/polarspetroll/ciprand",
+    "status": 200,
+    "responseTimeMs": 1219,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Games & Comics",
+    "name": "PlayerDB",
+    "url": "https://playerdb.co/",
+    "status": 200,
+    "responseTimeMs": 1454,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Games & Comics",
+    "name": "Eight Ball",
+    "url": "https://eightballapi.com/",
+    "status": 301,
+    "responseTimeMs": 1043,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Transportation",
+    "name": "Transport for Grenoble, France",
+    "url": "https://www.mobilites-m.fr/pages/opendata/OpenDataApi.html",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Development",
+    "name": "Serialif Color",
+    "url": "https://color.serialif.com/",
+    "status": 200,
+    "responseTimeMs": 1168,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Video",
+    "name": "Shoof Aflam",
+    "url": "https://shoofaflam.tv/api-docs/",
+    "status": 403,
+    "responseTimeMs": 676,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Video",
+    "name": "Final Space",
+    "url": "https://finalspaceapi.com/docs/",
+    "status": 200,
+    "responseTimeMs": 1501,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Transportation",
+    "name": "Transport for Hessen, Germany",
+    "url": "https://opendata.rmv.de/site/start.html",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Transportation",
+    "name": "Transport for Berlin, Germany",
+    "url": "https://github.com/derhuerst/vbb-rest/blob/5/docs/api.md",
+    "status": 200,
+    "responseTimeMs": 1005,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Books",
+    "name": "Penguin Publishing",
+    "url": "https://www.penguinrandomhouse.biz/webservices/rest/",
+    "status": 200,
+    "responseTimeMs": 1121,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Geocoding",
+    "name": "Ziptastic",
+    "url": "https://ziptasticapi.com/",
+    "status": 200,
+    "responseTimeMs": 1100,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Animals",
+    "name": "MeowFacts",
+    "url": "https://github.com/wh-iterabb-it/meowfacts",
+    "status": 200,
+    "responseTimeMs": 995,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Cryptocurrency",
+    "name": "Solana JSON RPC",
+    "url": "https://docs.solana.com/developing/clients/jsonrpc-api",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Health",
+    "name": "COVID-19 Tracker Sri Lanka",
+    "url": "https://www.hpb.health.gov.lk/en/api-documentation",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "fetch failed"
+  },
+  {
+    "category": "Geocoding",
+    "name": "Graph Countries",
+    "url": "https://github.com/lennertVanSever/graphcountries",
+    "status": 200,
+    "responseTimeMs": 905,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Social",
+    "name": "Instagram Posts Generator",
+    "url": "https://instagram-posts-generator.vercel.app/",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Games & Comics",
+    "name": "Puyo Nexus",
+    "url": "https://github.com/deltadex7/puyodb-api-deno",
+    "status": 200,
+    "responseTimeMs": 1395,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Health",
+    "name": "Opioid Treatment Directory",
+    "url": "https://opioidtreatment.fyi",
+    "status": 200,
+    "responseTimeMs": 4102,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Security",
+    "name": "Microsoft Security Response Center (MSRC)",
+    "url": "https://msrc.microsoft.com/report/developer",
+    "status": 200,
+    "responseTimeMs": 868,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Health",
+    "name": "Open Data NHS Scotland",
+    "url": "https://www.opendata.nhs.scot",
+    "status": 200,
+    "responseTimeMs": 1723,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Transportation",
+    "name": "Konkan Railway Live Train Position",
+    "url": "https://konkan-railway-api.vercel.app/",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Cryptocurrency",
+    "name": "Messari",
+    "url": "https://messari.io/api",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Geocoding",
+    "name": "adresse.data.gouv.fr",
+    "url": "https://adresse.data.gouv.fr",
+    "status": 200,
+    "responseTimeMs": 1091,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Cryptocurrency",
+    "name": "Chord",
+    "url": "https://getchord.xyz",
+    "status": 200,
+    "responseTimeMs": 1689,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Games & Comics",
+    "name": "Open Trivia",
+    "url": "https://opentdb.com/api_config.php",
+    "status": 200,
+    "responseTimeMs": 884,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Science & Math",
+    "name": "Newton",
+    "url": "https://newton.vercel.app",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Entertainment",
+    "name": "Random Dad Joke",
+    "url": "https://icanhazdadjoke.com/",
+    "status": 200,
+    "responseTimeMs": 1091,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Sports & Fitness",
+    "name": "Racing Alpha",
+    "url": "https://racingalpha.co.uk/developers",
+    "status": 200,
+    "responseTimeMs": 542,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Government",
+    "name": "Federal Register",
+    "url": "https://www.federalregister.gov/reader-aids/developer-resources/rest-api",
+    "status": 200,
+    "responseTimeMs": 973,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Food & Drink",
+    "name": "Open Food Facts",
+    "url": "https://world.openfoodfacts.org/data",
+    "status": 200,
+    "responseTimeMs": 3062,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Finance",
+    "name": "Indian Mutual Fund",
+    "url": "https://www.mfapi.in/",
+    "status": 200,
+    "responseTimeMs": 1837,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Geocoding",
+    "name": "IPKit",
+    "url": "https://ipkit.dev",
+    "status": 200,
+    "responseTimeMs": 1702,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Games & Comics",
+    "name": "Raider",
+    "url": "https://raider.io/api",
+    "status": 200,
+    "responseTimeMs": 850,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Development",
+    "name": "Genderize.io",
+    "url": "https://genderize.io",
+    "status": 200,
+    "responseTimeMs": 1844,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Video",
+    "name": "Stranger Things Quotes",
+    "url": "https://github.com/shadowoff09/strangerthings-quotes",
+    "status": 200,
+    "responseTimeMs": 1197,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Games & Comics",
+    "name": "GamerPower",
+    "url": "https://www.gamerpower.com/api-read",
+    "status": 200,
+    "responseTimeMs": 803,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Geocoding",
+    "name": "Pinball Map",
+    "url": "https://pinballmap.com/api/v1/docs",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Animals",
+    "name": "RandomDuck",
+    "url": "https://random-d.uk/api",
+    "status": 200,
+    "responseTimeMs": 783,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Games & Comics",
+    "name": "Call of Duty",
+    "url": "https://codapi.dev/",
+    "status": 200,
+    "responseTimeMs": 1369,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Development",
+    "name": "QR Kept",
+    "url": "https://qrkept.com",
+    "status": 200,
+    "responseTimeMs": 1269,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Animals",
+    "name": "xeno-canto",
+    "url": "https://xeno-canto.org/explore/api",
+    "status": 200,
+    "responseTimeMs": 1543,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Development",
+    "name": "DomainDb Info",
+    "url": "https://api.domainsdb.info/",
+    "status": 200,
+    "responseTimeMs": 916,
+    "verdict": "json-ok"
+  },
+  {
+    "category": "Geocoding",
+    "name": "Mexico",
+    "url": "https://github.com/IcaliaLabs/sepomex",
+    "status": 200,
+    "responseTimeMs": 1081,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Dictionaries",
+    "name": "Free Dictionary",
+    "url": "https://dictionaryapi.dev/",
+    "status": 200,
+    "responseTimeMs": 2058,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Cryptocurrency",
+    "name": "Gemini",
+    "url": "https://docs.gemini.com/rest-api/",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Art & Design",
+    "name": "PHP-Noise",
+    "url": "https://php-noise.com/",
+    "status": 200,
+    "responseTimeMs": 962,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Government",
+    "name": "Dedline.io API",
+    "url": "https://github.com/dedline-io/dedline-api",
+    "status": 200,
+    "responseTimeMs": 1195,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Transportation",
+    "name": "Fuel Prices at Spanish Gas Stations",
+    "url": "https://datos.gob.es/en/apidata",
+    "status": 403,
+    "responseTimeMs": 1444,
+    "verdict": "client-error-403"
+  },
+  {
+    "category": "Health",
+    "name": "Makeup",
+    "url": "https://makeup-api.herokuapp.com/",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Science & Math",
+    "name": "isEven (humor)",
+    "url": "https://isevenapi.xyz/",
+    "status": 200,
+    "responseTimeMs": 810,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Government",
+    "name": "Open Government, Cyprus",
+    "url": "https://data.gov.cy",
+    "status": 200,
+    "responseTimeMs": 1349,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Government",
+    "name": "Open Government, Czech Republic",
+    "url": "https://data.gov.cz/english/",
+    "status": 200,
+    "responseTimeMs": 1405,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Government",
+    "name": "Open Government, Mexico",
+    "url": "https://datos.gob.mx/",
+    "status": 403,
+    "responseTimeMs": 1178,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Sports & Fitness",
+    "name": "balldontlie",
+    "url": "https://www.balldontlie.io",
+    "status": 200,
+    "responseTimeMs": 1013,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Transportation",
+    "name": "BC Ferries",
+    "url": "https://www.bcferriesapi.ca",
+    "status": 200,
+    "responseTimeMs": 900,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Development",
+    "name": "Vend",
+    "url": "https://extract.paypercall.dev",
+    "status": 200,
+    "responseTimeMs": 1040,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Games & Comics",
+    "name": "Magic The Gathering",
+    "url": "https://magicthegathering.io/",
+    "status": 200,
+    "responseTimeMs": 1324,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Games & Comics",
+    "name": "Universalis",
+    "url": "https://universalis.app/docs/index.html",
+    "status": 301,
+    "responseTimeMs": 791,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Development",
+    "name": "PayUs-as-a-Service (PUaaS)",
+    "url": "https://github.com/sticknologic/payus-as-a-service",
+    "status": 200,
+    "responseTimeMs": 1214,
+    "verdict": "blocked"
+  },
+  {
+    "category": "AI",
+    "name": "Audo",
+    "url": "https://audo.ai",
+    "status": 200,
+    "responseTimeMs": 943,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Health",
+    "name": "COVID-19 Tracker Canada",
+    "url": "https://api.covid19tracker.ca/docs/1.0/overview",
+    "status": 200,
+    "responseTimeMs": 1306,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Geocoding",
+    "name": "IP 2 Country",
+    "url": "https://ip2country.info",
+    "status": 200,
+    "responseTimeMs": 940,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Environment",
+    "name": "El mapa del agua",
+    "url": "https://elmapadelagua.com/api-dureza-agua",
+    "status": 200,
+    "responseTimeMs": 1283,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Business",
+    "name": "FuneralCompare",
+    "url": "https://funeralcompare.fyi",
+    "status": 200,
+    "responseTimeMs": 2367,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Tracking",
+    "name": "WhatPulse",
+    "url": "https://developer.whatpulse.org/#web-api",
+    "status": 301,
+    "responseTimeMs": 769,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Weather",
+    "name": "NOAA NGDC",
+    "url": "https://www.ngdc.noaa.gov/",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Open Data",
+    "name": "OpenSanctions",
+    "url": "https://www.opensanctions.org/docs/api/",
+    "status": 200,
+    "responseTimeMs": 1259,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Personality",
+    "name": "Advice Slip",
+    "url": "https://api.adviceslip.com/",
+    "status": 200,
+    "responseTimeMs": 1013,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Documents & Productivity",
+    "name": "DocForge",
+    "url": "https://docforge-api.vercel.app",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Environment",
+    "name": "Elpriser i dag",
+    "url": "https://elprisernaidag.se/api/",
+    "status": 200,
+    "responseTimeMs": 919,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Currency Exchange",
+    "name": "Currency-api",
+    "url": "https://github.com/fawazahmed0/currency-api#readme",
+    "status": 200,
+    "responseTimeMs": 1145,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Data Validation",
+    "name": "W System",
+    "url": "https://wsystem.dev",
+    "status": 200,
+    "responseTimeMs": 1353,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Business",
+    "name": "Mydentify",
+    "url": "https://mydentify.com",
+    "status": 200,
+    "responseTimeMs": 1063,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Open Data",
+    "name": "French Address Search",
+    "url": "https://geo.api.gouv.fr/adresse",
+    "status": 301,
+    "responseTimeMs": 1935,
+    "verdict": "reachable"
+  },
+  {
+    "category": "URL Shorteners",
+    "name": "1pt",
+    "url": "https://github.com/1pt-co/api/blob/main/README.md",
+    "status": 200,
+    "responseTimeMs": 938,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Business",
+    "name": "Public Adjusters Directory",
+    "url": "https://publicadjusters.fyi",
+    "status": 200,
+    "responseTimeMs": 1896,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Jobs",
+    "name": "DevITjobs UK",
+    "url": "https://devitjobs.uk/job_feed.xml",
+    "status": 302,
+    "responseTimeMs": 1027,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Open Source Projects",
+    "name": "Datamuse",
+    "url": "https://www.datamuse.com/api/",
+    "status": 200,
+    "responseTimeMs": 1331,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Vehicle",
+    "name": "NHTSA",
+    "url": "https://vpic.nhtsa.dot.gov/api/",
+    "status": 200,
+    "responseTimeMs": 2016,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Environment",
+    "name": "UK Carbon Intensity",
+    "url": "https://carbon-intensity.github.io/api-definitions/#carbon-intensity-api-v1-0-0",
+    "status": 200,
+    "responseTimeMs": 1934,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Personality",
+    "name": "Zen Quotes",
+    "url": "https://zenquotes.io/",
+    "status": 200,
+    "responseTimeMs": 938,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Business",
+    "name": "Auregistre",
+    "url": "https://auregistre.fr",
+    "status": 200,
+    "responseTimeMs": 1109,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Anti-Malware",
+    "name": "54ch10",
+    "url": "https://54ch10.uk",
+    "status": 200,
+    "responseTimeMs": 930,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Anime",
+    "name": "Waifu.im",
+    "url": "https://waifu.im/docs",
+    "status": 404,
+    "responseTimeMs": 1924,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Photography",
+    "name": "ReSmush.it",
+    "url": "https://resmush.it/api",
+    "status": 302,
+    "responseTimeMs": 1922,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Photography",
+    "name": "GifSnap",
+    "url": "https://gifsnap.com/",
+    "status": 200,
+    "responseTimeMs": 1238,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Open Data",
+    "name": "Archive.org",
+    "url": "https://archive.readme.io/docs",
+    "status": 301,
+    "responseTimeMs": 1202,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Events",
+    "name": "Things To Do",
+    "url": "https://thingstodoapi.com",
+    "status": 200,
+    "responseTimeMs": 884,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Weather",
+    "name": "AviationWeather",
+    "url": "https://www.aviationweather.gov/dataserver",
+    "status": 308,
+    "responseTimeMs": 410,
+    "verdict": "status-308"
+  },
+  {
+    "category": "Vehicle",
+    "name": "Window Sticker",
+    "url": "https://windowsticker.org/api-docs",
+    "status": 200,
+    "responseTimeMs": 1042,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Weather",
+    "name": "RainViewer",
+    "url": "https://www.rainviewer.com/api.html",
+    "status": 200,
+    "responseTimeMs": 2061,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Anime",
+    "name": "NekosBest",
+    "url": "https://docs.nekos.best",
+    "status": 200,
+    "responseTimeMs": 2227,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Music",
+    "name": "Openwhyd",
+    "url": "https://openwhyd.github.io/openwhyd/API",
+    "status": 200,
+    "responseTimeMs": 728,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Personality",
+    "name": "Quoterism",
+    "url": "https://www.quoterism.com/developer",
+    "status": 200,
+    "responseTimeMs": 1312,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Currency Exchange",
+    "name": "Economia.Awesome",
+    "url": "https://docs.awesomeapi.com.br/api-de-moedas",
+    "status": 200,
+    "responseTimeMs": 875,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Test Data",
+    "name": "RandomUser",
+    "url": "https://randomuser.me",
+    "status": 200,
+    "responseTimeMs": 751,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Anime",
+    "name": "Trace Moe",
+    "url": "https://soruly.github.io/trace.moe-api/#/",
+    "status": 200,
+    "responseTimeMs": 4221,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Phone",
+    "name": "USA Caller Lookup",
+    "url": "https://www.usacallerlookup.com/api/",
+    "status": 200,
+    "responseTimeMs": 1263,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Currency Exchange",
+    "name": "VATComply.com",
+    "url": "https://www.vatcomply.com/documentation",
+    "status": 404,
+    "responseTimeMs": 674,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Documents & Productivity",
+    "name": "ReportForge",
+    "url": "https://reportforge-api.vercel.app",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Anime",
+    "name": "PokéAPI",
+    "url": "https://pokeapi.co",
+    "status": 200,
+    "responseTimeMs": 706,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Open Source Projects",
+    "name": "GitHub Contribution Chart Generator",
+    "url": "https://github-contributions.vercel.app",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Music",
+    "name": "Gaana",
+    "url": "https://github.com/cyberboysumanjay/GaanaAPI",
+    "status": 200,
+    "responseTimeMs": 1688,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Business",
+    "name": "Comunicate.eu",
+    "url": "https://comunicate.eu",
+    "status": 308,
+    "responseTimeMs": 1688,
+    "verdict": "status-308"
+  },
+  {
+    "category": "Music",
+    "name": "Genrenator",
+    "url": "https://binaryjazz.us/genrenator-api/",
+    "status": 200,
+    "responseTimeMs": 1585,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Blockchain",
+    "name": "MoltNode",
+    "url": "https://moltnode.ag",
+    "status": 200,
+    "responseTimeMs": 1826,
+    "verdict": "blocked"
+  },
+  {
+    "category": "URL Shorteners",
+    "name": "CleanURI",
+    "url": "https://cleanuri.com/docs",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Personality",
+    "name": "Indian Quotes",
+    "url": "https://indian-quotes-api.vercel.app/",
+    "status": 0,
+    "responseTimeMs": 0,
+    "verdict": "failed",
+    "error": "This operation was aborted"
+  },
+  {
+    "category": "Open Data",
+    "name": "Umeå Open Data",
+    "url": "https://opendata.umea.se/api/",
+    "status": 301,
+    "responseTimeMs": 1068,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Calendar",
+    "name": "Non-Working Days",
+    "url": "https://isdayoff.ru",
+    "status": 302,
+    "responseTimeMs": 1453,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Email",
+    "name": "DropMail",
+    "url": "https://dropmail.me/api/#live-demo",
+    "status": 200,
+    "responseTimeMs": 2390,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Phone",
+    "name": "Phone Specification",
+    "url": "https://github.com/azharimm/phone-specs-api",
+    "status": 200,
+    "responseTimeMs": 960,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Test Data",
+    "name": "Yes No",
+    "url": "https://yesno.wtf/api",
+    "status": 200,
+    "responseTimeMs": 1442,
+    "verdict": "json-ok"
+  },
+  {
+    "category": "Programming",
+    "name": "Softwium",
+    "url": "https://softwium.com/sql-validator/",
+    "status": 200,
+    "responseTimeMs": 1757,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Environment",
+    "name": "PM2.5 Open Data Portal",
+    "url": "https://pm25.lass-net.org/#apis",
+    "status": 200,
+    "responseTimeMs": 565,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Currency Exchange",
+    "name": "Czech National Bank",
+    "url": "https://www.cnb.cz/cs/financni_trhy/devizovy_trh/kurzy_devizoveho_trhu/denni_kurz.xml",
+    "status": 200,
+    "responseTimeMs": 1176,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Weather",
+    "name": "Open-Meteo",
+    "url": "https://open-meteo.com/",
+    "status": 200,
+    "responseTimeMs": 634,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Jobs",
+    "name": "Jobicy",
+    "url": "https://jobicy.com/jobs-rss-feed",
+    "status": 200,
+    "responseTimeMs": 754,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Jobs",
+    "name": "JobYap",
+    "url": "https://jobyap.com/agents",
+    "status": 200,
+    "responseTimeMs": 928,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Anime",
+    "name": "Anijam",
+    "url": "https://www.anijam.ai",
+    "status": 200,
+    "responseTimeMs": 1004,
+    "verdict": "blocked"
+  },
+  {
+    "category": "Test Data",
+    "name": "JSONPlaceholder",
+    "url": "https://jsonplaceholder.typicode.com/",
+    "status": 200,
+    "responseTimeMs": 846,
+    "verdict": "reachable"
+  },
+  {
+    "category": "Open Data",
+    "name": "Salary Explorer",
+    "url": "https://salarywiki.com/api",
+    "status": 200,
+    "responseTimeMs": 1198,
+    "verdict": "blocked"
+  }
+]

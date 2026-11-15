@@ -1,0 +1,329 @@
+{
+  "at": "2026-11-13T09:34:16.319Z",
+  "rpc": "https://base-rpc.publicnode.com",
+  "days": 30,
+  "head": 56858723,
+  "count": 40,
+  "hits": [
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x6f890cc63aa57da9695528c9f5e3434897b32b8e",
+      "amount": 0.001,
+      "block": 55577352,
+      "tx": "0x8f621fc4a8ef2705147c210f40e9a310939eb75a20fb7afd5b77c1cd9da584d1"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x6f890cc63aa57da9695528c9f5e3434897b32b8e",
+      "amount": 0.001,
+      "block": 55579341,
+      "tx": "0x90d9de815c9aca08621e863a2d9bdfd15d4b61576580eb2805b3c57133b60c11"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x24235fa9dab948e6fde2d2b369bda08d598e8242",
+      "amount": 0.075213,
+      "block": 55590172,
+      "tx": "0x95b1e4c088705a856b54674ac28325c28710c7e27de1d0513cbba3616802f350"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x6f890cc63aa57da9695528c9f5e3434897b32b8e",
+      "amount": 0.001,
+      "block": 55597754,
+      "tx": "0x5bbdb920d2ed5d4b8a21813fd8d8a80bdb1c656b6dbf2c34eb238e0cac09c0c5"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0xaa34bd941511cc82a19878e2efbe0bd7077e1db3",
+      "amount": 0.002,
+      "block": 55614271,
+      "tx": "0x0a7a4be6339a23a3b25123b30b38ccd589fe808bbd0d2feff8e4e0c9ca2b353b"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x8ec901f7e2710163387d70950f680f1ea2269d15",
+      "amount": 0.002,
+      "block": 55614999,
+      "tx": "0xe4142acd544798b73749076598bb90e169e06dfb1c7220a96e469fa962e00aac"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x73cc9400bd9f086d7427d3421d79195a68bb1ea4",
+      "amount": 0.002,
+      "block": 55615299,
+      "tx": "0x96893b287eb0a39bd4867424d0ccd2e9a31fdfa4664937e634435ea8ea4731d7"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x35fe83e85f949b7235595a76782296c6c9c3c030",
+      "amount": 0.002,
+      "block": 55615602,
+      "tx": "0x1a5abd48d8933811eca82d8b45a239aac86f77ede708a8462fd6daeb2aaf46aa"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x82cef1cdc34d65cf690235dc24e823a6585a6f86",
+      "amount": 0.001,
+      "block": 55657092,
+      "tx": "0x256bef649a33a6a450e99f202e0411c6ea0f34d177f9a87825f97ab51b4379ef"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x8ec901f7e2710163387d70950f680f1ea2269d15",
+      "amount": 0.002,
+      "block": 55721418,
+      "tx": "0x4aaf4766b3416fd2a307bb73b526baa2d11f17246ff5bbfa514b54a8c37af4c4"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x73cc9400bd9f086d7427d3421d79195a68bb1ea4",
+      "amount": 0.002,
+      "block": 55722572,
+      "tx": "0xbd94aa4b98a86d4f4d4116e445ff3b5c6652860ca358d1e8879439a7b514fb74"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x35fe83e85f949b7235595a76782296c6c9c3c030",
+      "amount": 0.002,
+      "block": 55722960,
+      "tx": "0xdf7a4bc269eb1b0d18644a4afff92828eb783032943e53f861fda56a25577c48"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0xaa34bd941511cc82a19878e2efbe0bd7077e1db3",
+      "amount": 0.002,
+      "block": 55723266,
+      "tx": "0xefad02336a08f21be88343e5398945d748d5f258139168e03c788abd8326836e"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x24235fa9dab948e6fde2d2b369bda08d598e8242",
+      "amount": 0.082601,
+      "block": 55734168,
+      "tx": "0x5f5155d88f6e0efa3ffdf85ab1bb4b72cc95e05e7e728364affd4081e20b1f04"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x6f890cc63aa57da9695528c9f5e3434897b32b8e",
+      "amount": 0.001,
+      "block": 55751165,
+      "tx": "0x398c9ca8061fb0205f85b128d4f384383bcc1b84379f0e55084eccfb1b1c9336"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x24235fa9dab948e6fde2d2b369bda08d598e8242",
+      "amount": 0.068088,
+      "block": 55806168,
+      "tx": "0xadae50f29cc05fa38e39df6d5a4ac2751922fab447d68f92cea8141339042d97"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0xa19f621581dbc851a21d6179868111709a52accc",
+      "amount": 0.01,
+      "block": 55863862,
+      "tx": "0xf43b69f7481bd2f612cdb8111bca3250be8042655a9c919de01ba254ffa0af3b"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x24235fa9dab948e6fde2d2b369bda08d598e8242",
+      "amount": 0.054664,
+      "block": 55878173,
+      "tx": "0x48e6804151a45eb336ef19f435595fba8bacce3dc1a0fbd1d1bdce64a0d8e9f4"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0xa19f621581dbc851a21d6179868111709a52accc",
+      "amount": 0.002,
+      "block": 55878392,
+      "tx": "0x7e650cd85383811a70bdd1088d147c08563755a87e813a77cd60d0edb642c0c2"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0xa19f621581dbc851a21d6179868111709a52accc",
+      "amount": 0.005,
+      "block": 55899217,
+      "tx": "0xdab4a90163863f5694a648cb0ecc451a195a5bf00e177f1d4bf4d9c9934e1015"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0xa19f621581dbc851a21d6179868111709a52accc",
+      "amount": 0.05,
+      "block": 55915181,
+      "tx": "0xef025887f2f0e9199221f8882e0c2810cf0436f33b0856f5d4386b5755cce525"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x82cef1cdc34d65cf690235dc24e823a6585a6f86",
+      "amount": 0.001,
+      "block": 55962830,
+      "tx": "0x2a7beb189d4fe8c4566d66fa5255408df78a46e774a140b47b9fb745c15c3f99"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x6f890cc63aa57da9695528c9f5e3434897b32b8e",
+      "amount": 0.001,
+      "block": 56017185,
+      "tx": "0xf31b9fcd57fde618543e3352808ba384d113a516eec4957121ed2df5334dae01"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x24235fa9dab948e6fde2d2b369bda08d598e8242",
+      "amount": 0.069189,
+      "block": 56022170,
+      "tx": "0xdfc511bb188ae7ee250beb7efc07ed971108ec88b1ca543040c5422c2de78a7c"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x82cef1cdc34d65cf690235dc24e823a6585a6f86",
+      "amount": 0.001,
+      "block": 56054062,
+      "tx": "0xf0399dde6b6fb7d17d1ad75d8cf91ecaae973d4935003a50814053a895ed01c3"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x47e5499c44ecf8c78da82b9b64183df1e301a0b4",
+      "amount": 0.001,
+      "block": 56054321,
+      "tx": "0x610d67ddf956f9500bdf39ba593cff87e50a4b44cdb5d7880b2e4df5ca174821"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x24235fa9dab948e6fde2d2b369bda08d598e8242",
+      "amount": 0.082067,
+      "block": 56166177,
+      "tx": "0x027f19c43af379993e4392530d8ef84e2faaa7b3639a59e51b2b9dac3ad8b2d1"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x24235fa9dab948e6fde2d2b369bda08d598e8242",
+      "amount": 0.061192,
+      "block": 56238221,
+      "tx": "0xf86e33aaf566ea6cb8cbaa11cf289619276e09d1704fea4c512dc0777191eab8"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x24235fa9dab948e6fde2d2b369bda08d598e8242",
+      "amount": 0.071517,
+      "block": 56382163,
+      "tx": "0x28d0aaf595374e1c0ee849f33fd693c00885b7355e5c39f05fe703460365bc5c"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x47e5499c44ecf8c78da82b9b64183df1e301a0b4",
+      "amount": 0.001,
+      "block": 56412718,
+      "tx": "0x8980a2c745c89ae7b3db3e13839fad4627ed627d9bd6c6496bb7cc77a4d1fc9b"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x24235fa9dab948e6fde2d2b369bda08d598e8242",
+      "amount": 0.061648,
+      "block": 56454170,
+      "tx": "0xc21902d4e3697046e678bfd191bd506fcf753f168fdf4befb471ca9fa11c5747"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x6f890cc63aa57da9695528c9f5e3434897b32b8e",
+      "amount": 0.001,
+      "block": 56524045,
+      "tx": "0x6710ed321b1bb42a5df03eb55db9ca2915614016e32ec8c2693f7a62db531f63"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x24235fa9dab948e6fde2d2b369bda08d598e8242",
+      "amount": 0.050977,
+      "block": 56526174,
+      "tx": "0xb09887378842b5ec513b055358a3b71c9b16119b1be606f083cabc99d1b1e782"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x20667da73222867b61f2940be40baeaccd5cb865",
+      "amount": 0,
+      "block": 56615790,
+      "tx": "0x4ae75e4041d1888d3b5e623df8a3cfb686fbe2a37fd27516b808729ddb177132"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x24235fa9dab948e6fde2d2b369bda08d598e8242",
+      "amount": 0.064606,
+      "block": 56670182,
+      "tx": "0x877301f471d9735b3c93468feed7190229e7ef800824c446cfb0aa9208302843"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x24235fa9dab948e6fde2d2b369bda08d598e8242",
+      "amount": 0.058388,
+      "block": 56742177,
+      "tx": "0x6bf5606ee8bf7c158b3b7af71cfa5dcad6c219351b5bedf68ddc2df2518962cd"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0xa1d1c0cf717402ff3651aa4873ccf96410b01978",
+      "amount": 0.001,
+      "block": 56765713,
+      "tx": "0x981ad057a8a75ada7263636dce00debc17f333ba9e2a1f07cdb04f6a82b635fe"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x6f890cc63aa57da9695528c9f5e3434897b32b8e",
+      "amount": 0.001,
+      "block": 56812586,
+      "tx": "0x7c73d7f33b493b9a5254d96d75bcfe5f7391c9900801bca5107b982a9fcbe9c8"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x24235fa9dab948e6fde2d2b369bda08d598e8242",
+      "amount": 0.052033,
+      "block": 56814478,
+      "tx": "0x1aa6381755378904d615e04aaec94282328fc61a5323ecd6b3e1f8a1e382d945"
+    },
+    {
+      "token": "USDC",
+      "to": "0x367f1b3d8ca90d1e087481a9a40d585bf3451a03",
+      "from": "0x73cc9400bd9f086d7427d3421d79195a68bb1ea4",
+      "amount": 0.001,
+      "block": 56816807,
+      "tx": "0x443794b413a864569a9be77f882ed7a96025ecc1ad968ffc4253b25ac4833794"
+    }
+  ]
+}
