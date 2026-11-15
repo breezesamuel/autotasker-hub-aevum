@@ -43,18 +43,35 @@ function httpsJSON(url, timeoutMs) {
   });
 }
 
-/** zero-key market data: CoinGecko top-20 → Binance → OKX → Bybit fallback.
- *  GFW note: all 4 may be unreachable from a mainland ECS; the caller must
- *  check `out.scanned === 0` before opening new probes. The loop now reports
- *  `dataSources: [{name, ok}]` so the cron endpoint can surface reachability
- *  in the trading-loop.json health file for ops.
+/** zero-key market data: Gate.io (GFW-reachable) primary, then CoinGecko →
+ *  Binance → OKX → Bybit fallbacks.
+ *  NOTE: from a mainland-China ECS, CoinGecko/Binance/OKX/Bybit are all GFW-blocked,
+ *  so Gate.io is the ONLY source that reliably returns data there — it MUST stay
+ *  first. The `sources[]` array reports per-source reachability for ops.
  */
 async function scan() {
   const sources = [];
-  const trySource = (name, data, ok) => { sources.push({ name, ok: !!ok }); };
+  const trySource = (name, ok) => { sources.push({ name, ok: !!ok }); };
+
+  // Gate.io — reachable from mainland China, no key, 2156 spot tickers
+  const gate = await httpsJSON('https://api.gateio.ws/api/v4/spot/tickers');
+  if (Array.isArray(gate) && gate.length) {
+    const usdt = gate.filter(t => /_USDT$/.test(t.currency_pair) && !/_USDC$/.test(t.currency_pair));
+    if (usdt.length) {
+      trySource('gate', true);
+      return {
+        quotes: usdt
+          .filter(t => Number(t.quote_volume) > 0)
+          .sort((a, b) => Number(b.quote_volume) - Number(a.quote_volume)).slice(0, 20)
+          .map(t => ({ id: t.currency_pair, symbol: t.currency_pair.replace(/_USDT$/, ''), price: Number(t.last), change24h: Number(t.change_percentage), high24h: Number(t.high_24h), low24h: Number(t.low_24h), source: 'gate' })),
+        sources,
+      };
+    }
+  }
+  trySource('gate', false);
 
   const cg = await httpsJSON('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&price_change_percentage=24h');
-  trySource('coingecko', cg, Array.isArray(cg) && cg.length);
+  trySource('coingecko', Array.isArray(cg) && cg.length);
   if (Array.isArray(cg) && cg.length) {
     return {
       quotes: cg.map(c => ({ id: c.id, symbol: (c.symbol || '').toUpperCase(), price: Number(c.current_price), change24h: Number(c.price_change_percentage_24h), high24h: Number(c.high_24h), low24h: Number(c.low_24h), source: 'coingecko' })),
@@ -62,7 +79,7 @@ async function scan() {
     };
   }
   const bn = await httpsJSON('https://api.binance.com/api/v3/ticker/24hr');
-  trySource('binance', bn, Array.isArray(bn));
+  trySource('binance', Array.isArray(bn));
   if (Array.isArray(bn)) {
     return {
       quotes: bn.filter(t => /USDT$/.test(t.symbol) && !/(UP|DOWN|BULL|BEAR)USDT$/.test(t.symbol))
@@ -72,7 +89,7 @@ async function scan() {
     };
   }
   const okx = await httpsJSON('https://www.okx.com/api/v5/market/tickers?instType=SPOT');
-  trySource('okx', okx, !!(okx && Array.isArray(okx.data)));
+  trySource('okx', !!(okx && Array.isArray(okx.data)));
   if (okx && Array.isArray(okx.data)) {
     return {
       quotes: okx.data.filter(t => /-USDT$/.test(t.instId))
@@ -82,7 +99,7 @@ async function scan() {
     };
   }
   const bb = await httpsJSON('https://api.bybit.com/v5/market/tickers?category=spot');
-  trySource('bybit', bb, !!(bb && bb.result && Array.isArray(bb.result.list)));
+  trySource('bybit', !!(bb && bb.result && Array.isArray(bb.result.list)));
   if (bb && bb.result && Array.isArray(bb.result.list)) {
     return {
       quotes: bb.result.list.filter(t => /USDT$/.test(t.symbol) && Number(t.turnover24h) > 0)
