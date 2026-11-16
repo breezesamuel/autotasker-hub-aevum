@@ -100,7 +100,23 @@
 
 **prepaid 镜像层安全确认**（生产）：无 key→401、假 key→403、weekly-report 无 all-access→403，全 fail-closed。
 
-测试：全矩阵 89 项全绿（v13b 26 / v14 21 / v14b 19 / v16 23），全库语法 0 BAD。本地 / GitHub / 生产三方同步（prod operational, 6 paid services）。
+测试：全矩阵 89 项全绿（v13b 26 / v14 21 / v14b 19 / v16 23），全库语法 0 BAD。本地 / GitHub / 生产三方同步（prod operational, 7 paid services）。
+
+## 深挖 · 数据增长边界 + 付费探针端点（2026-11-16 · 本轮）
+**① 数据无限增长审计（下一块写满磁盘的骨头）**：
+- `payments.entries`（营收账本）软上限 5000（`archivedCalls` 统计滚出条数；对账以链上 txHash 为准，不靠索引）
+- `referrals.claims` 上限 10k、`referrals.payouts` 上限 1000（审计轨迹，非事实源）
+- 其余持久化模块（ab-test / agents / airdrop / bounty / funnel / support）已确认有界
+- 结论：账本不再随结算无界增长 → 配合上一轮 logrotate + diskguard，磁盘写满风险系统性消除
+
+**② 新付费数据产品 `/api/x402/probe`（$0.50）**：
+- agent 付一次费即可拿到**本系统实时状态**：哪些端点在线、当前 bandit 价格、金库余额、uptime、可订阅档
+- 用途：agent 在决定接入某数据 feed 前，先付费"探活"确认系统健康 + 该选哪档订阅
+- 已接入：x402 付费路由（402 验证）+ `/api/prepaid/probe` 镜像 + full-stack/all-access 两档覆盖 + monetization PAY_PER_CALL
+
+**生产实测**：`/api/x402/probe` → 402（付费正常），`/api/prepaid/probe` → 401（无 key 拒绝，fail-closed），plans JSON 含 probe。
+
+测试：v14b 19/19（pricing-conversation 现 7 端点 crossovers）。全矩阵 89 项全绿。本地 / GitHub / 生产三方同步。
 
 ## 深挖 · 预付额度层落地（2026-11-15 · 本轮）
 **发现的真 bug：整个 API-key + 订阅额度体系是死代码。** `api-keys.js` 发 key、`subscription-manager.js` 发信用池、`gig-rewards.spendPoints` 发免费调用——但**没有任何请求路径消费它们**，key 拿到手什么也干不了，all-access "无限" 权益无执行点。
