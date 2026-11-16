@@ -167,6 +167,32 @@ ssh root@8.155.53.12 "cd /www/autotasker/app && curl -s http://127.0.0.1:8795/ap
 
 测试：全矩阵 95 项全绿（89 + atomic-write 6）。本地 `3edc93c` = GitHub = 生产 live，prod operational 7 paid services。
 
+## V17 · OSS 工具发现管线 — Bug Fix Audit（2026-11-16 · 末轮）
+**目标**：全网搜寻开源软件系统，按 License 合规分级，包装成托管服务售卖。
+
+### 发现的 7 个真 bug 全部修复
+| # | Bug | 影响 | 修复 |
+|---|-----|------|------|
+| 1 | `classifyStrategy` 引用不存在的 `recommendedFor` 字段 → 所有产品 fallback 到 `mcp_bridge` | Python ML 模型被错标为 JS MCP 桥；CLI 工具全部用错误策略 | 给每个 STRATEGY 添加 `recommendedFor` 数组 |
+| 2 | `classifyLicense` 不支持 SPDX 变体（`GPL-3.0-only`、复合 license `MIT OR Apache-2.0`） | 正确分类失效，部分白名单许可证被判为 unknown | 新增 `normalizeSpdx()` 归一化函数 + 复合 license 递归解析 |
+| 3 | GitHub search query 语法错误：`star:>`→`stars:>`, org 值未加引号, OR 分组缺失 | 多个分类返回零结果或错误结果集 | 修正所有 11 条查询语句 |
+| 4 | `paginateSearch` 未导出 → 外部无法直接迭代搜索 | 测试/调试受阻 | 加入 module.exports |
+| 5 | TIER_WHITELIST 缺少 zlib/X11/PostgreSQL/BSL-1.0/Artistic-2.0 | 部分合法免费许可证被判为 unknown | 扩充 5 个常见 permissive license |
+| 6 | 速率限制无感知 → 静默 403 后继续提交请求 | 扫描中途耗尽配额但无任何告警 | `ghGet` 检查 `X-RateLimit-Remaining`，<10 时等待至 reset |
+| 7 | 连续错误无保护 → 单次 500 即可中断整个 category | 网络抖动导致扫描提前终止 | 添加 `consecutiveErrors` 计数器，3 次失败后自动跳过该 category |
+
+### 验证结果
+- `classifyLicense` 15/15 edge cases passed（含 MIT/Apache/GPL variants/compound/null/empty/proprietary）
+- `classifyStrategy` 5/5 categories correctly mapped（cli-tools/go→cli_wrapper, ml-nlp/python→inference_service, data-viz/js→scheduled_export+ mcp_bridge）
+- GitHub 真实搜索测试：30 results yielded from `topic:security language:go stars:>500` query — valid repos confirmed
+- 全矩阵测试 89 项全绿 + smoke PASS，syntax 0 BAD
+
+### 生产状态
+远程 HEAD `8067825`，8 个付费服务（含 oss/run），uptime 稳定。首次扫描命令：
+```bash
+ssh root@8.155.53.12 "cd /www/autotasker/app && curl -s http://127.0.0.1:8795/api/oss/discover"
+```
+
 ## 深挖 · 预付额度层落地（2026-11-15 · 本轮）
 **发现的真 bug：整个 API-key + 订阅额度体系是死代码。** `api-keys.js` 发 key、`subscription-manager.js` 发信用池、`gig-rewards.spendPoints` 发免费调用——但**没有任何请求路径消费它们**，key 拿到手什么也干不了，all-access "无限" 权益无执行点。
 
