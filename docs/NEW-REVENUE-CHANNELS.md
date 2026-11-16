@@ -280,3 +280,28 @@ ssh root@8.155.53.12 "cd /www/autotasker/app && curl -s http://127.0.0.1:8795/ap
 - package.json 已有全套官方 v2 SDK: @x402/core, @x402/evm, @x402/express, @x402/extensions, @x402/mcp, @x402/svm @^2.31.0
 - → agent-commerce 式上架与官方中间件升级是"接线"工作, 零安装成本
 
+
+## Round V21 — x402 合规自检全绿 + 微付费档落地 (2026-11-16 深夜)
+
+### vAPI conformance 自检: 3 FAIL → 0 FAIL (41 passed / 2 warns)
+- 新工具 `scripts/x402-audit.js`: 本地起服或远程 prod 双模式, vAPI `check` 十项全复刻
+  (status/transport/version/fields/scheme/asset/pay_to/amount/timeout/extensions/discovery/CORS/preflight/mcp/openapi)
+- 修复项 (lib/x402-v4.js):
+  1. `serviceName: SERVICE_NAME` 进 REST_ROUTE_CONFIGS (resource 字段曾缺 → vAPI fields FAIL)
+  2. **402 双载具补丁**: 全局 res.json 包装, 把 SDK 构建的 header offer 镜像进 body
+     (此前 body 只有 {error} → transport 只算 warn; 现 "top-level, ideal")
+  3. 全局 CORS 中间件: expose PAYMENT-REQUIRED/PAYMENT-RESPONSE + OPTIONS 204 preflight
+  4. 子分格式化 bug: `$0.002` 被 toFixed(2) 变成 "$0.00" (死 offer) → fmtUsd 三位小数
+- headline 端点实测: 402 offer amount="2000" (= $0.002), carrier parity true, 双载具 ✅
+- 回归: test-v13b 26/26 PASS + SMOKE PASS
+
+### 微付费档 $0.002 落地 (vAPI 买家默认限额 $0.10/call + $1/day)
+- 新端点 `GET /api/x402/headline`: 单条全网置顶头条, $0.002 (2000 atomic)
+- 定价带逻辑: headline $0.002 (impulse, 500次/天在默认限额) → util $0.01 → hotlist/search $0.05
+  → market_scan $0.10 (边界) → daily_report/trend_predict/probe/full $0.15-0.50 (需提额/直付)
+- /.well-known/x402 paid[] 从 4 条扩到 9 条 (headline + daily_report + market_scan + trend_predict + probe)
+
+### 发布 runbook
+- `docs/VAPI-PUBLISH-RUNBOOK.md`: vAPI CLI 发布序列 + 7 个免费上架渠道 + stay-live 纪律
+  (每小时 recheck, 3 strikes 下架 → uptime.yml 必须保持绿)
+
