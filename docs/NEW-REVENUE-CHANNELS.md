@@ -248,3 +248,35 @@ ssh root@8.155.53.12 "cd /www/autotasker/app && curl -s http://127.0.0.1:8795/ap
 - Octodamus 发现协议模板: /.well-known/x402.json + llms.txt + MCP + Bazaar + 签名 manifest
 - 上线自检工具: atr-one/x402-audit + x402trace；uptime 层已有 GitHub Actions uptime.yml
 
+
+## Round V20 — 分发层深挖 + skill 实装 + CNY 兜底页 (2026-11-16 深夜)
+
+### internet-court skill 实装完成 ✅
+- `internet-court/internet-court-skill` (★7127) 已克隆到 `C:\Users\Think\.config\opencode\skills\internet-court`
+  (GFW 拦 git clone → 走 API zipball 2.26MB → bsdtar 解压)
+- 本会话已注册可用: agent-to-agent 合同、ERC-7710/7715 委托、x402 争议仲裁、ERC-8004 身份
+
+### Facilitator 备胎清单 (awesome-x402 真实章节, PayAI 之外)
+- **Voidly Pay** (api.voidly.ai): Base USDC, 金库链上可查 0xb592...1c12, Ed25519 防 MitM, 28 工具 MCP
+- **AsterPay**: 欧洲合规 (MiCA), SEPA Instant 出金, ERC-8004 ready
+- **Cloudflare x402**: 边缘 facilitator, CN 可达性最好
+- **FluxA**: AEP2 延迟结算 + 一行 MCP 变现
+- **Primev FastRPC**: 免费, <200ms (仅 ETH 主网)
+
+### 免费上架市场 (调研新增)
+- **MYA / monetizeyouragent.fun**: 发布 skill.md manifest 即可被发现
+- **MAXIA (maxiaworld.app)**: A2A 市场, x402 V2
+- **assay-oracle-mcp**: 质量预言机 — 让 agent 付费前查我们的 paid-probe 质量等级 (信任背书)
+- **vAPI Router** (vapinetwork.ai): provider 登记
+
+### CNY 兜底收款页 ✅ (本地 26/26 测试通过, 待部署)
+- 新文件 `lib/cny-page.js` + `x402-v4.js` 一行挂载
+- `GET /pay/cny`: 双码 (alipay-clean.png + wechat-clean.png, sha256 与 config/app.json 双双核验一致)
+- `GET /api/pay/cny/status`: 渠道 JSON + 3 档套餐 (¥9.9/29/99)
+- payload jsQR 核验记录内嵌; 换码只需 config/cny.json 覆盖
+- 部署后立即绕过 Alipay/WeChat API 阻塞, CNY 收款先跑起来
+
+### 我们的依赖现状 (关键发现)
+- package.json 已有全套官方 v2 SDK: @x402/core, @x402/evm, @x402/express, @x402/extensions, @x402/mcp, @x402/svm @^2.31.0
+- → agent-commerce 式上架与官方中间件升级是"接线"工作, 零安装成本
+
