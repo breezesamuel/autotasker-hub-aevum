@@ -49,35 +49,48 @@ function detached(cmd, args) {
 
 (async () => {
   let acted = [];
-  // 1) local service health
+  // 1) local service health (wait longer: facilitator init can take ~10s)
   const local = await get(`http://127.0.0.1:${PORT}/api/status`);
   if (!local || local.status !== 200) {
     log('local :8797 DOWN -> respawning server');
     detached(process.execPath, [SERVE_SCRIPT]);
     acted.push('respawn-server');
-    await new Promise(r => setTimeout(r, 8000));
+    let up = false;
+    for (let i = 0; i < 6 && !up; i++) {
+      await new Promise(r => setTimeout(r, 5000));
+      const s = await get(`http://127.0.0.1:${PORT}/api/status`);
+      up = !!(s && s.status === 200);
+    }
+    log(up ? 'server back UP after respawn' : 'server still DOWN after 30s — will retry next cycle');
   } else {
     log(`local :8797 ok (${local.status})`);
   }
 
-  // 2) tunnel health via public URL
+  // 2) tunnel health: only restart cloudflared if OUR tunnel PROCESS is gone
+  //    (a dead origin makes the public URL fail too — restarting the tunnel then
+  //    would needlessly rotate the domain and invalidate all listings)
   const urls = readUrls();
   const pub = urls.aevumTreasury;
+  const tunnelProc = await new Promise((resolve) => {
+    exec('powershell -NoProfile -Command "(Get-CimInstance Win32_Process -Filter \\"Name=\'cloudflared.exe\'\\" | Where-Object { $_.CommandLine -match \'8797\' } | Measure-Object).Count"', (err, so) => {
+      const n = err ? 0 : parseInt(String(so).trim(), 10);
+      resolve(Number.isFinite(n) ? n : 0);
+    });
+  });
   let pubOk = false;
-  if (pub) {
-    const pubResp = await get(pub + '/api/status', 15000);
-    pubOk = !!(pubResp && pubResp.status === 200);
+  if (tunnelProc > 0 && pub) {
+    for (let i = 0; i < 3 && !pubOk; i++) {
+      const pubResp = await get(pub + '/api/status', 15000);
+      pubOk = !!(pubResp && pubResp.status === 200);
+      if (!pubOk) await new Promise(r => setTimeout(r, 5000));
+    }
   }
-  if (!pubOk) {
-    log(`tunnel DOWN or missing (url=${pub || 'none'}) -> restarting cloudflared quick tunnel`);
-    // kill only OUR tunnel processes (match our port in the cmdline), not the old hub/x402 ones
-    exec('powershell -NoProfile -Command "Get-CimInstance Win32_Process -Filter \\"Name=\'cloudflared.exe\'\\" | Where-Object { $_.CommandLine -match \'8797\' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }"', () => { });
-    await new Promise(r => setTimeout(r, 3000));
+  if (tunnelProc === 0) {
+    log('cloudflared (8797) PROCESS GONE -> restarting quick tunnel');
     const LOGF = path.join(DATA, 'tunnel-aevum.log');
     try { fs.writeFileSync(LOGF, '', 'utf8'); } catch (e) { }
     detached('C:/Users/Think/cloudflared.exe', ['tunnel', '--url', `http://localhost:${PORT}`, '--logfile', LOGF, '--loglevel', 'info']);
     acted.push('respawn-tunnel');
-    // wait for the URL to appear in the fresh log
     let newUrl = null;
     for (let i = 0; i < 10 && !newUrl; i++) {
       await new Promise(r => setTimeout(r, 4000));
@@ -94,8 +107,10 @@ function detached(cmd, args) {
     } else {
       log('tunnel URL not found in log after 40s');
     }
-  } else {
+  } else if (pubOk) {
     log('tunnel ok: ' + pub);
+  } else {
+    log(`tunnel process alive (${tunnelProc}) but public URL failing — leaving it alone (origin may be warming)`);
   }
 
   log('watch cycle done' + (acted.length ? ' — actions: ' + acted.join(', ') : ''));
