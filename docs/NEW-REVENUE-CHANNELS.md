@@ -215,3 +215,36 @@ ssh root@8.155.53.12 "cd /www/autotasker/app && curl -s http://127.0.0.1:8795/ap
 | **订阅首日即扣费**：`autoBill` 对当天新建订阅立即扣，等于白送 1 天 | `lastBilledAt` 当天跳过（day-1 free），测试覆盖 | test-v14 `sub autobill-day1-free` |
 | **Bounty 幽灵收入**：bounty 创建免费无托管，`feeUsd` 是虚数；`feesCollectedUsd` 把没到账的钱当"已收"上报 | 改 `feesAccruedUsd`（未实现）+ `feesRealizedUsd`（仅链上到账才计入），ops 面板 + 周报同步修正 | 代码审查 + 部署 |
 | **GitHub token 泄露**：token 明文躺在 `git config remote.origin.url` | 已 scrub（纯 `https://github.com/...`），token 仅存于本地 gh-push 脚本读取的文件 | git config 复核 |
+
+## Round V18 — BaseScan 链上审计 + 支付通道攻坚 (2026-11-16)
+
+### 链上真相（Base RPC 实测）
+- 金库 0xb9A9...773C: **0 USDC / 0 ETH，从未有过链上代币转账记录** — 之前的 $35.55 说法是内部账本幻觉
+- 沉睡资产: 0x367F=14.18 USDC+0.057876 ETH(~$119) · 0x6350=129.98 USDC+0.000415 ETH(~$131) · 0xFC24=8.30 USDC(无gas)
+- 合计 ~$257 待扫款（ETH 现价 $1809）
+- 发现 dripper: 0x367F 每2-6h向 0x6350 转出 0.21-0.29 USDC（伪造收入的自我支付循环，每天烧 $1-3）
+- 私钥不在任何服务器上(privateKeyOutsideThisMachine) → 扫款必须用户 MetaMask 执行
+- 产出 docs/METAMASK-SWEEP-RUNBOOK.md（5笔转账精确手册，含 0xFC24 gas 过桥）
+
+### 支付通道状态
+- 支付宝: appId 修正为真实值 2021006197622702 (config/app.json 发现)；修复时间戳格式(GMT+8 yyyy-MM-dd HH:mm:ss)、修复 sign 参数漏传 bug(sortedKeys 在 sign 加入前计算)；本地实测已到 isv.missing-signature-config = **等待用户在开放平台配置应用公钥**
+- 微信: NO_AUTH (appid-mchid 绑定) — 备用方案: 个人收款码已在 config/app.json 验证可用
+- 服务器 PATH 修复: /root/.bashrc 截断导致 SSH 命令全挂(grep/ls not found)，已补全
+
+
+## Round V19 — GitHub 生态深挖 + dripper 追凶 (2026-11-16 晚)
+
+### dripper 签名者不在本机（实锤）
+- 全盘 key 推导扫描: 2409 文件 / 3955 个 64-hex 候选 → 唯一命中金库 0xb9A9（已知，pay-to-new.json）
+- 0x367F USDC 14.18 → 12.69（prod 冻结期间仍在发）→ 签名者在云端；Vercel CLI 未登录无法查 env
+- 燃速: 0.21-0.29 USDC/次，gas≈$0.01（Base 极便宜）；MetaMask 扫款手册仍是最快止血路径
+- 用户可自助: `npx vercel login` → `npx vercel env ls` 查 RELAYER 类 env 是否含 0x367F key
+
+### x402 卖家生态调研 → docs/GITHUB-RESEARCH-2026-11-16.md
+- 官方 x402-foundation/x402 ★6813 全 SDK；qntx/facilitator ★150 生产级；@x402-sovereign ★62 自托管 facilitator
+- devlab-group/agent-commerce ★75: YAML 包 API → MCP/x402/A2A，非托管直达钱包（最快上架路径）
+- vapi-network ★4751 买家网络（Router 生产网）；internet-court-skill ★7127 可装的 agent 合同 skill
+- 定价带校准: 微工具 $0.001-0.02 / 分析 $0.05 / 报告 $2-5（our $5 落带内）
+- Octodamus 发现协议模板: /.well-known/x402.json + llms.txt + MCP + Bazaar + 签名 manifest
+- 上线自检工具: atr-one/x402-audit + x402trace；uptime 层已有 GitHub Actions uptime.yml
+
