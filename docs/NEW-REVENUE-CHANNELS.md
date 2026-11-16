@@ -118,6 +118,19 @@
 
 测试：v14b 19/19（pricing-conversation 现 7 端点 crossovers）。全矩阵 89 项全绿。本地 / GitHub / 生产三方同步。
 
+## 深挖 · 持久化原子性 + 付费失败路径（2026-11-16 · 本轮）
+**① 真 bug：全库 60 处裸 `writeFileSync`，零原子替换。** 进程崩溃 / 磁盘满 / 断电的写入瞬间 → JSON 截断损坏 → 营收账本、订阅状态、API key 表解析失败 = 应用起不来或静默丢钱。与 2026-11-15 磁盘事故同一故障类。
+修复：新增 `lib/atomic-write.js`（序列化一次 → 写 `<dir>/.<name>.<pid>.tmp` → fsync → rename；同盘 rename 原子，读方只见旧文件或新文件），接入 **11 个资金关键模块**：payments / subscription-manager / api-keys / pricing-bandit / trading-journal / referrals / bounty-platform / bounty-matching / attribution / fraud-detection(blocklist+alarms) / x402-v4(trading-loop 输出+sweep 状态)。
+回归：`scripts/test-atomic-write.js` 6/6（首写 / 覆写 / 无 tmp 残留 / 嵌套目录 / 5k 大负载 / 损坏文件替换）。
+
+**② 真 bug：付费失败路径"卖状态码"。** x402 结算发生在 handler 之前，trend_predict 预测器失败 → 503 = agent 付 $0.15 买了 503；market_scan 上游挂 → 502 = 付 $0.10 买了 502；prepaid 的 trend_predict 失败 payload **照样扣信用**（白扣）。
+修复（对齐 daily_report 既有降级设计）：失败 → **schema 合法的降级 200**（`degraded: true` + 说明），x402 与 prepaid 两面同构；统一计费规则 = "**交付 200 才计费**"。`buildTrendPredictPayload` 失败不再返回 `{ error }`；x402 trend_predict handler 改用共享 builder（消除重复映射）。
+验证：`scripts/verify-degrade.js` 4/4；生产 trend_predict / market_scan / probe 均 402 正常、`data/` 无 .tmp 垃圾。
+
+**③ 读-改-写竞态审计**：`scripts/audit-rmw-race.js` 扫全部资金函数（recordPayment / createSubscription / renew / consumeCredit / autoBill / claim / attributeSettlement / autoMatchAndClaim / recordConversion…）→ **load→mutate→save 全部为单同步块、窗口内零 await** → 事件循环天然串行化，无 last-writer-wins 丢账风险（审计脚本留库，后续新函数纳入）。
+
+测试：全矩阵 95 项全绿（89 + atomic-write 6）。本地 `3edc93c` = GitHub = 生产 live，prod operational 7 paid services。
+
 ## 深挖 · 预付额度层落地（2026-11-15 · 本轮）
 **发现的真 bug：整个 API-key + 订阅额度体系是死代码。** `api-keys.js` 发 key、`subscription-manager.js` 发信用池、`gig-rewards.spendPoints` 发免费调用——但**没有任何请求路径消费它们**，key 拿到手什么也干不了，all-access "无限" 权益无执行点。
 
