@@ -95,6 +95,12 @@ CRON_TASKS = [
      "journalctl --vacuum-size=200M >/dev/null 2>&1 || true  " + MARK + " diskguard"),
     ("sub-auto-bill",
      "5 4 * * * curl -fsS -o /dev/null -m 15 -X POST http://127.0.0.1:8795/api/subscribe/auto-bill >> " + LOGDIR + "/service.log 2>&1  " + MARK + " sub-auto-bill"),
+     # v17: OSS tool catalog discovery — crawl GitHub trending repos, classify by license,
+     # productize as managed-service placeholders (rate-limited ~2k req/min under auth token).
+     ("oss-discover-daily",
+      "35 6 * * * cd " + APP + " && OSS_CATALOG_BATCH_MODE=max=50 node scripts/oss-discover-batch.js >> " + LOGDIR + "/oss-catalog.log 2>&1  " + MARK + " oss-discover-daily"),
+     ("oss-discover-weekly",
+      "0 3 * * 0 cd " + APP + " && OSS_CATALOG_BATCH_MODE=full node scripts/oss-discover-batch.js >> " + LOGDIR + "/oss-catalog.log 2>&1  " + MARK + " oss-discover-weekly"),
 ]
 TAGS = {t for t, _ in CRON_TASKS}
 
