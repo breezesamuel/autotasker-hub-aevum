@@ -99,7 +99,7 @@ var ms = mono.offerFor('market_scan', 300);
 check('mono market-scan-300-sub-saves', ms.recommend && ms.recommend.priceUsd < ms.estPayPerCallMonthly, 'tier $'+(ms.recommend?ms.recommend.priceUsd:'?')+' vs ppc $'+ms.estPayPerCallMonthly);
 // pricingConversation shape
 var pc = mono.pricingConversation();
-check('mono pricing-conversation-shape', pc.payPerCall && pc.tiers.length === 4 && pc.crossover.length === 6, 'tiers=' + pc.tiers.length + ' crossover=' + pc.crossover.length);
+check('mono pricing-conversation-shape', pc.payPerCall && pc.tiers.length === 4 && pc.crossover.length === 7, 'tiers=' + pc.tiers.length + ' crossover=' + pc.crossover.length);
 
 console.log('\nTotal:' + (pass + fail) + ' PASS:' + pass + ' FAIL:' + fail);
 process.exit(fail === 0 ? 0 : 1);
