@@ -305,3 +305,24 @@ ssh root@8.155.53.12 "cd /www/autotasker/app && curl -s http://127.0.0.1:8795/ap
 - `docs/VAPI-PUBLISH-RUNBOOK.md`: vAPI CLI 发布序列 + 7 个免费上架渠道 + stay-live 纪律
   (每小时 recheck, 3 strikes 下架 → uptime.yml 必须保持绿)
 
+
+## Round V22 — 金库直通线 (0xb9A9-only) 上线 (2026-11-16 晚)
+
+### 用户指令与边界
+- 专注金库 0xb9A9 赚钱; 旧金库 (0x367F 归集链: 0x6350 GENESIS $131.48 / 0xbd16b985 $14.52 / 0xFC24 $8.30) **不再推进、不迁移** — MetaMask 手册保留给用户自决
+- 链上侦查结论 (归档): 0x367F 最近 4 天 4 个真实买家付款 $0.12 (EIP-3009 形状, facilitator 热钱包 0x97acce27 nonce=3.58M 代发); "dripper" 实为旧线的自动归集 (0x367F→0x6350/0xbd16b985), 非燃烧 — 一切归档, 不再追
+
+### 新线上线 (本机, 全自动, 收款 100% 直达 0xb9A9)
+- aevum server.js :8797 运行 (scripts/serve-aevum.js, detached)
+- Cloudflare quick tunnel: https://reno-bay-jackets-consistency.trycloudflare.com
+- **x402 审计远程跑分: 41 passed / 0 failed** (scripts/x402-audit.js <url>) — payTo=0xb9A9 已验证
+- 保活: scripts/aevum-watch.js + 计划任务 AutoTasker-AevumWatch (5min 自愈: 服务+隧道+URL 登记)
+- AgentPay Store 新 listing: slug=autotasker-hub-3, status=pending, payee_wallet=0xb9A9, endpoint=隧道 URL (data/recon/store-listing-treasury.json)
+- URL 登记: data/public-urls.json → aevumTreasury
+- 文档: docs/TREASURY-DIRECT-LINE.md
+
+### 待办 (新线)
+- vAPI 上架: 等 vapi CLI 装好 (npx vapi-network); auth set-key 用 0xb9A9 key (本机 config/keys/pay-to-new.json)
+- 域名漂移风险: quick tunnel 重启换域名 → vAPI 3-strike 下架; 固定域名方案 = ECS 恢复部署 或 CF 命名隧道
+- ECS 恢复后: deploy-v6.py 用固定域名上正式版, 然后把上架渠道 endpoint 统一切到主域
+
