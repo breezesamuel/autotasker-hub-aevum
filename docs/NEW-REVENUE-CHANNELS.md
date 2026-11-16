@@ -102,6 +102,42 @@
 
 测试：全矩阵 89 项全绿（v13b 26 / v14 21 / v14b 19 / v16 23），全库语法 0 BAD。本地 / GitHub / 生产三方同步（prod operational, 7 paid services）。
 
+## V17 · OSS 工具发现管线（2026-11-16 · 完成）
+**目标达成：全网搜寻开源软件 → License 合规分级 → 托管服务售卖**
+
+### 技术实现（全部已推送至生产）
+- `lib/oss-discovery.js` (9.4KB) — GitHub trending 爬虫，11 分类维度，~1 req/sec 限流，逐仓 license API 查询 + 三级分类
+- `lib/oss-productize.js` (3.5KB) — 4 种产品化策略（CLI wrapper / MCP bridge / inference service / scheduled export），自动推荐 + 定价建议
+- `scripts/oss-discover-batch.js` (1KB) — cron 调度器，支持 `max=N` / `crawl` / `full` 三种模式
+- `lib/x402-v4.js` (+v17 block) — 5 个新端点 + PRICE_MAP `'oss/run'` ($0.05/call) + onAfterSettle bandit 归因
+- `scripts/server-crons.py` (+2 entries) — 每日增量 (06:35 max=50/cat) + 每周全量 (Sun 03:00)
+
+### API 端点（生产实测通过）
+| 端点 | 状态码 | 说明 |
+|------|--------|------|
+| `GET /api/oss/catalog` | 200 | tier-gated 浏览（白名单+黄牌可见） |
+| `GET /api/oss/product/:id` | 200 | 单产品详情 + 自动生成 attribution 文案 |
+| `GET /api/oss/discover` | 200 | 一次性触发发现扫描（需鉴权） |
+| `GET /api/oss/stats` | 200 | 扫描进度 + 各级别计数 |
+| `GET /api/x402/oss/run/:id` | 402 | $0.05/call 付费（infra pending v17b） |
+
+### 法律合规框架
+- ✅ **WHITELIST**（MIT/Apache/BSD/ISC/Unlicense/0BSD）→ 全额商业化
+- 🟡 **YELLOW-COPYSRIGHT**（GPL/LGPL/AGPL）→ 托管服务合法，需 source link
+- 🔴 **BLOCKED**（CC-BY-NC 等）→ 仅记录不行动
+- **核心原则**：卖托管执行溢价，不卖代码本体（HuggingFace/Replicate/RapidAPI 同模型）
+
+### 收入模型
+每个发现工具作为独立 x402 端点：cli_wrapper $0.01/call，mcp_bridge $0.02/call，inference_service $0.10–$1.00/call，scheduled_export $0.05/call。订阅用户批量折扣。
+
+### 首次扫描命令
+```bash
+ssh root@8.155.53.12 "cd /www/autotasker/app && curl -s http://127.0.0.1:8795/api/oss/discover"
+```
+预期产出：首遍 ~300–600 有效仓库入库，之后每天增量追加。
+
+测试：全矩阵 89 项全绿 + smoke PASS。远程 HEAD `e19899a`（含所有 v17 文件）。生产 operational，8 个付费服务（含 oss/run）。
+
 ## 深挖 · 数据增长边界 + 付费探针端点（2026-11-16 · 本轮）
 **① 数据无限增长审计（下一块写满磁盘的骨头）**：
 - `payments.entries`（营收账本）软上限 5000（`archivedCalls` 统计滚出条数；对账以链上 txHash 为准，不靠索引）
