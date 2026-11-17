@@ -1,0 +1,79 @@
+{
+  "name": "AutoTasker Hub",
+  "url": "https://violations-nhs-entering-math.trycloudflare.com",
+  "description": "Real-time Chinese social media trending data API with x402 micropayments. Weibo/Zhihu/Douban/Bilibili/Tieba hot lists, keyword search, daily reports.",
+  "version": "4.0.0",
+  "capabilities": {
+    "stateTransitionAnalysis": false,
+    "pushNotifications": false,
+    "taskQueue": false,
+    "streaming": true,
+    "cardSignatureVerification": false,
+    "extensions": [
+      {
+        "uri": "https://github.com/google-agentic-commerce/a2a-x402/v0.1",
+        "description": "Supports x402 HTTP 402 payments for on-chain USDC settlement",
+        "required": true
+      }
+    ]
+  },
+  "skills": [
+    {
+      "id": "china-social-data",
+      "name": "China Social Data",
+      "description": "Scraped trending data from 9 Chinese public boards with real-time heat values",
+      "tags": [
+        "chinese-data",
+        "trending",
+        "social-media",
+        "x402"
+      ],
+      "examples": [
+        "/api/x402/hotlist?limit=5",
+        "/api/x402/search?q=AI&board=zhihu"
+      ]
+    },
+    {
+      "id": "keyword-search",
+      "name": "Cross-board Keyword Search",
+      "description": "Search across Weibo/Zhihu/Douban/Bilibili/Tieba for any keyword",
+      "tags": [
+        "search",
+        "chinese-social",
+        "x402"
+      ],
+      "examples": [
+        "/api/x402/search?q=Bitcoin&limit=10"
+      ]
+    },
+    {
+      "id": "daily-report",
+      "name": "Daily Trending Digest",
+      "description": "24h aggregated trending report with sentiment analysis and momentum scoring",
+      "tags": [
+        "report",
+        "digest",
+        "sentiment",
+        "x402"
+      ],
+      "examples": [
+        "/api/x402/daily_report"
+      ]
+    }
+  ],
+  "defaultInputModes": [
+    "text"
+  ],
+  "defaultOutputModes": [
+    "text"
+  ],
+  "paymentInfo": {
+    "protocol": "x402",
+    "network": "eip155:8453",
+    "currency": "USDC",
+    "payTo": "0xb9A9E6d9C4Ad1635aA685bba2e235A515A94773C",
+    "facilitator": "https://x402-agent-pay.com",
+    "minPriceUsd": 0.002,
+    "maxPriceUsd": 0.5
+  }
+}
