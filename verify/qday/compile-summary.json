@@ -1,0 +1,18 @@
+{
+  "contract": "AutoTaskerPaymentRouterV2",
+  "address": "0x9FA2771297aE08F994D5516ea62Be1ED02b5Bdd9",
+  "explorer": "https://explorer-test.qday.info",
+  "solc": "v0.8.20",
+  "optimizer": {
+    "enabled": true,
+    "runs": 200
+  },
+  "evmVersion": "paris",
+  "creationMatch": true,
+  "runtimeMatch": true,
+  "immutableSlots": 18,
+  "immutableValues": [
+    "0x456569838f1d43009a91eba4263147afd7233483",
+    "0xbc6f31fb67e832b61e9563cdbca7b4f37778419f"
+  ]
+}

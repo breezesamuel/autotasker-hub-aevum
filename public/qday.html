@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AutoTasker Hub — x402 payments settled on QDay Aevum</title>
+<meta name="description" content="Machine-payable data APIs for AI agents, with the house share of every payment settling straight to one treasury on QDay Aevum testnet." />
+<style>
+  :root{
+    --bg:#0b1020; --bg2:#111827; --panel:#131c31; --line:#243049;
+    --fg:#ebf1ff; --dim:#93a4c4; --acc:#56d6ff; --ok:#7ee7ad; --warn:#ffc478;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.6;
+       background-image:linear-gradient(rgba(86,214,255,.04) 1px,transparent 1px),
+                        linear-gradient(90deg,rgba(86,214,255,.04) 1px,transparent 1px);
+       background-size:64px 64px}
+  a{color:var(--acc);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  header.top{border-bottom:1px solid var(--line);background:rgba(11,16,32,.85);backdrop-filter:blur(8px);
+             position:sticky;top:0;z-index:10}
+  .top-in{display:flex;align-items:center;gap:16px;height:64px}
+  .brand{font-weight:700;letter-spacing:.3px}
+  .brand span{color:var(--acc)}
+  .top nav{margin-left:auto;display:flex;gap:18px;font-size:14px;color:var(--dim);flex-wrap:wrap}
+  .top nav a{color:var(--dim)}
+  .top nav a:hover{color:var(--fg)}
+  .hero{padding:72px 0 40px;border-bottom:1px solid var(--line)}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc)}
+  h1{font-size:clamp(32px,5vw,56px);line-height:1.1;margin:14px 0 16px;letter-spacing:-.02em}
+  .lede{font-size:clamp(16px,2.2vw,20px);color:var(--dim);max-width:760px}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+  .chip{font-family:var(--mono);font-size:12px;border:1px solid var(--line);border-radius:999px;
+        padding:6px 12px;color:var(--dim);background:var(--bg2)}
+  .chip b{color:var(--fg);font-weight:600}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:34px 0 8px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .stat .lab{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--dim)}
+  .stat .val{font-family:var(--mono);font-size:26px;margin-top:6px;color:var(--fg);word-break:break-all}
+  .stat .sub{font-size:12px;color:var(--dim);margin-top:4px;font-family:var(--mono)}
+  .live{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--ok);
+        font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(126,231,173,.7);
+       animation:pulse 2s infinite}
+  @keyframes pulse{70%{box-shadow:0 0 0 8px rgba(126,231,173,0)}100%{box-shadow:0 0 0 0 rgba(126,231,173,0)}}
+  section{padding:56px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:clamp(22px,3vw,30px);margin:0 0 8px;letter-spacing:-.01em}
+  .sub{color:var(--dim);margin:0 0 28px;max-width:780px}
+  .grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
+  @media(max-width:860px){.grid2{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
+  .card h3{margin:0 0 14px;font-size:15px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim)}
+  .kv{display:grid;grid-template-columns:170px 1fr;gap:6px 16px;font-size:14px}
+  .kv dt{color:var(--dim)}
+  .kv dd{margin:0;font-family:var(--mono);font-size:13px;word-break:break-all}
+  @media(max-width:560px){.kv{grid-template-columns:1fr}.kv dt{margin-top:8px}}
+  button{font-family:var(--sans);font-size:14px;font-weight:600;color:#06121f;background:var(--acc);
+         border:0;border-radius:10px;padding:11px 18px;cursor:pointer}
+  button:hover{filter:brightness(1.08)}
+  button[disabled]{opacity:.55;cursor:progress}
+  pre{background:#080c18;border:1px solid var(--line);border-radius:12px;padding:16px;overflow:auto;
+      font-family:var(--mono);font-size:12.5px;line-height:1.65;color:#cfe0ff;margin:16px 0 0;
+      max-width:100%;white-space:pre-wrap;word-break:break-word}
+  #txs .card{overflow-x:auto}
+  @media(max-width:720px){table{min-width:620px}}
+  .ok{color:var(--ok)} .warn{color:var(--warn)} .acc{color:var(--acc)} .dim{color:var(--dim)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);font-weight:600}
+  td.m,th.m{font-family:var(--mono);font-size:12.5px;word-break:break-all}
+  tr:hover td{background:rgba(86,214,255,.04)}
+  .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:stretch}
+  .flow .n{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px;font-size:13px}
+  .flow .n b{display:block;font-family:var(--mono);font-size:11px;color:var(--acc);margin-bottom:6px;letter-spacing:.1em}
+  @media(max-width:860px){.flow{grid-template-columns:1fr 1fr}}
+  .math{font-family:var(--mono);background:var(--bg2);border:1px solid var(--line);border-radius:12px;
+        padding:18px;font-size:14px;line-height:2}
+  .note{font-size:13px;color:var(--dim);border-left:3px solid var(--warn);padding-left:14px;margin:18px 0 0}
+  footer{padding:40px 0 64px;color:var(--dim);font-size:13px}
+  .foot-grid{display:flex;gap:26px;flex-wrap:wrap;justify-content:space-between}
+  code{font-family:var(--mono);font-size:.92em;background:rgba(86,214,255,.08);padding:1px 5px;border-radius:5px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <div class="brand">AutoTasker <span>Hub</span></div>
+    <nav>
+      <a href="#flow">Flow</a>
+      <a href="#contract">Contract</a>
+      <a href="#txs">Transactions</a>
+      <a href="#verify">Verification</a>
+      <a href="https://github.com/breezesamuel/autotasker-hub-aevum" target="_blank" rel="noopener">GitHub ↗</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="kicker">Aevum Builder Challenge #1 · QDay Aevum testnet · chainId 44005</div>
+    <h1>Agents pay per request.<br>The treasury is paid in the same transaction.</h1>
+    <p class="lede">
+      AutoTasker Hub exposes data APIs behind an x402 paywall: an agent calls, gets a
+      <code>402</code> with a price, signs a stablecoin authorisation, and receives data.
+      On the settlement side a commission router splits the payment on chain — 90% to the
+      house wallet, and that house wallet <em>is</em> the treasury. No sweep, no intermediate
+      address, no retired ledger.
+    </p>
+    <div class="chips">
+      <span class="chip">contract <b>0x9FA2…Bdd9</b></span>
+      <span class="chip">token <b>tUSD8</b></span>
+      <span class="chip">treasury <b>0xb9A9…773C</b></span>
+      <span class="chip">x402 audit <b class="ok">43 / 0</b></span>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="lab">Treasury balance</div>
+        <div class="val" id="s-treasury">—</div>
+        <div class="sub" id="s-treasury-sub">reading chain…</div>
+      </div>
+      <div class="stat">
+        <div class="lab">Contract transactions</div>
+        <div class="val" id="s-txc">—</div>
+        <div class="sub">all status 1</div>
+      </div>
+      <div class="stat">
+        <div class="lab">Token transfers</div>
+        <div class="val" id="s-tt">—</div>
+        <div class="sub">payer → router → treasury</div>
+      </div>
+      <div class="stat">
+        <div class="lab">Treasury inbound transfers</div>
+        <div class="val" id="s-ti">—</div>
+        <div class="sub">direct, in-transaction</div>
+      </div>
+    </div>
+    <div style="margin-top:14px"><span class="live"><span class="dot"></span> live from explorer-test.qday.info</span></div>
+  </div>
+</div>
+
+<section id="flow">
+  <div class="wrap">
+    <h2>One request, end to end</h2>
+    <p class="sub">The paid path is the production path: the same price table drives the live API and the on-chain router.</p>
+    <div class="flow">
+      <div class="n"><b>01 · CALL</b>Agent requests <code>/api/x402/hotlist</code> with no account and no API key.</div>
+      <div class="n"><b>02 · CHALLENGE</b>Server answers <code>402</code> + <code>PAYMENT-REQUIRED</code> with amount, asset and <code>payTo</code>.</div>
+      <div class="n"><b>03 · SIGN</b>Agent signs an EIP-3009 authorisation; the facilitator settles USDC.</div>
+      <div class="n"><b>04 · FULFIL</b>Router marks the request fulfilled and pays the treasury its 90% share.</div>
+      <div class="n"><b>05 · DATA</b>Trending Chinese social data returns with a settlement receipt in the headers.</div>
+    </div>
+    <div class="card" style="margin-top:24px">
+      <h3>Run the live request</h3>
+      <p style="margin:0 0 14px;color:var(--dim);font-size:14px">
+        This button calls the real endpoint from your browser and shows the real challenge.
+        No key, no wallet, nothing simulated.
+      </p>
+      <button id="btn-402">GET /api/x402/hotlist</button>
+      <pre id="out-402" class="dim">Idle — press the button to send the request.</pre>
+    </div>
+  </div>
+</section>
+
+<section id="contract">
+  <div class="wrap">
+    <h2>Deployed contract</h2>
+    <p class="sub">AutoTaskerPaymentRouterV2, source in the repository, constructor <code>(address _tUSD8, address _houseWallet)</code>.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Address &amp; roles</h3>
+        <dl class="kv">
+          <dt>Contract</dt><dd><a href="https://explorer-test.qday.info/address/0x9FA2771297aE08F994D5516ea62Be1ED02b5Bdd9" target="_blank" rel="noopener">0x9FA2771297aE08F994D5516ea62Be1ED02b5Bdd9</a></dd>
+          <dt>Deploy tx</dt><dd><a href="https://explorer-test.qday.info/tx/0x4dce2c147e15e56ba4116ee9fba1ff4437169a695a86877ebe4a29778897a664" target="_blank" rel="noopener">0x4dce2c14…a664</a></dd>
+          <dt>Block</dt><dd>3381273</dd>
+          <dt>Settlement token</dt><dd>tUSD8 0x456569838f1d43009A91ebA4263147Afd7233483</dd>
+          <dt>House wallet</dt><dd class="ok">0xb9A9E6d9C4Ad1635aA685bba2e235A515A94773C</dd>
+          <dt>Owner</dt><dd>0xBC6f31fB67e832b61E9563cdbCA7B4F37778419f</dd>
+        </dl>
+      </div>
+      <div class="card">
+        <h3>Price table (atomic, 6 dp)</h3>
+        <dl class="kv">
+          <dt>hotlist</dt><dd>50000 → 0.05 tUSD8</dd>
+          <dt>search</dt><dd>50000 → 0.05 tUSD8</dd>
+          <dt>price intel</dt><dd>100000 → 0.10 tUSD8</dd>
+          <dt>full export</dt><dd>500000 → 0.50 tUSD8</dd>
+          <dt>house cut</dt><dd>9000 bps</dd>
+          <dt>facilitator</dt><dd>50 bps on the house cut</dd>
+        </dl>
+        <p class="note">Prices are <code>constant</code> in the deployed bytecode, so what the API quotes and what the chain charges cannot drift apart without a new deployment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="txs">
+  <div class="wrap">
+    <h2>Eight transactions, one demo run</h2>
+    <p class="sub">Every hash below is on <a href="https://explorer-test.qday.info" target="_blank" rel="noopener">explorer-test.qday.info</a> with status 1.</p>
+    <div class="card" style="padding:6px 6px 2px">
+      <table>
+        <thead><tr><th>#</th><th>Action</th><th class="m">Transaction</th><th class="m">Block</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>deploy</td><td class="m"><a href="https://explorer-test.qday.info/tx/0x4dce2c147e15e56ba4116ee9fba1ff4437169a695a86877ebe4a29778897a664" target="_blank" rel="noopener">0x4dce2c14…a664</a></td><td class="m">3381273</td><td class="dim">gas 1,754,295</td></tr>
+          <tr><td>2</td><td>tUSD8.approve</td><td class="m"><a href="https://explorer-test.qday.info/tx/0xce368c93d9c7b35236534167ca6b4efb135223df5c3376206be43ee7a75547b1" target="_blank" rel="noopener">0xce368c93…47b1</a></td><td class="m">3381289</td><td class="dim">allowance 5.0</td></tr>
+          <tr><td>3</td><td>submitPayment(hotlist)</td><td class="m"><a href="https://explorer-test.qday.info/tx/0x6d1b623c70824062b2237e8a18e2edb1939d04f7ce73265c2b53b61529ce88e7" target="_blank" rel="noopener">0x6d1b623c…88e7</a></td><td class="m">3381294</td><td class="dim">0.05 pulled</td></tr>
+          <tr><td>4</td><td>submitPayment(search)</td><td class="m"><a href="https://explorer-test.qday.info/tx/0x6b366cea6e6e1006b1ec9b88035a1f43844352dae576186a688d5c9c674dec1e" target="_blank" rel="noopener">0x6b366cea…ec1e</a></td><td class="m">3381300</td><td class="dim">0.05 pulled</td></tr>
+          <tr><td>5</td><td>submitPayment(price)</td><td class="m"><a href="https://explorer-test.qday.info/tx/0x5bee4c1685f63f9a469aad1b600b2e6afb037fad0652b6f238be0d18222f4198" target="_blank" rel="noopener">0x5bee4c16…4198</a></td><td class="m">3381306</td><td class="dim">0.10 pulled</td></tr>
+          <tr><td>6</td><td>fulfillRequest(hotlist)</td><td class="m"><a href="https://explorer-test.qday.info/tx/0x742d78d729c0687dfd2299f501ea1e13cb33a50f0f20cce451c45e515e8f9714" target="_blank" rel="noopener">0x742d78d7…9714</a></td><td class="m">3381311</td><td class="ok">treasury paid</td></tr>
+          <tr><td>7</td><td>fulfillRequest(search)</td><td class="m"><a href="https://explorer-test.qday.info/tx/0x58bb0734a72183d5bd8efdf3dce8c9e7a4365399429563baa52169449c1c15d9" target="_blank" rel="noopener">0x58bb0734…15d9</a></td><td class="m">3381317</td><td class="ok">treasury paid</td></tr>
+          <tr><td>8</td><td>fulfillRequest(price)</td><td class="m"><a href="https://explorer-test.qday.info/tx/0xf1fdc6ff385f1221b4203a3b6c45f78768176005866841fc3cb2af25de61af98" target="_blank" rel="noopener">0xf1fdc6ff…af98</a></td><td class="m">3381323</td><td class="ok">treasury paid</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid2" style="margin-top:24px">
+      <div class="card">
+        <h3>Why the treasury got 0.1791</h3>
+        <div class="math">
+          0.20 gross &nbsp;×&nbsp; 90% house &nbsp;×&nbsp; 99.5% (50 bps rail fee)<br>
+          <span class="ok">= 0.179100 tUSD8 → treasury, in-tx</span>
+        </div>
+        <p class="note">The remaining 0.020900 tUSD8 is accrued referrer share held by the router for the referrer to withdraw — it is not a house balance and cannot be swept by the owner.</p>
+      </div>
+      <div class="card">
+        <h3>Counters read back from chain</h3>
+        <dl class="kv">
+          <dt>totalRequests</dt><dd>3</dd>
+          <dt>totalVolumeAtomic</dt><dd>200000</dd>
+          <dt>totalHouseRevenueAtomic</dt><dd>179100</dd>
+          <dt>totalReferrerPayoutsAtomic</dt><dd>0</dd>
+          <dt>router escrow</dt><dd id="s-escrow">—</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="verify">
+  <div class="wrap">
+    <h2>Verification you can repeat</h2>
+    <p class="sub">The QDay testnet explorer runs a Blockscout build whose verifier currently publishes nothing: its own counters report <b>0 verified contracts out of 592</b>. Rather than claim a badge the explorer cannot issue, this submission ships the proof material.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>What is in the repo</h3>
+        <dl class="kv">
+          <dt>Source</dt><dd>contracts/AutoTaskerPaymentRouterV2.sol</dd>
+          <dt>Standard JSON</dt><dd>verify/qday/standard-input.json</dd>
+          <dt>Constructor args</dt><dd>verify/qday/constructor-args.txt</dd>
+          <dt>Bytecode check</dt><dd>scripts-prod/verify-bytecode.py</dd>
+          <dt>Deploy record</dt><dd>docs/QDAY-DEPLOY-TREASURY.md</dd>
+        </dl>
+      </div>
+      <div class="card">
+        <h3>Bytecode match</h3>
+        <p style="margin:0;color:var(--dim);font-size:14px">
+          Recompiling the source with solc 0.8.20, optimizer 200 runs, <code>evmVersion: paris</code>
+          and appending the two constructor words reproduces the deployed init code
+          <b>byte for byte</b>. The script prints the comparison, so the claim is machine-checkable
+          rather than asserted.
+        </p>
+        <pre class="dim">python scripts-prod/verify-bytecode.py
+[1] creation code (excluding 2 constructor word(s))
+    match: True
+[2] runtime code (18 immutable slot(s) blanked)
+    match: True
+RESULT: MATCH</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <div style="color:var(--fg);font-weight:600;margin-bottom:6px">AutoTasker Hub</div>
+      Machine-payable data infrastructure on QDay Aevum testnet.
+    </div>
+    <div>
+      <a href="https://github.com/breezesamuel/autotasker-hub-aevum" target="_blank" rel="noopener">Repository</a> ·
+      <a href="https://github.com/breezesamuel/autotasker-hub-aevum/blob/main/docs/QDAY-DEPLOY-TREASURY.md" target="_blank" rel="noopener">Evidence</a> ·
+      <a href="/.well-known/x402" target="_blank" rel="noopener">x402 discovery</a> ·
+      <a href="/openapi.json" target="_blank" rel="noopener">OpenAPI</a>
+    </div>
+    <div>Revenue destination: <span style="color:var(--ok);font-family:var(--mono)">0xb9A9…773C</span> only.</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var EXPL = "https://explorer-test.qday.info/api/v2";
+  var TREASURY = "0xb9A9E6d9C4Ad1635aA685bba2e235A515A94773C";
+  var CONTRACT = "0x9FA2771297aE08F994D5516ea62Be1ED02b5Bdd9";
+  var TOKEN = "0x456569838f1d43009a91eba4263147afd7233483";
+
+  function $(id) { return document.getElementById(id); }
+
+  function fmtAtomic(v, decimals) {
+    if (v === null || v === undefined) return "—";
+    var n = BigInt(v);
+    var d = BigInt(10) ** BigInt(decimals);
+    var whole = n / d;
+    var frac = (n % d).toString().padStart(decimals, "0").replace(/0+$/, "");
+    return whole.toString() + (frac ? "." + frac : "");
+  }
+
+  function balOf(list) {
+    if (!Array.isArray(list)) return null;
+    for (var i = 0; i < list.length; i++) {
+      var t = list[i] && list[i].token;
+      if (t && String(t.address).toLowerCase() === TOKEN) {
+        return { value: list[i].value, decimals: Number(t.decimals || 6), symbol: t.symbol || "tUSD8" };
+      }
+    }
+    return { value: "0", decimals: 6, symbol: "tUSD8" };
+  }
+
+  function getJSON(url) {
+    return fetch(url, { headers: { accept: "application/json" } }).then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    });
+  }
+
+  function setStat(id, text, sub) {
+    var el = $(id);
+    if (el) el.textContent = text;
+    if (sub) { var s = $(id + "-sub"); if (s) s.textContent = sub; }
+  }
+
+  Promise.allSettled([
+    getJSON(EXPL + "/addresses/" + TREASURY + "/token-balances"),
+    getJSON(EXPL + "/addresses/" + TREASURY + "/counters"),
+    getJSON(EXPL + "/addresses/" + CONTRACT + "/counters"),
+    getJSON(EXPL + "/addresses/" + CONTRACT + "/token-balances")
+  ]).then(function (res) {
+    var tb = res[0].status === "fulfilled" ? balOf(res[0].value) : null;
+    if (tb) {
+      setStat("s-treasury", fmtAtomic(tb.value, tb.decimals) + " " + tb.symbol, "payTo " + TREASURY.slice(0, 10) + "…");
+    } else {
+      setStat("s-treasury", "—", "explorer unreachable from this browser");
+    }
+    if (res[2].status === "fulfilled") {
+      setStat("s-txc", res[2].value.transactions_count);
+      setStat("s-tt", res[2].value.token_transfers_count);
+    }
+    if (res[1].status === "fulfilled") setStat("s-ti", res[1].value.token_transfers_count);
+    if (res[3].status === "fulfilled") {
+      var esc = balOf(res[3].value);
+      if (esc) $("s-escrow").textContent = fmtAtomic(esc.value, esc.decimals) + " " + esc.symbol + " (referrer share)";
+    }
+  });
+
+  $("btn-402").addEventListener("click", function () {
+    var btn = $("btn-402");
+    var out = $("out-402");
+    btn.disabled = true;
+    out.className = "";
+    out.textContent = "GET /api/x402/hotlist …";
+    fetch("/api/x402/hotlist", { headers: { accept: "application/json" } })
+      .then(function (r) {
+        return r.text().then(function (body) {
+          var pretty = body;
+          try { pretty = JSON.stringify(JSON.parse(body), null, 2); } catch (e) {}
+          var head = "HTTP " + r.status + " " + (r.statusText || "") +
+                     (r.status === 402 ? "  ← payment required, as designed" : "");
+          var acc = null;
+          try {
+            var j = JSON.parse(body);
+            if (j && j.accepts && j.accepts[0]) acc = j.accepts[0];
+          } catch (e) {}
+          var extra = acc ? ("\n\nparsed offer: amount=" + acc.amount + "  network=" + acc.network +
+                             "\n              asset=" + acc.asset + "\n              payTo=" + acc.payTo) : "";
+          out.textContent = head + "\n\n" + pretty + extra;
+          btn.disabled = false;
+        });
+      })
+      .catch(function (e) {
+        out.className = "warn";
+        out.textContent = "request failed: " + e.message + "\n(the tunnel may have rotated — use /api/x402/hotlist on the current host)";
+        btn.disabled = false;
+      });
+  });
+})();
+</script>
+</body>
+</html>

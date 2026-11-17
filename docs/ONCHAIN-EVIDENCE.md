@@ -236,3 +236,45 @@ Treasury balance went from `0.000000` to `0.179100` tUSD8 **inside the fulfilmen
 transactions**: `200000 * 0.90 * 0.995 = 179100`. No sweep was performed and no
 retired address (`0x367F...1a03`, `0x6350...`, `0xbd16b985...`, `0xFC24...`) was
 touched.
+
+---
+
+## 4. Bytecode reproducibility on QDay testnet
+
+The submission includes an automated verifier so that judges can confirm the deployed contract is exactly the source code — without relying on any explorer verifier (the testnet's own verifier published zero results across its current ~592 contracts).
+
+**Run:**
+
+```bash
+python scripts-prod/verify-bytecode.py
+```
+
+Output:
+
+```
+source    : contracts/AutoTaskerPaymentRouterV2.sol
+solidity  : 0.8.20  optimizer runs=200  evmVersion=paris
+compiled  : 8259 bytes init, 7763 bytes runtime
+on chain  : 8323 bytes init, 7763 bytes runtime
+
+[1] creation code (excluding 2 constructor word(s))
+    match: True
+[2] runtime code (18 immutable slot(s) blanked)
+    match: True
+    immutable value: 0x456569838f1d43009a91eba4263147afd7233483
+    immutable value: 0xbc6f31fb67e832b61e9563cdbca7b4f37778419f
+
+RESULT: MATCH
+```
+
+A pre-computed bundle is committed at `verify/qday/`:
+
+| File | Content |
+|---|---|
+| `standard-input.json` | The exact solcx standard JSON submitted at deploy time |
+| `constructor-args.txt` | ABI-encoded ctor words (`tUSD8`, `treasury`) - 128 hex chars |
+| `compile-summary.json` | One-line summary with creationMatch / runtimeMatch flags |
+
+These three files together are sufficient for an independent judge to re-run the comparison against any Blockscout-compatible explorer.
+
+The same script also powers the landing page at `/qday.html`.
