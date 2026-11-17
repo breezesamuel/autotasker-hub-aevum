@@ -7,14 +7,14 @@
 
 | # | 渠道 | 状态 | 收款到 0xb9A9? | 阻塞项 |
 |---|------|------|:-:|------|
-| 1 | **AgentPay Store** (agentpaystore.com) | ✅ 已提交 ×2 (autotasker-hub-3, autotasker-hub-4) | ✅ | listing review pending |
-| 2 | **AgentPay Facilitator Payee** (x402-agent-pay.com) | ✅ payee 7 + endpoints 209–213 注册 | ✅ | payee activation email sent, awaiting reply |
+| 1 | **AgentPay Store** (agentpaystore.com) | ✅ 已提交 ×4 (autotasker-hub-3/4/5, 第 5 个 URL 最新) | ✅ | listing review pending |
+| 2 | **AgentPay Facilitator Payee** (x402-agent-pay.com) | ✅ payee 8 + endpoints 217–221 (第 5 个 URL); payee 7 + 209–213 (第 4 个 URL) | ✅ | payee activation email sent (payee 7), awaiting reply |
 | 3 | **vAPI Network** (api.vapinetwork.ai) | ⏸️ 10/0 check passed, account imported | ✅ | 需 vAPI API key (console 创建) |
-| 4 | **pay.sh / Solana Foundation pay-skills** | ✅ **PR #362 已提交** (CI in review) | ✅ | CI probe + review approval; quick tunnel domain may rotate |
-| 5 | **x402-list.com** | ❌ 拒收 trycloudflare (400) | ✅ | 需固定域名 |
-| 6 | **MCP Registry** (registry.modelcontextprotocol.io) | 🔍 API 路径未探明 | ✅ | 找注册 API 格式 |
-| 7 | **x402 Foundation** (x402.org, LF project) | 📝 case study 可投 | — | LF member/contribution 路径 |
-| 8 | **AgentPay demand 榜** | ❌ 不索引 quick tunnel | ✅ | 需固定域名进入 demand 引擎 |
+| 4 | **pay.sh / Solana Foundation pay-skills** | ✅ **PR #362 提交 + 两轮 Greptile 全修** | ✅ | CI Solana 门禁 + 人工 review; x-payment-networks 双链声明已加 |
+| 5 | **x402-list.com** | ❌ 拒收 quick tunnel (400) | ✅ | 需固定域名 |
+| 6 | **MCP Registry** (modelcontextprotocol/registry, 7.4k★) | ⏸️ mcp-publisher CLI 需 GitHub OAuth 交互登录 | ✅ | 需用户运行 mcp-publisher |
+| 7 | **x402 Foundation** (x402.org, LF, 6.8k★) | ✅ **Issue #4297 case study 已提交** | — | 等 LF 社区 review |
+| 8 | **AgentPay demand 榜** | ❌ 不索引 quick tunnel | ✅ | 需固定域名进入 210-endpoint 排行榜 |
 
 ## 各渠道详情
 
@@ -41,9 +41,10 @@
 - PR: #362 `feat: add AutoTasker Hub — China Social Data (x402, USDC/Base)`
 - 分支: breezesamuel:add-china-social-data
 - 文件: providers/breezesamuel/china-social-data/{PAY.md, openapi.json}
-- CI: Greptile Review in_progress
+- CI: Greptile 两轮全修 (P1 Solana → x-payment-networks 双链声明; P2×4 全清; 第二轮 P1 Solana 标识符 5eykt4Us + P2 sample URL 已修)
 - 先例: arkham/api 支持 "USDC on Solana mainnet or on Base (EIP-3009)"
-- 风险: service_url 是 quick tunnel (可能漂移); CI probe 可能因 URL 失效而 fail
+- x-payment-networks: Base eip155:8453 (primary, live, AgentPay) + Solana 5eykt4Us (planned, x402.rs)
+- 风险: service_url 是 quick tunnel (已 5 次轮换); CI probe 可能因 URL 失效而 fail
 
 ### 5. x402-list.com
 - 目录有 26 个 API 端点 (含 POST /submit, POST /assess $0.25 AI 评分)
@@ -53,14 +54,16 @@
 - **等固定域名后重新提交**
 
 ### 6. MCP Registry
-- registry.modelcontextprotocol.io (v0 API)
-- 文档: /docs (SPA, 未找到 API 路径)
-- 可能注册为 MCP server → agent 通过 MCP 协议直接调用我们的付费端点
-- 待探: 注册 API 格式 + 是否支持 x402 paywall
+- modelcontextprotocol/registry (7.4k★, 121 issues)
+- 注册方式: `mcp-publisher` CLI + GitHub OAuth (需交互式登录, 不能 headless)
+- 命令: `make publisher && ./bin/mcp-publisher --help`
+- 发布一次, Smithery/PulseMCP/Glama 等目录自动读取
+- **需用户操作**: 终端运行 mcp-publisher 并登录 GitHub
 
 ### 7. x402 Foundation (LF)
-- x402.org = Linux Foundation 项目
-- 合作路径: case study (我们有 988 笔 tUSD8 结算 + Base USDC 新线)
+- x402.org = Linux Foundation 项目 (6.8k★ x402 仓库)
+- **Issue #4297 已提交**: [Case Study] AutoTasker Hub — 988 settlements, 5 live Base USDC endpoints, 43/0 conformance, multi-channel x402 distribution
+- 先例: Issue #770 (SnowRail Case Study)
 - 工作组: 可参与 (Get Involved → Meeting Calendar → Working Groups)
 
 ## 固定域名解锁清单
@@ -72,9 +75,13 @@
 5. vAPI → publish + activate (如果 vAPI 也要求稳定域名)
 
 ## 当前可行动项
-- [ ] vAPI: 获取 API key → publish + activate (唯一纯增量渠道)
-- [ ] AgentPay payee 7: 等邮件回复 (activation)
-- [ ] pay.sh PR #362: 等 CI + review (可能需要 1-2 天)
-- [ ] MCP Registry: 探 API 注册格式
-- [ ] x402 Foundation: 写 case study 投 x402.org
-- [ ] 固定域名: 等 ECS 或 CF 命名隧道 (一次性解锁 4 个渠道)
+- [x] pay.sh PR #362: 两轮 Greptile 全修, 等 CI Solana 门禁 + 人工 review
+- [x] x402 Foundation: Issue #4297 case study 已提交
+- [x] AgentPay payee 7: 激活邮件已发 (support@ + CC)
+- [x] AgentPay payee 8 + 端点 217–221: 已注册 (第 5 个 URL)
+- [x] AgentPay Store: 4 listings (autotasker-hub-3/4/5, 第 5 个 URL 最新)
+- [ ] vAPI: 获取 API key → publish + activate (唯一纯增量渠道, 需用户 console 操作)
+- [ ] MCP Registry: mcp-publisher CLI + GitHub OAuth (需用户终端交互登录)
+- [ ] AgentPay payee 7/8: 等邮件回复 (activation)
+- [ ] pay.sh PR #362: 等 CI + 人工 review (可能需要 1-2 天)
+- [ ] 固定域名: 等 ECS 恢复 或 CF 命名隧道 (一次性解锁 x402-list + demand 榜 + 所有 listing 稳定性)
