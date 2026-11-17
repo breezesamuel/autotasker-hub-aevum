@@ -1,0 +1,32 @@
+[
+  {
+    "id": "oss_org_chart",
+    "handle": "org/chart",
+    "githubUrl": "https://github.com/org/chart",
+    "name": "chart",
+    "owner": "org",
+    "description": "test",
+    "topics": [],
+    "stats": {
+      "stars": 300,
+      "forks": 20
+    },
+    "license": {
+      "spdx": "GPL-3.0-only",
+      "classification": "yellow",
+      "tierLabel": "YELLOW-COPYSRIGHT",
+      "attributionRequired": true
+    },
+    "strategies": [
+      "scheduled_export"
+    ],
+    "pricing": [
+      {
+        "strategy": "scheduled_export",
+        "recommendedPriceLow": 0.05,
+        "recommendedPriceHigh": 0.5
+      }
+    ],
+    "createdAt": "2026-11-16T03:36:59.204Z"
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "lastChecked": "2026-11-15T03:23:48.422Z",
+  "treasuryBalanceUsd": 0,
+  "dormantAssetsUsd": 162.87,
+  "alertsTriggered": [
+    {
+      "type": "dormant-rich",
+      "severity": "urgent",
+      "message": "$162.87 in dormant wallets found but NOT yet swept. Execute sweep to activate $97.72 compound bucket."
+    }
+  ],
+  "firstSettlementAt": null,
+  "settlementCountSinceLastCheck": 0,
+  "checkResult": {
+    "error": null,
+    "timestamp": "2026-11-15T03:23:48.419Z"
+  },
+  "dormantAssetsScannedAt": "2026-11-14T19:05:13.426Z"
+}

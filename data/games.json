@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "plays": [],
+  "players": {},
+  "seedChain": {
+    "gp_1_befaec": {
+      "hash": "b6587dda5526bad385530b3e1ed22aeb06268f2a76ab20a6352fbd45eff387d5",
+      "seed": "661f5851b9d77bb1a652f3ee221f535f",
+      "revealedAt": "2026-11-15T03:01:47.541Z"
+    },
+    "gp_2_a3940f": {
+      "hash": "1ac8c8b0c3b638fd70e178da03259ccc3505a98522e333cc63ed1263be65058c",
+      "seed": "d0dcfe7684764d6ae29002baaa3a04a1",
+      "revealedAt": "2026-11-15T03:01:47.548Z"
+    }
+  },
+  "currentHash": "771d8608eb2dfdab409637fa3cc87a4886f0ff37dd6ff7ea9f7bab0c998c12ff",
+  "currentSeed": "23c3573e256b97e2bb9fefcccecc9d9b",
+  "stats": {
+    "totalPlays": 2,
+    "totalPointsAwarded": 1,
+    "uniquePlayers": 1,
+    "welcomeGranted": 3
+  }
+}

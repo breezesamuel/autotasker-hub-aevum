@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "bounties": [
+    {
+      "id": "bn_mwisulr5otbh",
+      "title": "Translate README to Chinese",
+      "description": "Translate 300 lines",
+      "rewardUsd": "5.00",
+      "feeUsd": "0.2500",
+      "totalCostUsd": "5.2500",
+      "status": "open",
+      "posterWallet": "0xposterwallet0000000000000000000000000001",
+      "posterName": "anonymous",
+      "category": "content",
+      "tags": [
+        "translation",
+        "writing"
+      ],
+      "createdAt": "2026-11-12T05:04:53.720Z",
+      "expiresAt": "2026-11-23T05:04:53.154Z"
+    }
+  ],
+  "stats": {
+    "created": 43,
+    "claimed": 0,
+    "feesCollectedUsd": 0
+  }
+}

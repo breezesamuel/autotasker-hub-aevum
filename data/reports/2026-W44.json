@@ -1,0 +1,66 @@
+{
+  "generatedAt": "2026-11-15T11:09:45.578Z",
+  "week": {
+    "year": 2026,
+    "week": 44
+  },
+  "range": {
+    "from": "2026-10-26T00:00:00.000Z",
+    "to": "2026-11-01T23:59:59.999Z"
+  },
+  "summary": {
+    "totalSettledCalls": 0,
+    "totalRevenueUsd": "0.000000",
+    "firstSettledAt": null,
+    "latestSettledAt": null,
+    "byTool": {}
+  },
+  "referrals": {
+    "codes": {},
+    "clicks": [],
+    "claims": [],
+    "attributedPayments": 0,
+    "attributedRevenueUsd": "0.000000",
+    "rebatesPendingUsd": "0.000000",
+    "rebatesPaidUsd": "0.000000"
+  },
+  "supportTickets": 0,
+  "reconciliation": null,
+  "dailyCsv": [],
+  "v15": {
+    "attribution": {
+      "stats": {
+        "totalTouches": 16,
+        "totalSettlements": 16,
+        "attributedUsd": 0.41,
+        "unattributedUsd": 0.07,
+        "attributionRate": "85.4%"
+      },
+      "topChannels": [],
+      "topContent": []
+    },
+    "pricingBandit": {
+      "stats": {
+        "totalImpressions": 345,
+        "totalConversions": 39,
+        "totalRevenueUsd": 2.9099999999999993
+      },
+      "killSwitch": "PRICING_BANDIT_OFF=1",
+      "tools": []
+    },
+    "bountyMatching": {
+      "stats": {
+        "workersRegistered": 0,
+        "matchesRun": 0,
+        "bumpsIssued": 0,
+        "repUpdates": 0
+      },
+      "workers": {
+        "total": 0,
+        "avgReputation": 0,
+        "withCompletedTasks": 0
+      },
+      "recentMatches": []
+    }
+  }
+}

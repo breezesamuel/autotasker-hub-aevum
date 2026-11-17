@@ -1,0 +1,94 @@
+[
+  {
+    "id": "oss_org_model",
+    "handle": "org/model",
+    "githubUrl": "https://github.com/org/model",
+    "name": "model",
+    "owner": "org",
+    "description": "test",
+    "topics": [
+      "transformers"
+    ],
+    "stats": {
+      "stars": 5000,
+      "forks": 200
+    },
+    "license": {
+      "spdx": "Apache-2.0",
+      "classification": "white",
+      "tierLabel": "WHITELIST",
+      "attributionRequired": false
+    },
+    "strategies": [
+      "inference_service"
+    ],
+    "pricing": [
+      {
+        "strategy": "inference_service",
+        "recommendedPriceLow": 0.05,
+        "recommendedPriceHigh": 1
+      }
+    ],
+    "createdAt": "2026-11-16T03:36:59.182Z"
+  },
+  {
+    "id": "oss_org_cli",
+    "handle": "org/cli",
+    "githubUrl": "https://github.com/org/cli",
+    "name": "cli",
+    "owner": "org",
+    "description": "test",
+    "topics": [],
+    "stats": {
+      "stars": 1000,
+      "forks": 50
+    },
+    "license": {
+      "spdx": "MIT",
+      "classification": "white",
+      "tierLabel": "WHITELIST",
+      "attributionRequired": false
+    },
+    "strategies": [
+      "cli_wrapper"
+    ],
+    "pricing": [
+      {
+        "strategy": "cli_wrapper",
+        "recommendedPriceLow": 0.01,
+        "recommendedPriceHigh": 0.1
+      }
+    ],
+    "createdAt": "2026-11-16T03:36:59.204Z"
+  },
+  {
+    "id": "oss_org_chart",
+    "handle": "org/chart",
+    "githubUrl": "https://github.com/org/chart",
+    "name": "chart",
+    "owner": "org",
+    "description": "test",
+    "topics": [],
+    "stats": {
+      "stars": 300,
+      "forks": 20
+    },
+    "license": {
+      "spdx": "GPL-3.0-only",
+      "classification": "yellow",
+      "tierLabel": "YELLOW-COPYSRIGHT",
+      "attributionRequired": true
+    },
+    "strategies": [
+      "scheduled_export"
+    ],
+    "pricing": [
+      {
+        "strategy": "scheduled_export",
+        "recommendedPriceLow": 0.05,
+        "recommendedPriceHigh": 0.5
+      }
+    ],
+    "createdAt": "2026-11-16T03:36:59.204Z"
+  }
+]

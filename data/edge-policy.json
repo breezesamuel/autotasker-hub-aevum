@@ -1,0 +1,796 @@
+{
+  "generatedAt": "2026-11-16T12:06:18.804Z",
+  "objective": "calibration, not aspiration: expectancy net of fees must be > 0",
+  "minBlockSample": 5,
+  "blocked": [
+    {
+      "category": "t16_hc_mwisvd7o",
+      "closed": 6,
+      "expectancyR": -1.02,
+      "action": "BLOCK"
+    },
+    {
+      "category": "t16_neg_mwisvckv",
+      "closed": 5,
+      "expectancyR": -1.02,
+      "action": "BLOCK"
+    },
+    {
+      "category": "t16_hc_mwirayrc",
+      "closed": 6,
+      "expectancyR": -1.02,
+      "action": "BLOCK"
+    },
+    {
+      "category": "t16_neg_mwirayev",
+      "closed": 5,
+      "expectancyR": -1.02,
+      "action": "BLOCK"
+    },
+    {
+      "category": "t16_hc_mwiqruyg",
+      "closed": 6,
+      "expectancyR": -1.02,
+      "action": "BLOCK"
+    },
+    {
+      "category": "t16_neg_mwiqrunt",
+      "closed": 5,
+      "expectancyR": -1.02,
+      "action": "BLOCK"
+    },
+    {
+      "category": "t16_hc_mwipt2mc",
+      "closed": 6,
+      "expectancyR": -1.02,
+      "action": "BLOCK"
+    },
+    {
+      "category": "t16_neg_mwipt2b9",
+      "closed": 5,
+      "expectancyR": -1.02,
+      "action": "BLOCK"
+    },
+    {
+      "category": "t16_hc_mwioh5o2",
+      "closed": 6,
+      "expectancyR": -1.02,
+      "action": "BLOCK"
+    },
+    {
+      "category": "t16_neg_mwioh5ai",
+      "closed": 5,
+      "expectancyR": -1.02,
+      "action": "BLOCK"
+    },
+    {
+      "category": "t16_hc_mwimzja0",
+      "closed": 6,
+      "expectancyR": -1.02,
+      "action": "BLOCK"
+    },
+    {
+      "category": "t16_neg_mwimzixg",
+      "closed": 5,
+      "expectancyR": -1.02,
+      "action": "BLOCK"
+    },
+    {
+      "category": "t16_hc_mwimwly2",
+      "closed": 6,
+      "expectancyR": -1.02,
+      "action": "BLOCK"
+    },
+    {
+      "category": "t16_neg_mwimwloi",
+      "closed": 5,
+      "expectancyR": -1.02,
+      "action": "BLOCK"
+    }
+  ],
+  "haircuts": [
+    {
+      "category": "t16_hc_mwisvd7o",
+      "band": "80-100%",
+      "predicted": 0.85,
+      "realized": 0,
+      "haircutTo": 0
+    },
+    {
+      "category": "t16_neg_mwisvckv",
+      "band": "60-80%",
+      "predicted": 0.7,
+      "realized": 0,
+      "haircutTo": 0
+    },
+    {
+      "category": "t16_hc_mwirayrc",
+      "band": "80-100%",
+      "predicted": 0.85,
+      "realized": 0,
+      "haircutTo": 0
+    },
+    {
+      "category": "t16_neg_mwirayev",
+      "band": "60-80%",
+      "predicted": 0.7,
+      "realized": 0,
+      "haircutTo": 0
+    },
+    {
+      "category": "t16_hc_mwiqruyg",
+      "band": "80-100%",
+      "predicted": 0.85,
+      "realized": 0,
+      "haircutTo": 0
+    },
+    {
+      "category": "t16_neg_mwiqrunt",
+      "band": "60-80%",
+      "predicted": 0.7,
+      "realized": 0,
+      "haircutTo": 0
+    },
+    {
+      "category": "t16_hc_mwipt2mc",
+      "band": "80-100%",
+      "predicted": 0.85,
+      "realized": 0,
+      "haircutTo": 0
+    },
+    {
+      "category": "t16_neg_mwipt2b9",
+      "band": "60-80%",
+      "predicted": 0.7,
+      "realized": 0,
+      "haircutTo": 0
+    },
+    {
+      "category": "t16_hc_mwioh5o2",
+      "band": "80-100%",
+      "predicted": 0.85,
+      "realized": 0,
+      "haircutTo": 0
+    },
+    {
+      "category": "t16_neg_mwioh5ai",
+      "band": "60-80%",
+      "predicted": 0.7,
+      "realized": 0,
+      "haircutTo": 0
+    },
+    {
+      "category": "t16_hc_mwimzja0",
+      "band": "80-100%",
+      "predicted": 0.85,
+      "realized": 0,
+      "haircutTo": 0
+    },
+    {
+      "category": "t16_neg_mwimzixg",
+      "band": "60-80%",
+      "predicted": 0.7,
+      "realized": 0,
+      "haircutTo": 0
+    },
+    {
+      "category": "t16_hc_mwimwly2",
+      "band": "80-100%",
+      "predicted": 0.85,
+      "realized": 0,
+      "haircutTo": 0
+    },
+    {
+      "category": "t16_neg_mwimwloi",
+      "band": "60-80%",
+      "predicted": 0.7,
+      "realized": 0,
+      "haircutTo": 0
+    }
+  ],
+  "categories": [
+    {
+      "category": "t16_hc_mwisvd7o",
+      "stats": {
+        "category": "t16_hc_mwisvd7o",
+        "closed": 6,
+        "wins": 0,
+        "losses": 6,
+        "winRate": 0,
+        "avgWinR": null,
+        "avgLossR": -1.02,
+        "payoff": null,
+        "expectancyR": -1.02,
+        "brier": 0.7225,
+        "logLoss": 1.8971
+      },
+      "bands": [
+        {
+          "band": "80-100%",
+          "n": 6,
+          "predicted": 0.85,
+          "realized": 0,
+          "haircutTo": 0
+        }
+      ]
+    },
+    {
+      "category": "t16_neg_mwisvckv",
+      "stats": {
+        "category": "t16_neg_mwisvckv",
+        "closed": 5,
+        "wins": 0,
+        "losses": 5,
+        "winRate": 0,
+        "avgWinR": null,
+        "avgLossR": -1.02,
+        "payoff": null,
+        "expectancyR": -1.02,
+        "brier": 0.49,
+        "logLoss": 1.204
+      },
+      "bands": [
+        {
+          "band": "60-80%",
+          "n": 5,
+          "predicted": 0.7,
+          "realized": 0,
+          "haircutTo": 0
+        }
+      ]
+    },
+    {
+      "category": "t16_probe_mwisvbga",
+      "stats": {
+        "category": "t16_probe_mwisvbga",
+        "closed": 4,
+        "wins": 2,
+        "losses": 2,
+        "winRate": 0.5,
+        "avgWinR": 1.98,
+        "avgLossR": -1.02,
+        "payoff": 1.94,
+        "expectancyR": 0.48,
+        "brier": 0.13,
+        "logLoss": 0.4389
+      },
+      "bands": [
+        {
+          "band": "40-60%",
+          "n": 2,
+          "predicted": 0.4,
+          "realized": 0
+        },
+        {
+          "band": "60-80%",
+          "n": 1,
+          "predicted": 0.6,
+          "realized": 1
+        },
+        {
+          "band": "80-100%",
+          "n": 1,
+          "predicted": 0.8,
+          "realized": 1
+        }
+      ]
+    },
+    {
+      "category": "t16_hc_mwirayrc",
+      "stats": {
+        "category": "t16_hc_mwirayrc",
+        "closed": 6,
+        "wins": 0,
+        "losses": 6,
+        "winRate": 0,
+        "avgWinR": null,
+        "avgLossR": -1.02,
+        "payoff": null,
+        "expectancyR": -1.02,
+        "brier": 0.7225,
+        "logLoss": 1.8971
+      },
+      "bands": [
+        {
+          "band": "80-100%",
+          "n": 6,
+          "predicted": 0.85,
+          "realized": 0,
+          "haircutTo": 0
+        }
+      ]
+    },
+    {
+      "category": "t16_neg_mwirayev",
+      "stats": {
+        "category": "t16_neg_mwirayev",
+        "closed": 5,
+        "wins": 0,
+        "losses": 5,
+        "winRate": 0,
+        "avgWinR": null,
+        "avgLossR": -1.02,
+        "payoff": null,
+        "expectancyR": -1.02,
+        "brier": 0.49,
+        "logLoss": 1.204
+      },
+      "bands": [
+        {
+          "band": "60-80%",
+          "n": 5,
+          "predicted": 0.7,
+          "realized": 0,
+          "haircutTo": 0
+        }
+      ]
+    },
+    {
+      "category": "t16_probe_mwiraxx0",
+      "stats": {
+        "category": "t16_probe_mwiraxx0",
+        "closed": 4,
+        "wins": 2,
+        "losses": 2,
+        "winRate": 0.5,
+        "avgWinR": 1.98,
+        "avgLossR": -1.02,
+        "payoff": 1.94,
+        "expectancyR": 0.48,
+        "brier": 0.13,
+        "logLoss": 0.4389
+      },
+      "bands": [
+        {
+          "band": "40-60%",
+          "n": 2,
+          "predicted": 0.4,
+          "realized": 0
+        },
+        {
+          "band": "60-80%",
+          "n": 1,
+          "predicted": 0.6,
+          "realized": 1
+        },
+        {
+          "band": "80-100%",
+          "n": 1,
+          "predicted": 0.8,
+          "realized": 1
+        }
+      ]
+    },
+    {
+      "category": "t16_hc_mwiqruyg",
+      "stats": {
+        "category": "t16_hc_mwiqruyg",
+        "closed": 6,
+        "wins": 0,
+        "losses": 6,
+        "winRate": 0,
+        "avgWinR": null,
+        "avgLossR": -1.02,
+        "payoff": null,
+        "expectancyR": -1.02,
+        "brier": 0.7225,
+        "logLoss": 1.8971
+      },
+      "bands": [
+        {
+          "band": "80-100%",
+          "n": 6,
+          "predicted": 0.85,
+          "realized": 0,
+          "haircutTo": 0
+        }
+      ]
+    },
+    {
+      "category": "t16_neg_mwiqrunt",
+      "stats": {
+        "category": "t16_neg_mwiqrunt",
+        "closed": 5,
+        "wins": 0,
+        "losses": 5,
+        "winRate": 0,
+        "avgWinR": null,
+        "avgLossR": -1.02,
+        "payoff": null,
+        "expectancyR": -1.02,
+        "brier": 0.49,
+        "logLoss": 1.204
+      },
+      "bands": [
+        {
+          "band": "60-80%",
+          "n": 5,
+          "predicted": 0.7,
+          "realized": 0,
+          "haircutTo": 0
+        }
+      ]
+    },
+    {
+      "category": "t16_probe_mwiqruer",
+      "stats": {
+        "category": "t16_probe_mwiqruer",
+        "closed": 4,
+        "wins": 2,
+        "losses": 2,
+        "winRate": 0.5,
+        "avgWinR": 1.98,
+        "avgLossR": -1.02,
+        "payoff": 1.94,
+        "expectancyR": 0.48,
+        "brier": 0.13,
+        "logLoss": 0.4389
+      },
+      "bands": [
+        {
+          "band": "40-60%",
+          "n": 2,
+          "predicted": 0.4,
+          "realized": 0
+        },
+        {
+          "band": "60-80%",
+          "n": 1,
+          "predicted": 0.6,
+          "realized": 1
+        },
+        {
+          "band": "80-100%",
+          "n": 1,
+          "predicted": 0.8,
+          "realized": 1
+        }
+      ]
+    },
+    {
+      "category": "t16_hc_mwipt2mc",
+      "stats": {
+        "category": "t16_hc_mwipt2mc",
+        "closed": 6,
+        "wins": 0,
+        "losses": 6,
+        "winRate": 0,
+        "avgWinR": null,
+        "avgLossR": -1.02,
+        "payoff": null,
+        "expectancyR": -1.02,
+        "brier": 0.7225,
+        "logLoss": 1.8971
+      },
+      "bands": [
+        {
+          "band": "80-100%",
+          "n": 6,
+          "predicted": 0.85,
+          "realized": 0,
+          "haircutTo": 0
+        }
+      ]
+    },
+    {
+      "category": "t16_neg_mwipt2b9",
+      "stats": {
+        "category": "t16_neg_mwipt2b9",
+        "closed": 5,
+        "wins": 0,
+        "losses": 5,
+        "winRate": 0,
+        "avgWinR": null,
+        "avgLossR": -1.02,
+        "payoff": null,
+        "expectancyR": -1.02,
+        "brier": 0.49,
+        "logLoss": 1.204
+      },
+      "bands": [
+        {
+          "band": "60-80%",
+          "n": 5,
+          "predicted": 0.7,
+          "realized": 0,
+          "haircutTo": 0
+        }
+      ]
+    },
+    {
+      "category": "t16_probe_mwipt1x4",
+      "stats": {
+        "category": "t16_probe_mwipt1x4",
+        "closed": 4,
+        "wins": 2,
+        "losses": 2,
+        "winRate": 0.5,
+        "avgWinR": 1.98,
+        "avgLossR": -1.02,
+        "payoff": 1.94,
+        "expectancyR": 0.48,
+        "brier": 0.13,
+        "logLoss": 0.4389
+      },
+      "bands": [
+        {
+          "band": "40-60%",
+          "n": 2,
+          "predicted": 0.4,
+          "realized": 0
+        },
+        {
+          "band": "60-80%",
+          "n": 1,
+          "predicted": 0.6,
+          "realized": 1
+        },
+        {
+          "band": "80-100%",
+          "n": 1,
+          "predicted": 0.8,
+          "realized": 1
+        }
+      ]
+    },
+    {
+      "category": "t16_hc_mwioh5o2",
+      "stats": {
+        "category": "t16_hc_mwioh5o2",
+        "closed": 6,
+        "wins": 0,
+        "losses": 6,
+        "winRate": 0,
+        "avgWinR": null,
+        "avgLossR": -1.02,
+        "payoff": null,
+        "expectancyR": -1.02,
+        "brier": 0.7225,
+        "logLoss": 1.8971
+      },
+      "bands": [
+        {
+          "band": "80-100%",
+          "n": 6,
+          "predicted": 0.85,
+          "realized": 0,
+          "haircutTo": 0
+        }
+      ]
+    },
+    {
+      "category": "t16_neg_mwioh5ai",
+      "stats": {
+        "category": "t16_neg_mwioh5ai",
+        "closed": 5,
+        "wins": 0,
+        "losses": 5,
+        "winRate": 0,
+        "avgWinR": null,
+        "avgLossR": -1.02,
+        "payoff": null,
+        "expectancyR": -1.02,
+        "brier": 0.49,
+        "logLoss": 1.204
+      },
+      "bands": [
+        {
+          "band": "60-80%",
+          "n": 5,
+          "predicted": 0.7,
+          "realized": 0,
+          "haircutTo": 0
+        }
+      ]
+    },
+    {
+      "category": "t16_probe_mwioh4vx",
+      "stats": {
+        "category": "t16_probe_mwioh4vx",
+        "closed": 4,
+        "wins": 2,
+        "losses": 2,
+        "winRate": 0.5,
+        "avgWinR": 1.98,
+        "avgLossR": -1.02,
+        "payoff": 1.94,
+        "expectancyR": 0.48,
+        "brier": 0.13,
+        "logLoss": 0.4389
+      },
+      "bands": [
+        {
+          "band": "40-60%",
+          "n": 2,
+          "predicted": 0.4,
+          "realized": 0
+        },
+        {
+          "band": "60-80%",
+          "n": 1,
+          "predicted": 0.6,
+          "realized": 1
+        },
+        {
+          "band": "80-100%",
+          "n": 1,
+          "predicted": 0.8,
+          "realized": 1
+        }
+      ]
+    },
+    {
+      "category": "t16_hc_mwimzja0",
+      "stats": {
+        "category": "t16_hc_mwimzja0",
+        "closed": 6,
+        "wins": 0,
+        "losses": 6,
+        "winRate": 0,
+        "avgWinR": null,
+        "avgLossR": -1.02,
+        "payoff": null,
+        "expectancyR": -1.02,
+        "brier": 0.7225,
+        "logLoss": 1.8971
+      },
+      "bands": [
+        {
+          "band": "80-100%",
+          "n": 6,
+          "predicted": 0.85,
+          "realized": 0,
+          "haircutTo": 0
+        }
+      ]
+    },
+    {
+      "category": "t16_neg_mwimzixg",
+      "stats": {
+        "category": "t16_neg_mwimzixg",
+        "closed": 5,
+        "wins": 0,
+        "losses": 5,
+        "winRate": 0,
+        "avgWinR": null,
+        "avgLossR": -1.02,
+        "payoff": null,
+        "expectancyR": -1.02,
+        "brier": 0.49,
+        "logLoss": 1.204
+      },
+      "bands": [
+        {
+          "band": "60-80%",
+          "n": 5,
+          "predicted": 0.7,
+          "realized": 0,
+          "haircutTo": 0
+        }
+      ]
+    },
+    {
+      "category": "t16_probe_mwimzikx",
+      "stats": {
+        "category": "t16_probe_mwimzikx",
+        "closed": 4,
+        "wins": 2,
+        "losses": 2,
+        "winRate": 0.5,
+        "avgWinR": 1.98,
+        "avgLossR": -1.02,
+        "payoff": 1.94,
+        "expectancyR": 0.48,
+        "brier": 0.13,
+        "logLoss": 0.4389
+      },
+      "bands": [
+        {
+          "band": "40-60%",
+          "n": 2,
+          "predicted": 0.4,
+          "realized": 0
+        },
+        {
+          "band": "60-80%",
+          "n": 1,
+          "predicted": 0.6,
+          "realized": 1
+        },
+        {
+          "band": "80-100%",
+          "n": 1,
+          "predicted": 0.8,
+          "realized": 1
+        }
+      ]
+    },
+    {
+      "category": "t16_hc_mwimwly2",
+      "stats": {
+        "category": "t16_hc_mwimwly2",
+        "closed": 6,
+        "wins": 0,
+        "losses": 6,
+        "winRate": 0,
+        "avgWinR": null,
+        "avgLossR": -1.02,
+        "payoff": null,
+        "expectancyR": -1.02,
+        "brier": 0.7225,
+        "logLoss": 1.8971
+      },
+      "bands": [
+        {
+          "band": "80-100%",
+          "n": 6,
+          "predicted": 0.85,
+          "realized": 0,
+          "haircutTo": 0
+        }
+      ]
+    },
+    {
+      "category": "t16_neg_mwimwloi",
+      "stats": {
+        "category": "t16_neg_mwimwloi",
+        "closed": 5,
+        "wins": 0,
+        "losses": 5,
+        "winRate": 0,
+        "avgWinR": null,
+        "avgLossR": -1.02,
+        "payoff": null,
+        "expectancyR": -1.02,
+        "brier": 0.49,
+        "logLoss": 1.204
+      },
+      "bands": [
+        {
+          "band": "60-80%",
+          "n": 5,
+          "predicted": 0.7,
+          "realized": 0,
+          "haircutTo": 0
+        }
+      ]
+    },
+    {
+      "category": "t16_probe_mwimwlds",
+      "stats": {
+        "category": "t16_probe_mwimwlds",
+        "closed": 4,
+        "wins": 2,
+        "losses": 2,
+        "winRate": 0.5,
+        "avgWinR": 1.98,
+        "avgLossR": -1.02,
+        "payoff": 1.94,
+        "expectancyR": 0.48,
+        "brier": 0.13,
+        "logLoss": 0.4389
+      },
+      "bands": [
+        {
+          "band": "40-60%",
+          "n": 2,
+          "predicted": 0.4,
+          "realized": 0
+        },
+        {
+          "band": "60-80%",
+          "n": 1,
+          "predicted": 0.6,
+          "realized": 1
+        },
+        {
+          "band": "80-100%",
+          "n": 1,
+          "predicted": 0.8,
+          "realized": 1
+        }
+      ]
+    }
+  ],
+  "usage": "gate checks category against blocked[] before ALLOWED; confidence is haircut before Kelly sizing"
+}

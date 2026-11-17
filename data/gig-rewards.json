@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "writers": {
+    "0xtestwallet000000000000000000000000000001": {
+      "name": "user",
+      "articles": [],
+      "totalEarnedUsd": 0,
+      "points": 3
+    }
+  },
+  "posts": [],
+  "charity": {
+    "donatedUsd": 0,
+    "transactions": []
+  },
+  "stats": {
+    "totalWriters": 0,
+    "totalPosts": 0,
+    "totalPaidOut": 0,
+    "totalCharity": 0
+  }
+}

@@ -1,0 +1,88 @@
+[
+  {
+    "discoveredAt": "2026-11-16T03:37:07.008Z",
+    "category": "data-viz",
+    "summary": {
+      "handle": "skulpt/skulpt",
+      "name": "skulpt",
+      "owner": "skulpt",
+      "description": "Skulpt is a Javascript implementation of the Python programming language",
+      "stars": 3403,
+      "forks": 908,
+      "lang": "Python",
+      "homepage": null,
+      "sizeKB": 90,
+      "topics": [],
+      "openIssues": 255,
+      "archived": false,
+      "fork": false
+    },
+    "licenseInfo": {
+      "spdx": "noassertion",
+      "attribution": "\n\n## Attribution\nThis product includes software licensed under [noassertion](https://github.com/skulpt/skulpt) by @skulpt.",
+      "classification": "unknown"
+    },
+    "actionable": false
+  },
+  {
+    "discoveredAt": "2026-11-16T03:37:08.923Z",
+    "category": "data-viz",
+    "summary": {
+      "handle": "oils-for-unix/oils",
+      "name": "oils",
+      "owner": "oils-for-unix",
+      "description": "Oils is our upgrade path from bash to a better language and runtime.  It's also for Python and JavaScript users who avoid shell!",
+      "stars": 3403,
+      "forks": 196,
+      "lang": "Python",
+      "homepage": "https://oils.pub/",
+      "sizeKB": 51,
+      "topics": [],
+      "openIssues": 610,
+      "archived": false,
+      "fork": false
+    },
+    "licenseInfo": {
+      "spdx": "noassertion",
+      "attribution": "\n\n## Attribution\nThis product includes software licensed under [noassertion](https://github.com/oils-for-unix/oils) by @oils-for-unix.",
+      "classification": "unknown"
+    },
+    "actionable": false
+  },
+  {
+    "discoveredAt": "2026-11-16T03:37:10.909Z",
+    "category": "data-viz",
+    "summary": {
+      "handle": "tinyfish-io/agentql",
+      "name": "agentql",
+      "owner": "tinyfish-io",
+      "description": "AgentQL is a suite of tools for connecting your AI to the web. Featuring a query language and Playwright integrations for interacting with elements and extracting data quickly, precisely, and at scale. Includes REST API, Python and JavaScript SDKs, browser debugger.",
+      "stars": 1508,
+      "forks": 179,
+      "lang": "Python",
+      "homepage": "https://agentql.com",
+      "sizeKB": 1,
+      "topics": [
+        "agent",
+        "ai",
+        "aiagent",
+        "automation",
+        "javascript",
+        "playwright",
+        "python",
+        "rpa",
+        "scraping",
+        "web"
+      ],
+      "openIssues": 17,
+      "archived": false,
+      "fork": false
+    },
+    "licenseInfo": {
+      "spdx": "mit",
+      "attribution": "\n\n## Attribution\nThis product includes software licensed under [mit](https://github.com/tinyfish-io/agentql) by @tinyfish-io.",
+      "classification": "white"
+    },
+    "actionable": true
+  }
+]

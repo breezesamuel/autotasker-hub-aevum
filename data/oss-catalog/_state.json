@@ -1,0 +1,15 @@
+{
+  "seenHandles": [
+    "skulpt/skulpt",
+    "oils-for-unix/oils",
+    "tinyfish-io/agentql"
+  ],
+  "lastScanTs": 0,
+  "countsByTier": {
+    "white": 1,
+    "yellow": 0,
+    "red": 0,
+    "unknown": 2
+  },
+  "totalScanned": 0
+}

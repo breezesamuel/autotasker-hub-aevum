@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "workers": {
+    "0xmatchworkera0000000000000000000000001": {
+      "skills": [
+        "translation",
+        "writing",
+        "zh-en"
+      ],
+      "categories": [
+        "content"
+      ],
+      "reputation": 50,
+      "completed": 2,
+      "ratings": [
+        {
+          "rating": 5,
+          "ts": "2026-11-16T05:04:53.373Z"
+        },
+        {
+          "rating": 5,
+          "ts": "2026-11-16T05:04:53.556Z"
+        }
+      ],
+      "registeredAt": "2026-11-16T05:04:52.604Z"
+    },
+    "0xmatchworkerb0000000000000000000000002": {
+      "skills": [
+        "coding",
+        "solidity",
+        "testing"
+      ],
+      "categories": [
+        "dev"
+      ],
+      "reputation": 50,
+      "completed": 0,
+      "ratings": [],
+      "registeredAt": "2026-11-16T05:04:52.854Z"
+    },
+    "0xmatchworkerc0000000000000000000000003": {
+      "skills": [
+        "translation",
+        "seo"
+      ],
+      "categories": [
+        "content",
+        "marketing"
+      ],
+      "reputation": 50,
+      "completed": 0,
+      "ratings": [],
+      "registeredAt": "2026-11-16T05:04:53.000Z"
+    }
+  },
+  "matches": {
+    "bn_mwisulr5otbh": {
+      "matchedAt": "2026-11-16T05:04:53.209Z",
+      "task": {
+        "title": "Translate README to Chinese",
+        "tags": [
+          "translation",
+          "writing"
+        ],
+        "category": "content"
+      },
+      "top": [
+        {
+          "wallet": "0xmatchwor…0001",
+          "walletFull": "0xmatchworkera0000000000000000000000001",
+          "score": 0.85,
+          "breakdown": {
+            "skillOverlap": 1,
+            "reputation": 50,
+            "categoryMatch": 1
+          },
+          "completed": 0
+        },
+        {
+          "wallet": "0xmatchwor…0003",
+          "walletFull": "0xmatchworkerc0000000000000000000000003",
+          "score": 0.6,
+          "breakdown": {
+            "skillOverlap": 0.5,
+            "reputation": 50,
+            "categoryMatch": 1
+          },
+          "completed": 0
+        },
+        {
+          "wallet": "0xmatchwor…0002",
+          "walletFull": "0xmatchworkerb0000000000000000000000002",
+          "score": 0.15,
+          "breakdown": {
+            "skillOverlap": 0,
+            "reputation": 50,
+            "categoryMatch": 0
+          },
+          "completed": 0
+        }
+      ]
+    }
+  },
+  "bumpLog": [
+    {
+      "bountyId": "bn_mwisulr5otbh",
+      "bumpedAt": "2026-11-16T05:04:53.722Z"
+    }
+  ],
+  "stats": {
+    "workersRegistered": 3,
+    "matchesRun": 1,
+    "bumpsIssued": 1,
+    "repUpdates": 2,
+    "autoClaims": 0,
+    "feesAccruedUsd": 0,
+    "feesRealizedUsd": 0
+  }
+}

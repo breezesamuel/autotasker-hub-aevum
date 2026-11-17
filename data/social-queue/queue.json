@@ -1,0 +1,368 @@
+{
+  "version": 1,
+  "drafts": [
+    {
+      "id": "dq_20261116_x",
+      "date": "2026-11-16",
+      "platform": "x",
+      "status": "posted",
+      "payloads": [
+        {
+          "text": "Real-time China social heat, as raw numbers:\n\n#1 on Weibo Hot right now: \"王子璇白小纯4公里开了三小时\" — 1,687,495 engagement.\n\nLive board (no login, no paywall):"
+        },
+        {
+          "text": "https://autotasker.highkingflower.com/trending\n\nFor AI agents: the same feed is queryable via x402 (USDC micropayments, no API key). MCP + REST. Docs: https://autotasker.highkingflower.com/llms.txt"
+        }
+      ],
+      "itemRefs": [
+        {
+          "title": "王子璇白小纯4公里开了三小时",
+          "source": "weiboHot",
+          "engagement": 1687495
+        },
+        {
+          "title": "微软Outlook服务宕机",
+          "source": "weiboHot",
+          "engagement": 945166
+        },
+        {
+          "title": "中国正在编织这样一张大网",
+          "source": "weiboHot",
+          "engagement": 922016
+        },
+        {
+          "title": "女子刮痧排淤堵脖上刮出3条大血印",
+          "source": "weiboHot",
+          "engagement": 921465
+        },
+        {
+          "title": "英伟达大跌13%",
+          "source": "weiboHot",
+          "engagement": 921245
+        }
+      ],
+      "createdAt": "2026-11-16T05:05:21.948Z",
+      "postedAt": "2026-11-16T05:05:22.157Z",
+      "receiptUrl": "https://x.com/test/status/123"
+    },
+    {
+      "id": "dq_20261116_weibo",
+      "date": "2026-11-16",
+      "platform": "weibo",
+      "status": "draft",
+      "payloads": [
+        {
+          "text": "今日微博热搜第1：「王子璇白小纯4公里开了三小时」，热度1,687,495。实时榜单与历史对比：https://autotasker.highkingflower.com/trending #数据可视化"
+        }
+      ],
+      "itemRefs": [
+        {
+          "title": "王子璇白小纯4公里开了三小时",
+          "source": "weiboHot",
+          "engagement": 1687495
+        },
+        {
+          "title": "微软Outlook服务宕机",
+          "source": "weiboHot",
+          "engagement": 945166
+        },
+        {
+          "title": "中国正在编织这样一张大网",
+          "source": "weiboHot",
+          "engagement": 922016
+        },
+        {
+          "title": "女子刮痧排淤堵脖上刮出3条大血印",
+          "source": "weiboHot",
+          "engagement": 921465
+        },
+        {
+          "title": "英伟达大跌13%",
+          "source": "weiboHot",
+          "engagement": 921245
+        }
+      ],
+      "createdAt": "2026-11-16T05:05:21.949Z",
+      "postedAt": null,
+      "receiptUrl": null
+    },
+    {
+      "id": "dq_20261116_reddit",
+      "date": "2026-11-16",
+      "platform": "reddit",
+      "status": "draft",
+      "payloads": [
+        {
+          "title": "Weibo hot search #1 right now: \"王子璇白小纯4公里开了三小时\" (1,687,495 engagement) — full live board as open data",
+          "body": "Tracking Chinese social media hot boards (Weibo / Bilibili / Toutiao) and publishing them as structured open data.\n\nCurrent #1: 王子璇白小纯4公里开了三小时 — engagement 1,687,495.\nLive board: https://autotasker.highkingflower.com/trending (free)\n\nFor devs: same data via API with x402 USDC micropayments (per-call $0.01–$0.05, no signup) — MCP server + REST. Machine-readable: https://autotasker.highkingflower.com/llms.txt"
+        }
+      ],
+      "itemRefs": [
+        {
+          "title": "王子璇白小纯4公里开了三小时",
+          "source": "weiboHot",
+          "engagement": 1687495
+        },
+        {
+          "title": "微软Outlook服务宕机",
+          "source": "weiboHot",
+          "engagement": 945166
+        },
+        {
+          "title": "中国正在编织这样一张大网",
+          "source": "weiboHot",
+          "engagement": 922016
+        },
+        {
+          "title": "女子刮痧排淤堵脖上刮出3条大血印",
+          "source": "weiboHot",
+          "engagement": 921465
+        },
+        {
+          "title": "英伟达大跌13%",
+          "source": "weiboHot",
+          "engagement": 921245
+        }
+      ],
+      "createdAt": "2026-11-16T05:05:21.955Z",
+      "postedAt": null,
+      "receiptUrl": null
+    },
+    {
+      "id": "dq_20261116_telegram",
+      "date": "2026-11-16",
+      "platform": "telegram",
+      "status": "draft",
+      "payloads": [
+        {
+          "text": "📊 今日中文社媒热度 Top5（2026-11-16）\n\n1. 王子璇白小纯4公里开了三小时（微博热搜 · 1,687,495）\n2. 微软Outlook服务宕机（微博热搜 · 945,166）\n3. 中国正在编织这样一张大网（微博热搜 · 922,016）\n4. 女子刮痧排淤堵脖上刮出3条大血印（微博热搜 · 921,465）\n5. 英伟达大跌13%（微博热搜 · 921,245）\n\n实时榜：https://autotasker.highkingflower.com/trending\nAPI（x402/USDC按次付费）：https://autotasker.highkingflower.com/llms.txt"
+        }
+      ],
+      "itemRefs": [
+        {
+          "title": "王子璇白小纯4公里开了三小时",
+          "source": "weiboHot",
+          "engagement": 1687495
+        },
+        {
+          "title": "微软Outlook服务宕机",
+          "source": "weiboHot",
+          "engagement": 945166
+        },
+        {
+          "title": "中国正在编织这样一张大网",
+          "source": "weiboHot",
+          "engagement": 922016
+        },
+        {
+          "title": "女子刮痧排淤堵脖上刮出3条大血印",
+          "source": "weiboHot",
+          "engagement": 921465
+        },
+        {
+          "title": "英伟达大跌13%",
+          "source": "weiboHot",
+          "engagement": 921245
+        }
+      ],
+      "createdAt": "2026-11-16T05:05:21.956Z",
+      "postedAt": null,
+      "receiptUrl": null
+    },
+    {
+      "id": "dq_20261116_x",
+      "date": "2026-11-16",
+      "platform": "x",
+      "status": "draft",
+      "payloads": [
+        {
+          "text": "Real-time China social heat, as raw numbers:\n\n#1 on Weibo Hot right now: \"金晨发文秒删\" — 855,736 engagement.\n\nLive board (no login, no paywall):"
+        },
+        {
+          "text": "https://autotasker.highkingflower.com/trending\n\nFor AI agents: the same feed is queryable via x402 (USDC micropayments, no API key). MCP + REST. Docs: https://autotasker.highkingflower.com/llms.txt"
+        }
+      ],
+      "itemRefs": [
+        {
+          "title": "金晨发文秒删",
+          "source": "weiboHot",
+          "engagement": 855736
+        },
+        {
+          "title": "怀孕妻子发现丈夫的白月光",
+          "source": "weiboHot",
+          "engagement": 835090
+        },
+        {
+          "title": "刘欢癌症扩散后曾放手一搏试新药",
+          "source": "weiboHot",
+          "engagement": 826635
+        },
+        {
+          "title": "曝汤臣二公子和90花隐婚",
+          "source": "weiboHot",
+          "engagement": 515105
+        },
+        {
+          "title": "英伟达临时CEO曾因黄仁勋入职",
+          "source": "weiboHot",
+          "engagement": 382543
+        }
+      ],
+      "createdAt": "2026-11-16T05:05:22.179Z",
+      "postedAt": null,
+      "receiptUrl": null
+    },
+    {
+      "id": "dq_20261116_weibo",
+      "date": "2026-11-16",
+      "platform": "weibo",
+      "status": "draft",
+      "payloads": [
+        {
+          "text": "今日微博热搜第1：「金晨发文秒删」，热度855,736。实时榜单与历史对比：https://autotasker.highkingflower.com/trending #数据可视化"
+        }
+      ],
+      "itemRefs": [
+        {
+          "title": "金晨发文秒删",
+          "source": "weiboHot",
+          "engagement": 855736
+        },
+        {
+          "title": "怀孕妻子发现丈夫的白月光",
+          "source": "weiboHot",
+          "engagement": 835090
+        },
+        {
+          "title": "刘欢癌症扩散后曾放手一搏试新药",
+          "source": "weiboHot",
+          "engagement": 826635
+        },
+        {
+          "title": "曝汤臣二公子和90花隐婚",
+          "source": "weiboHot",
+          "engagement": 515105
+        },
+        {
+          "title": "英伟达临时CEO曾因黄仁勋入职",
+          "source": "weiboHot",
+          "engagement": 382543
+        }
+      ],
+      "createdAt": "2026-11-16T05:05:22.179Z",
+      "postedAt": null,
+      "receiptUrl": null
+    },
+    {
+      "id": "dq_20261116_reddit",
+      "date": "2026-11-16",
+      "platform": "reddit",
+      "status": "draft",
+      "payloads": [
+        {
+          "title": "Weibo hot search #1 right now: \"金晨发文秒删\" (855,736 engagement) — full live board as open data",
+          "body": "Tracking Chinese social media hot boards (Weibo / Bilibili / Toutiao) and publishing them as structured open data.\n\nCurrent #1: 金晨发文秒删 — engagement 855,736.\nLive board: https://autotasker.highkingflower.com/trending (free)\n\nFor devs: same data via API with x402 USDC micropayments (per-call $0.01–$0.05, no signup) — MCP server + REST. Machine-readable: https://autotasker.highkingflower.com/llms.txt"
+        }
+      ],
+      "itemRefs": [
+        {
+          "title": "金晨发文秒删",
+          "source": "weiboHot",
+          "engagement": 855736
+        },
+        {
+          "title": "怀孕妻子发现丈夫的白月光",
+          "source": "weiboHot",
+          "engagement": 835090
+        },
+        {
+          "title": "刘欢癌症扩散后曾放手一搏试新药",
+          "source": "weiboHot",
+          "engagement": 826635
+        },
+        {
+          "title": "曝汤臣二公子和90花隐婚",
+          "source": "weiboHot",
+          "engagement": 515105
+        },
+        {
+          "title": "英伟达临时CEO曾因黄仁勋入职",
+          "source": "weiboHot",
+          "engagement": 382543
+        }
+      ],
+      "createdAt": "2026-11-16T05:05:22.179Z",
+      "postedAt": null,
+      "receiptUrl": null
+    },
+    {
+      "id": "dq_20261116_telegram",
+      "date": "2026-11-16",
+      "platform": "telegram",
+      "status": "draft",
+      "payloads": [
+        {
+          "text": "📊 今日中文社媒热度 Top5（2026-11-16）\n\n1. 金晨发文秒删（微博热搜 · 855,736）\n2. 怀孕妻子发现丈夫的白月光（微博热搜 · 835,090）\n3. 刘欢癌症扩散后曾放手一搏试新药（微博热搜 · 826,635）\n4. 曝汤臣二公子和90花隐婚（微博热搜 · 515,105）\n5. 英伟达临时CEO曾因黄仁勋入职（微博热搜 · 382,543）\n\n实时榜：https://autotasker.highkingflower.com/trending\nAPI（x402/USDC按次付费）：https://autotasker.highkingflower.com/llms.txt"
+        }
+      ],
+      "itemRefs": [
+        {
+          "title": "金晨发文秒删",
+          "source": "weiboHot",
+          "engagement": 855736
+        },
+        {
+          "title": "怀孕妻子发现丈夫的白月光",
+          "source": "weiboHot",
+          "engagement": 835090
+        },
+        {
+          "title": "刘欢癌症扩散后曾放手一搏试新药",
+          "source": "weiboHot",
+          "engagement": 826635
+        },
+        {
+          "title": "曝汤臣二公子和90花隐婚",
+          "source": "weiboHot",
+          "engagement": 515105
+        },
+        {
+          "title": "英伟达临时CEO曾因黄仁勋入职",
+          "source": "weiboHot",
+          "engagement": 382543
+        }
+      ],
+      "createdAt": "2026-11-16T05:05:22.179Z",
+      "postedAt": null,
+      "receiptUrl": null
+    }
+  ],
+  "seenTitles": {
+    "t:dbc618f854a1": 1794805521956,
+    "t:57cb1a37f551": 1794805521956,
+    "t:1000d739551c": 1794805521956,
+    "t:63303b602f3d": 1794805521956,
+    "t:9eee2f8d1e6a": 1794805521956,
+    "t:a1e4b276030d": 1794805521956,
+    "t:cf977da01259": 1794805521956,
+    "t:e7f468a92342": 1794805521956,
+    "t:0e144a680637": 1794805521956,
+    "t:0939143c10ee": 1794805521956,
+    "t:0022b8d0244a": 1794805522180,
+    "t:ea7a3b165488": 1794805522180,
+    "t:4d9cedf2c722": 1794805522180,
+    "t:39daf6069514": 1794805522180,
+    "t:d2db81b88d16": 1794805522180,
+    "t:76e13ce5f3c5": 1794805522180,
+    "t:d68b61597461": 1794805522180,
+    "t:5ed897526c99": 1794805522180,
+    "t:ad7d2564d486": 1794805522180,
+    "t:88981add2695": 1794805522180,
+    "q:2026-11-16": 1794805522180
+  },
+  "stats": {
+    "generated": 8,
+    "posted": 1
+  }
+}

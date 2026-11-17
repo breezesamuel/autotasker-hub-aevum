@@ -1,0 +1,82 @@
+{
+  "scannedAt": "2026-11-14T19:05:13.426Z",
+  "results": [
+    {
+      "chain": "base",
+      "address": "0xFC24FD34da9e49A0110DCaEe3Ad30eC54175eBB3",
+      "eth": 0,
+      "usdc": 8.3,
+      "recentIncoming": 0,
+      "timestamp": "2026-11-14T19:04:59.983Z"
+    },
+    {
+      "chain": "ethereum",
+      "address": "0xFC24FD34da9e49A0110DCaEe3Ad30eC54175eBB3",
+      "eth": 0,
+      "usdc": 0,
+      "recentIncoming": 0,
+      "timestamp": "2026-11-14T19:05:02.346Z"
+    },
+    {
+      "chain": "arbitrum",
+      "address": "0xFC24FD34da9e49A0110DCaEe3Ad30eC54175eBB3",
+      "eth": 0,
+      "usdc": null,
+      "recentIncoming": 0,
+      "timestamp": "2026-11-14T19:05:03.870Z"
+    },
+    {
+      "chain": "base",
+      "address": "0x6350761dfb1d20c30ba7ae9cb16560fbe67ddc38",
+      "eth": 0.000415009378958481,
+      "usdc": 126.317763,
+      "recentIncoming": 0,
+      "timestamp": "2026-11-14T19:05:04.980Z"
+    },
+    {
+      "chain": "ethereum",
+      "address": "0x6350761dfb1d20c30ba7ae9cb16560fbe67ddc38",
+      "eth": 0,
+      "usdc": 0,
+      "recentIncoming": 0,
+      "timestamp": "2026-11-14T19:05:06.651Z"
+    },
+    {
+      "chain": "arbitrum",
+      "address": "0x6350761dfb1d20c30ba7ae9cb16560fbe67ddc38",
+      "eth": 0,
+      "usdc": null,
+      "recentIncoming": 0,
+      "timestamp": "2026-11-14T19:05:07.723Z"
+    },
+    {
+      "chain": "base",
+      "address": "0x367F1b3D8Ca90D1e087481a9A40d585Bf3451a03",
+      "eth": 0.057918067182829255,
+      "usdc": 28.255775,
+      "recentIncoming": 0,
+      "timestamp": "2026-11-14T19:05:08.802Z"
+    },
+    {
+      "chain": "ethereum",
+      "address": "0x367F1b3D8Ca90D1e087481a9A40d585Bf3451a03",
+      "eth": 0,
+      "usdc": 0,
+      "recentIncoming": 0,
+      "timestamp": "2026-11-14T19:05:12.343Z"
+    },
+    {
+      "chain": "arbitrum",
+      "address": "0x367F1b3D8Ca90D1e087481a9A40d585Bf3451a03",
+      "eth": 0,
+      "usdc": null,
+      "recentIncoming": 0,
+      "timestamp": "2026-11-14T19:05:13.425Z"
+    }
+  ],
+  "summary": {
+    "totalUsdc": null,
+    "totalEth": 0.05833307656178774,
+    "sweepableCount": 3
+  }
+}

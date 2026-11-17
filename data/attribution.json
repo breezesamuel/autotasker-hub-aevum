@@ -1,0 +1,497 @@
+{
+  "version": 1,
+  "touches": [
+    {
+      "ts": "2026-11-16T02:18:16.735Z",
+      "type": "view",
+      "id": "weibo-hot-nov15",
+      "channel": "content:weibo-hot-nov15",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T02:18:16.761Z",
+      "type": "click",
+      "id": "CODE-X1",
+      "channel": "referral",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T02:20:37.274Z",
+      "type": "view",
+      "id": "weibo-hot-nov15",
+      "channel": "content:weibo-hot-nov15",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T02:20:37.293Z",
+      "type": "click",
+      "id": "CODE-X1",
+      "channel": "referral",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T03:02:16.748Z",
+      "type": "view",
+      "id": "weibo-hot-nov15",
+      "channel": "content:weibo-hot-nov15",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T03:02:16.803Z",
+      "type": "click",
+      "id": "CODE-X1",
+      "channel": "referral",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T03:39:19.328Z",
+      "type": "view",
+      "id": "weibo-hot-nov15",
+      "channel": "content:weibo-hot-nov15",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T03:39:19.361Z",
+      "type": "click",
+      "id": "CODE-X1",
+      "channel": "referral",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T04:06:32.587Z",
+      "type": "view",
+      "id": "weibo-hot-nov15",
+      "channel": "content:weibo-hot-nov15",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T04:06:32.609Z",
+      "type": "click",
+      "id": "CODE-X1",
+      "channel": "referral",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T04:21:25.188Z",
+      "type": "view",
+      "id": "weibo-hot-nov15",
+      "channel": "content:weibo-hot-nov15",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T04:21:25.204Z",
+      "type": "click",
+      "id": "CODE-X1",
+      "channel": "referral",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T04:41:01.479Z",
+      "type": "view",
+      "id": "weibo-hot-nov15",
+      "channel": "content:weibo-hot-nov15",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T04:41:01.499Z",
+      "type": "click",
+      "id": "CODE-X1",
+      "channel": "referral",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T05:04:32.742Z",
+      "type": "view",
+      "id": "weibo-hot-nov15",
+      "channel": "content:weibo-hot-nov15",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T05:04:32.775Z",
+      "type": "click",
+      "id": "CODE-X1",
+      "channel": "referral",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T09:17:02.825Z",
+      "type": "view",
+      "id": "weibo-hot-nov15",
+      "channel": "content:weibo-hot-nov15",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T09:17:02.895Z",
+      "type": "click",
+      "id": "CODE-X1",
+      "channel": "referral",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T11:28:35.924Z",
+      "type": "view",
+      "id": "weibo-hot-nov15",
+      "channel": "content:weibo-hot-nov15",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T11:28:35.940Z",
+      "type": "click",
+      "id": "CODE-X1",
+      "channel": "referral",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T12:06:04.096Z",
+      "type": "view",
+      "id": "weibo-hot-nov15",
+      "channel": "content:weibo-hot-nov15",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    },
+    {
+      "ts": "2026-11-16T12:06:04.131Z",
+      "type": "click",
+      "id": "CODE-X1",
+      "channel": "referral",
+      "wallet": "0xattrtest00000000000000000000000000001"
+    }
+  ],
+  "settlements": [
+    {
+      "ts": "2026-11-16T02:18:16.765Z",
+      "wallet": "0xattrtest…0001",
+      "tool": "get_hotlist",
+      "usd": 0.05,
+      "txHash": null,
+      "matched": "wallet",
+      "credits": {
+        "first": {
+          "channel": "content:weibo-hot-nov15",
+          "id": "weibo-hot-nov15"
+        },
+        "last": {
+          "channel": "referral",
+          "id": "CODE-X1"
+        }
+      }
+    },
+    {
+      "ts": "2026-11-16T02:18:16.771Z",
+      "wallet": "0xnotouch0…0002",
+      "tool": "search",
+      "usd": 0.01,
+      "txHash": null,
+      "matched": "none",
+      "credits": {
+        "first": null,
+        "last": null
+      }
+    },
+    {
+      "ts": "2026-11-16T02:20:37.320Z",
+      "wallet": "0xattrtest…0001",
+      "tool": "get_hotlist",
+      "usd": 0.05,
+      "txHash": null,
+      "matched": "wallet",
+      "credits": {
+        "first": {
+          "channel": "content:weibo-hot-nov15",
+          "id": "weibo-hot-nov15"
+        },
+        "last": {
+          "channel": "referral",
+          "id": "CODE-X1"
+        }
+      }
+    },
+    {
+      "ts": "2026-11-16T02:20:37.324Z",
+      "wallet": "0xnotouch0…0002",
+      "tool": "search",
+      "usd": 0.01,
+      "txHash": null,
+      "matched": "none",
+      "credits": {
+        "first": null,
+        "last": null
+      }
+    },
+    {
+      "ts": "2026-11-16T03:02:16.809Z",
+      "wallet": "0xattrtest…0001",
+      "tool": "get_hotlist",
+      "usd": 0.05,
+      "txHash": null,
+      "matched": "wallet",
+      "credits": {
+        "first": {
+          "channel": "content:weibo-hot-nov15",
+          "id": "weibo-hot-nov15"
+        },
+        "last": {
+          "channel": "referral",
+          "id": "CODE-X1"
+        }
+      }
+    },
+    {
+      "ts": "2026-11-16T03:02:16.815Z",
+      "wallet": "0xnotouch0…0002",
+      "tool": "search",
+      "usd": 0.01,
+      "txHash": null,
+      "matched": "none",
+      "credits": {
+        "first": null,
+        "last": null
+      }
+    },
+    {
+      "ts": "2026-11-16T03:39:19.364Z",
+      "wallet": "0xattrtest…0001",
+      "tool": "get_hotlist",
+      "usd": 0.05,
+      "txHash": null,
+      "matched": "wallet",
+      "credits": {
+        "first": {
+          "channel": "content:weibo-hot-nov15",
+          "id": "weibo-hot-nov15"
+        },
+        "last": {
+          "channel": "referral",
+          "id": "CODE-X1"
+        }
+      }
+    },
+    {
+      "ts": "2026-11-16T03:39:19.375Z",
+      "wallet": "0xnotouch0…0002",
+      "tool": "search",
+      "usd": 0.01,
+      "txHash": null,
+      "matched": "none",
+      "credits": {
+        "first": null,
+        "last": null
+      }
+    },
+    {
+      "ts": "2026-11-16T04:06:32.614Z",
+      "wallet": "0xattrtest…0001",
+      "tool": "get_hotlist",
+      "usd": 0.05,
+      "txHash": null,
+      "matched": "wallet",
+      "credits": {
+        "first": {
+          "channel": "content:weibo-hot-nov15",
+          "id": "weibo-hot-nov15"
+        },
+        "last": {
+          "channel": "referral",
+          "id": "CODE-X1"
+        }
+      }
+    },
+    {
+      "ts": "2026-11-16T04:06:32.621Z",
+      "wallet": "0xnotouch0…0002",
+      "tool": "search",
+      "usd": 0.01,
+      "txHash": null,
+      "matched": "none",
+      "credits": {
+        "first": null,
+        "last": null
+      }
+    },
+    {
+      "ts": "2026-11-16T04:21:25.208Z",
+      "wallet": "0xattrtest…0001",
+      "tool": "get_hotlist",
+      "usd": 0.05,
+      "txHash": null,
+      "matched": "wallet",
+      "credits": {
+        "first": {
+          "channel": "content:weibo-hot-nov15",
+          "id": "weibo-hot-nov15"
+        },
+        "last": {
+          "channel": "referral",
+          "id": "CODE-X1"
+        }
+      }
+    },
+    {
+      "ts": "2026-11-16T04:21:25.214Z",
+      "wallet": "0xnotouch0…0002",
+      "tool": "search",
+      "usd": 0.01,
+      "txHash": null,
+      "matched": "none",
+      "credits": {
+        "first": null,
+        "last": null
+      }
+    },
+    {
+      "ts": "2026-11-16T04:41:01.578Z",
+      "wallet": "0xattrtest…0001",
+      "tool": "get_hotlist",
+      "usd": 0.05,
+      "txHash": null,
+      "matched": "wallet",
+      "credits": {
+        "first": {
+          "channel": "content:weibo-hot-nov15",
+          "id": "weibo-hot-nov15"
+        },
+        "last": {
+          "channel": "referral",
+          "id": "CODE-X1"
+        }
+      }
+    },
+    {
+      "ts": "2026-11-16T04:41:01.582Z",
+      "wallet": "0xnotouch0…0002",
+      "tool": "search",
+      "usd": 0.01,
+      "txHash": null,
+      "matched": "none",
+      "credits": {
+        "first": null,
+        "last": null
+      }
+    },
+    {
+      "ts": "2026-11-16T05:04:32.841Z",
+      "wallet": "0xattrtest…0001",
+      "tool": "get_hotlist",
+      "usd": 0.05,
+      "txHash": null,
+      "matched": "wallet",
+      "credits": {
+        "first": {
+          "channel": "content:weibo-hot-nov15",
+          "id": "weibo-hot-nov15"
+        },
+        "last": {
+          "channel": "referral",
+          "id": "CODE-X1"
+        }
+      }
+    },
+    {
+      "ts": "2026-11-16T05:04:32.846Z",
+      "wallet": "0xnotouch0…0002",
+      "tool": "search",
+      "usd": 0.01,
+      "txHash": null,
+      "matched": "none",
+      "credits": {
+        "first": null,
+        "last": null
+      }
+    },
+    {
+      "ts": "2026-11-16T09:17:02.937Z",
+      "wallet": "0xattrtest…0001",
+      "tool": "get_hotlist",
+      "usd": 0.05,
+      "txHash": null,
+      "matched": "wallet",
+      "credits": {
+        "first": {
+          "channel": "content:weibo-hot-nov15",
+          "id": "weibo-hot-nov15"
+        },
+        "last": {
+          "channel": "referral",
+          "id": "CODE-X1"
+        }
+      }
+    },
+    {
+      "ts": "2026-11-16T09:17:02.941Z",
+      "wallet": "0xnotouch0…0002",
+      "tool": "search",
+      "usd": 0.01,
+      "txHash": null,
+      "matched": "none",
+      "credits": {
+        "first": null,
+        "last": null
+      }
+    },
+    {
+      "ts": "2026-11-16T11:28:35.943Z",
+      "wallet": "0xattrtest…0001",
+      "tool": "get_hotlist",
+      "usd": 0.05,
+      "txHash": null,
+      "matched": "wallet",
+      "credits": {
+        "first": {
+          "channel": "content:weibo-hot-nov15",
+          "id": "weibo-hot-nov15"
+        },
+        "last": {
+          "channel": "referral",
+          "id": "CODE-X1"
+        }
+      }
+    },
+    {
+      "ts": "2026-11-16T11:28:35.951Z",
+      "wallet": "0xnotouch0…0002",
+      "tool": "search",
+      "usd": 0.01,
+      "txHash": null,
+      "matched": "none",
+      "credits": {
+        "first": null,
+        "last": null
+      }
+    },
+    {
+      "ts": "2026-11-16T12:06:04.144Z",
+      "wallet": "0xattrtest…0001",
+      "tool": "get_hotlist",
+      "usd": 0.05,
+      "txHash": null,
+      "matched": "wallet",
+      "credits": {
+        "first": {
+          "channel": "content:weibo-hot-nov15",
+          "id": "weibo-hot-nov15"
+        },
+        "last": {
+          "channel": "referral",
+          "id": "CODE-X1"
+        }
+      }
+    },
+    {
+      "ts": "2026-11-16T12:06:04.153Z",
+      "wallet": "0xnotouch0…0002",
+      "tool": "search",
+      "usd": 0.01,
+      "txHash": null,
+      "matched": "none",
+      "credits": {
+        "first": null,
+        "last": null
+      }
+    }
+  ],
+  "stats": {
+    "totalTouches": 90,
+    "totalSettlements": 90,
+    "attributedUsd": 2.2600000000000002,
+    "unattributedUsd": 0.4400000000000002
+  }
+}
