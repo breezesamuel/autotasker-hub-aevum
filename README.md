@@ -37,6 +37,31 @@ Explorer: <https://explorer-test.qday.info/address/0xDf75267820b1Cc631723bB00da9
 Superseded: `0x5236FD965be86a2831fd4b88536Fb004a8D41335` (first iteration,
 storage-heavy design, ~520k gas per settlement). Do not use.
 
+### 1a. Live submission instance — treasury-routed (2026-11-17)
+
+`AutoTaskerPaymentRouterV2` — the instance submitted to Aevum Builder Challenge #1.
+It routes the house share directly to the single live treasury, so no manual sweep
+is needed and no retired address is involved.
+
+| Field | Value |
+|---|---|
+| Address | `0x9FA2771297aE08F994D5516ea62Be1ED02b5Bdd9` |
+| Deploy tx | `0x4dce2c147e15e56ba4116ee9fba1ff4437169a695a86877ebe4a29778897a664` |
+| Block | 3381273 |
+| Constructor | `(address _tUSD8, address _houseWallet)` |
+| Settlement token | tUSD8 `0x456569838f1d43009A91ebA4263147Afd7233483` |
+| House wallet (90%) | `0xb9A9E6d9C4Ad1635aA685bba2e235A515A94773C` |
+| Owner / deployer | `0xBC6f31fB67e832b61E9563cdbCA7B4F37778419f` |
+| Realized inflow | **0.1791 tUSD8** to the treasury, in-tx |
+| Source | [`contracts/AutoTaskerPaymentRouterV2.sol`](contracts/AutoTaskerPaymentRouterV2.sol) |
+| Evidence | [`docs/QDAY-DEPLOY-TREASURY.md`](docs/QDAY-DEPLOY-TREASURY.md) |
+
+Explorer: <https://explorer-test.qday.info/address/0x9FA2771297aE08F994D5516ea62Be1ED02b5Bdd9>
+
+The treasury `0xb9A9E6d9C4Ad1635aA685bba2e235A515A94773C` is now the only
+destination for revenue. `0x367F…1a03`, `0x6350…`, `0xbd16b985…` and `0xFC24…`
+are retired and are never swept or migrated.
+
 ## 2. Settlement flow
 
 ```

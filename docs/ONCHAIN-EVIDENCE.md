@@ -205,3 +205,34 @@ Artifacts: `data/deployments/qday-capitalmobilizer-v2.json`,
 `data/deployments/canonical-tusd8-settlements.json`,
 `data/deployments/qday-commission-proof.json`,
 `data/deployments/account-activation.json`.
+
+---
+
+## 3. Treasury-routed instance (2026-11-17)
+
+The submission instance for the challenge. Full detail:
+[`QDAY-DEPLOY-TREASURY.md`](QDAY-DEPLOY-TREASURY.md).
+
+| Field | Value |
+|---|---|
+| Contract | `AutoTaskerPaymentRouterV2` |
+| Address | `0x9FA2771297aE08F994D5516ea62Be1ED02b5Bdd9` |
+| Deploy tx | `0x4dce2c147e15e56ba4116ee9fba1ff4437169a695a86877ebe4a29778897a664` |
+| Block | 3381273 |
+| Constructor | `(address _tUSD8, address _houseWallet)` |
+| House wallet = treasury | `0xb9A9E6d9C4Ad1635aA685bba2e235A515A94773C` |
+| Owner / deployer | `0xBC6f31fB67e832b61E9563cdbCA7B4F37778419f` |
+
+Eight transactions, all status 1: deploy, `approve`, 3 x `submitPayment`
+(hotlist / search / price), 3 x `fulfillRequest`. Counters read back from chain:
+
+```
+totalRequests           = 3
+totalVolumeAtomic       = 200000    (0.20 tUSD8)
+totalHouseRevenueAtomic = 179100    (0.1791 tUSD8)
+```
+
+Treasury balance went from `0.000000` to `0.179100` tUSD8 **inside the fulfilment
+transactions**: `200000 * 0.90 * 0.995 = 179100`. No sweep was performed and no
+retired address (`0x367F...1a03`, `0x6350...`, `0xbd16b985...`, `0xFC24...`) was
+touched.
