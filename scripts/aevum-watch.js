@@ -110,7 +110,40 @@ function detached(cmd, args) {
   } else if (pubOk) {
     log('tunnel ok: ' + pub);
   } else {
-    log(`tunnel process alive (${tunnelProc}) but public URL failing — leaving it alone (origin may be warming)`);
+    // Process alive but public URL failing — check if it's a "Tunnel not found" dead loop
+    const LOGF = path.join(DATA, 'tunnel-aevum.log');
+    let logTail = '';
+    try {
+      const all = fs.readFileSync(LOGF, 'utf8');
+      logTail = all.slice(-2000); // last 2KB
+    } catch (e) { }
+    if (logTail.includes('Tunnel not found') || logTail.includes('Unauthorized')) {
+      log('tunnel in DEAD LOOP (Tunnel not found / Unauthorized) -> killing + restarting');
+      // Kill our cloudflared (match 8797 in cmdline)
+      exec('powershell -NoProfile -Command "Get-CimInstance Win32_Process -Filter \\"Name=\'cloudflared.exe\'\\" | Where-Object { $_.CommandLine -match \'8797\' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }"', () => { });
+      await new Promise(r => setTimeout(r, 3000));
+      try { fs.writeFileSync(LOGF, '', 'utf8'); } catch (e) { }
+      detached('C:/Users/Think/cloudflared.exe', ['tunnel', '--url', `http://localhost:${PORT}`, '--logfile', LOGF, '--loglevel', 'info']);
+      acted.push('respawn-tunnel-deadloop');
+      let newUrl = null;
+      for (let i = 0; i < 10 && !newUrl; i++) {
+        await new Promise(r => setTimeout(r, 4000));
+        try {
+          const t = fs.readFileSync(LOGF, 'utf8');
+          const m = t.match(/https:\/\/[a-z0-9-]+\.trycloudflare\.com/);
+          if (m) newUrl = m[0];
+        } catch (e) { }
+      }
+      if (newUrl) {
+        saveUrls({ aevumTreasury: newUrl });
+        log('tunnel restarted after dead loop, new URL: ' + newUrl);
+        acted.push('url=' + newUrl);
+      } else {
+        log('tunnel URL not found in log after dead-loop restart');
+      }
+    } else {
+      log(`tunnel process alive (${tunnelProc}) but public URL failing — leaving it alone (origin may be warming)`);
+    }
   }
 
   log('watch cycle done' + (acted.length ? ' — actions: ' + acted.join(', ') : ''));
