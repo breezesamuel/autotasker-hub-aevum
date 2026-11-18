@@ -148,10 +148,24 @@ async function cycle() {
     }
   }
 
-  // payTo integrity sample (only when server up)
+  // payTo integrity sample (only when server up) — stratified across FULL live catalog
   if (state.checks.server === 'UP') {
+    let sample = SAMPLE_TOOLS.slice();
+    try {
+      const lr = await postJSON(BASE + '/mcp', { jsonrpc: '2.0', id: 1, method: 'tools/list', params: {} });
+      if (lr) {
+        const lj = JSON.parse(lr.body);
+        const all = ((lj.result && lj.result.tools) || []).map(t => t.name).filter(n => n && n !== 'sample_free');
+        if (all.length) {
+          const seen = new Set(sample);
+          const step = Math.max(1, Math.floor(all.length / 40));
+          for (let i = 0; i < all.length; i += step) { if (!seen.has(all[i])) { sample.push(all[i]); seen.add(all[i]); } }
+          for (const n of all.slice(-12)) { if (!seen.has(n)) { sample.push(n); seen.add(n); } }
+        }
+      }
+    } catch (_) {}
     let leaks = [];
-    for (const name of SAMPLE_TOOLS) {
+    for (const name of sample) {
       const r = await postJSON(BASE + '/mcp/tools/call', { name, arguments: {} });
       if (!r) { leaks.push(name + ':no-response'); continue; }
       let body; try { body = JSON.parse(r.body); } catch (_) { body = null; }
@@ -160,7 +174,7 @@ async function cycle() {
         leaks.push(`${name}:http=${r.status},payTo=${pay}`);
       }
     }
-    state.checks.toolIntegrity = leaks.length ? 'LEAK:' + leaks.join('|') : `OK(${SAMPLE_TOOLS.length}/${SAMPLE_TOOLS.length} gated to treasury)`;
+    state.checks.toolIntegrity = leaks.length ? 'LEAK:' + leaks.join('|') : `OK(${sample.length}/${sample.length} gated to treasury)`;
     if (leaks.length) alert('revenue leak detected: ' + leaks.join(', '));
   }
 
