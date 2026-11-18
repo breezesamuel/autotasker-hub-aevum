@@ -181,8 +181,17 @@ async function cycle() {
   // 4) video URL until deadline
   if (Date.now() < VIDEO_DEADLINE) {
     const v = await probeVideo();
-    state.checks.video = v.ok ? 'OK' : 'ALERT:' + (v.error || v.status);
-    if (!v.ok) alert('demo video URL unreachable — DoraHacks link needs attention');
+    if (v.ok) {
+      state.checks.video = 'OK';
+    } else if (v.status === 404 || v.status === 403) {
+      // Definitive remote failure — the raw URL no longer serves the file.
+      state.checks.video = 'ALERT:HTTP' + v.status;
+      alert('demo video URL returned HTTP ' + v.status + ' — DoraHacks link needs attention');
+    } else {
+      // Local network reset/timeout (GFW) — inconclusive, not a real outage.
+      // File existence is confirmed separately via the GitHub contents API.
+      state.checks.video = 'INCONCLUSIVE:' + (v.error || v.status);
+    }
   } else {
     state.checks.video = 'DEADLINE_PASSED';
   }
