@@ -33,6 +33,19 @@ const CHAIN_META = {
   optimism:   { chainId: 10,    name: 'Optimism' },
   avalanche:  { chainId: 43114, name: 'Avalanche' },
 };
+// Sushiswap chains with their proper chain IDs
+const SU_CHAIN_ID = {
+  mainnet: 1, matic: 137, bsc: 56, arbitrum: 42161,
+  avalanche: 43114, fantom: 250, harmony: 1666600000,
+  moonbeam: 1284, fuse: 122, celo: 42220, xdai: 100,
+  okex: 66, moonriver: 1285, clover: 1023, heco: 128, palm: 11297108,
+};
+const SU_CHAIN_NAME = {
+  mainnet:'Ethereum', matic:'Polygon', bsc:'BNB Chain', arbitrum:'Arbitrum',
+  avalanche:'Avalanche', fantom:'Fantom', harmony:'Harmony', moonbeam:'Moonbeam',
+  fuse:'Fuse', celo:'Celo', xdai:'Gnosis', okex:'OKC', moonriver:'Moonriver',
+  clover:'Clover', heco:'HECO', palm:'PALM',
+};
 const BY_CHAIN_ID = {};
 for (const [k, v] of Object.entries(CHAIN_META)) BY_CHAIN_ID[v.chainId] = k;
 
@@ -212,6 +225,57 @@ function loadCoinGecko(store) {
   console.log(`  coingecko: +${added}`);
 }
 
+function loadSushiswap(store) {
+  const root = path.join(DATA, 'sushiswap-tokens');
+  if (!fs.existsSync(root)) { console.log('  sushiswap: source not found, skip'); return 0; }
+  let added = 0;
+  for (const f of fs.readdirSync(root).filter(x => x.endsWith('.json'))) {
+    const chain = f.replace('.json', '');
+    const chainId = SU_CHAIN_ID[chain] || null;
+    const chainName = SU_CHAIN_NAME[chain] || chain;
+    let j;
+    try { j = JSON.parse(fs.readFileSync(path.join(root, f), 'utf8')); } catch (e) { continue; }
+    for (const t of (Array.isArray(j) ? j : [])) {
+      const addr = normAddr(t.address);
+      if (!addr) continue;
+      const a = makeAsset({
+        symbol: t.symbol, name: t.name, decimals: Number.isInteger(t.decimals) ? t.decimals : 18,
+        address: addr, chain: chain, chainId, chainName,
+        type: 'ERC20', logoURI: t.logoURI || null,
+        source: 'sushiswap',
+        sourceUrl: `https://github.com/sushiswap/default-token-list/blob/master/tokens/${f}`,
+      });
+      a.id = `${chainId != null ? chainId : 'evm'}:${addr}`;
+      if (addAsset(store, a)) added++;
+    }
+  }
+  console.log(`  sushiswap: +${added}`);
+}
+
+function loadAave(store) {
+  const f = path.join(DATA, 'aave-tokens', 'mainnet.json');
+  if (!fs.existsSync(f)) { console.log('  aave: source not found, skip'); return 0; }
+  let j;
+  try { j = JSON.parse(fs.readFileSync(f, 'utf8')); } catch (e) { console.log('  skip bad aave json'); return 0; }
+  // Normalize: AAVE tokenlist can be array of {symbol,name,address,decimals,logoURI} or {tokens:[...]}
+  var items = Array.isArray(j) ? j : (j.tokens || []);
+  let added = 0;
+  for (const t of items) {
+    const addr = normAddr(t.address);
+    if (!addr) continue;
+    const a = makeAsset({
+      symbol: t.symbol, name: t.name, decimals: Number.isInteger(t.decimals) ? t.decimals : 18,
+      address: addr, chain: 'ethereum', chainId: 1, chainName: 'Ethereum',
+      type: 'ERC20', logoURI: t.logoURI || null,
+      source: 'aave',
+      sourceUrl: `https://github.com/bgd-labs/aave-tokenlist/blob/main/tokenlist.json`,
+    });
+    a.id = `1:${addr}`;
+    if (addAsset(store, a)) added++;
+  }
+  console.log(`  aave: +${added}`);
+}
+
 function main() {
   console.log('Building x402 asset catalog from REAL public sources...');
   const store = new Map();
@@ -220,6 +284,8 @@ function main() {
   loadTrustWallet(store);
   loadEthereumLists(store);
   loadMap3(store);
+  loadSushiswap(store);
+  loadAave(store);
   loadCoinGecko(store);
 
   const all = [...store.values()].sort((a, b) => {
@@ -248,6 +314,7 @@ function main() {
       'Trust Wallet assets tokenlists (GitHub raw)',
       'ethereum-lists/tokens (GitHub)',
       'map3xyz/ethereum-tokenlist (GitHub)',
+      'Sushiswap default token list (GitHub, 16 chains)',
       'CoinGecko coin identities mirror (GitHub)'
     ],
     note: 'Real metadata catalog for x402 discovery/pricing/screening. Never moves funds. No fabricated entries.'
