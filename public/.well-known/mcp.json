@@ -1,0 +1,23 @@
+{
+  "name": "AutoTasker Hub",
+  "description": "Real-time Chinese social-media trending data + 80 utility tools, paid per-call via x402 on Base mainnet USDC.",
+  "endpoint": "https://autotasker.highkingflower.com/mcp",
+  "transport": "streamable-http",
+  "protocol": "MCP",
+  "capabilities": { "tools": true },
+  "discovery": {
+    "llms": "https://autotasker.highkingflower.com/llms.txt",
+    "skill": "https://autotasker.highkingflower.com/SKILL.md",
+    "agentCard": "https://autotasker.highkingflower.com/.well-known/agent.json",
+    "x402Manifest": "https://autotasker.highkingflower.com/.well-known/x402.json"
+  },
+  "payment": {
+    "scheme": "x402 exact",
+    "network": "eip155:8453",
+    "asset": "USDC",
+    "assetContract": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "payTo": "0xb9A9E6d9C4Ad1635aA685bba2e235A515A94773C",
+    "facilitator": "https://facilitator.payai.network"
+  },
+  "documentation": "https://autotasker.highkingflower.com/llms.txt"
+}
